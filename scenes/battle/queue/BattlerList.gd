@@ -2,10 +2,12 @@
 class_name BattlerList extends RefCounted
 
 signal battlers_downed()
+signal wave_cleared()       # 新增：当前波敌人全灭
 
 var players: Array = []
 var enemies: Array = []
 var has_player_won := false
+var wave_mode := false      # 波次模式开启时，_check_enemy_status 发 wave_cleared 而非 battlers_downed
 
 func _init(player_battlers: Array, enemy_battlers: Array) -> void:
 	players = player_battlers
@@ -30,7 +32,10 @@ func _check_enemy_status() -> void:
 		if e.stats.health > 0:
 			return
 	has_player_won = true
-	battlers_downed.emit()
+	if wave_mode:
+		wave_cleared.emit()
+	else:
+		battlers_downed.emit()
 
 func get_all_battlers() -> Array:
 	return players + enemies
