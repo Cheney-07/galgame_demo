@@ -7,5 +7,8 @@ script = ExtResource("1")
 encounter_id = "quest_default"
 battle_type = "quest"
 background_path = "res://images/battle/bg_quest.png"
-enemy_ids = Array[String](["slime", "slime", "hanbao", "bianbian"])
-enemy_counts = Array[int]([2, 2, 2, 2])
+max_enemies_on_field = 4
+waves = Array[Resource("res://scenes/battle/encounters/WaveData.gd")]([
+    preload("res://scenes/battle/encounters/waves/quest_wave1.tres"),
+    preload("res://scenes/battle/encounters/waves/quest_wave2.tres")
+])

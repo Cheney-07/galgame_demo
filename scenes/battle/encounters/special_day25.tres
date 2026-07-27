@@ -7,6 +7,9 @@ script = ExtResource("1")
 encounter_id = "special_day25"
 battle_type = "special"
 background_path = "res://images/battle/bg_boss.png"
-enemy_ids = Array[String](["diren_laocong", "hanbao", "hanbao", "hanbao"])
-enemy_counts = Array[int]([1, 2, 2, 3])
+max_enemies_on_field = 4
 is_boss = true
+waves = Array[Resource("res://scenes/battle/encounters/WaveData.gd")]([
+    preload("res://scenes/battle/encounters/waves/special25_wave1.tres"),
+    preload("res://scenes/battle/encounters/waves/special25_wave2.tres")
+])

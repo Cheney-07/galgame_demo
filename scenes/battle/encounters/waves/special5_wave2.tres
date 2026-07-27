@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="WaveData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scenes/battle/encounters/WaveData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+enemy_ids = Array[String](["bianbian", "bianbian"])
+enemy_counts = Array[int]([1, 2])
+wave_message = ""
