@@ -1,6 +1,9 @@
-[gd_resource type="Resource" script_class="EncounterData" format=3 uid="uid://b7cjpiowgduqs"]
+[gd_resource type="Resource" script_class="EncounterData" load_steps=4 format=3 uid="uid://b7cjpiowgduqs"]
 
 [ext_resource type="Script" uid="uid://363dylmqt3g2" path="res://scenes/battle/encounters/EncounterData.gd" id="1"]
+[ext_resource type="Resource" path="res://scenes/battle/encounters/waves/special20_wave1.tres" id="2"]
+[ext_resource type="Resource" path="res://scenes/battle/encounters/waves/special20_wave2.tres" id="3"]
+[ext_resource type="Resource" path="res://scenes/battle/encounters/waves/special20_wave3.tres" id="4"]
 
 [resource]
 script = ExtResource("1")
@@ -8,8 +11,4 @@ encounter_id = "special_day20"
 battle_type = "special"
 background_path = "res://images/battle/bg_explore.png"
 max_enemies_on_field = 4
-waves = Array[Resource("res://scenes/battle/encounters/WaveData.gd")]([
-    preload("res://scenes/battle/encounters/waves/special20_wave1.tres"),
-    preload("res://scenes/battle/encounters/waves/special20_wave2.tres"),
-    preload("res://scenes/battle/encounters/waves/special20_wave3.tres")
-])
+waves = Array[Resource("res://scenes/battle/encounters/WaveData.gd")]([ExtResource("2"), ExtResource("3"), ExtResource("4")])
