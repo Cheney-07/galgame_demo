@@ -8,7 +8,6 @@ signal combat_finished(result: Dictionary)
 var turn_queue: ActiveTurnQueue = null
 var battler_list: BattlerList = null
 var _player_battlers: Array = []
-var _enemy_battlers: Array = []
 var _current_input_battler = null
 
 # 波次系统
@@ -391,12 +390,19 @@ func _on_battle_ended(result: Dictionary) -> void:
 	ui_turn_bar.fade_out()
 	ui_player_list.fade_out()
 
+	# 从所有波次敌人计算正确奖励
+	var total_exp := 0
+	var total_gold := 0
+	for e in _all_enemy_battlers:
+		total_exp += e.get_meta("exp_reward", 0)
+		total_gold += e.get_meta("gold_reward", 0)
+
 	if result.get("won", false):
 		_show_result_text("胜利!")
 		for p in _player_battlers:
 			var char_data = PartyData.get_character(p.char_id)
 			if char_data:
-				char_data.add_exp(result.get("exp", 0))
+				char_data.add_exp(total_exp)
 		await get_tree().create_timer(1.5).timeout
 		_play_special_aftermath(true)
 	else:
