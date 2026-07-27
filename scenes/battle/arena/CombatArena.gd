@@ -1,6 +1,8 @@
 # scenes/battle/arena/CombatArena.gd
 class_name CombatArena extends Control
 
+const WaveDataRef = preload("res://scenes/battle/encounters/WaveData.gd")
+
 signal combat_finished(result: Dictionary)
 
 var turn_queue: ActiveTurnQueue = null
@@ -8,6 +10,13 @@ var battler_list: BattlerList = null
 var _player_battlers: Array = []
 var _enemy_battlers: Array = []
 var _current_input_battler = null
+
+# 波次系统
+var _waves: Array[WaveData] = []
+var _max_enemies_on_field: int = 4
+var _current_wave_index: int = 0
+var _all_enemy_battlers: Array = []     # 所有波次的敌人（用于奖励结算）
+var _wave_spawning := false             # 波次生成中标记
 
 @onready var background := $Background as TextureRect
 @onready var battler_container := $BattlerContainer as Node2D
@@ -40,32 +49,33 @@ func start(squad: Array[String], encounter) -> void:
 		battler_container.add_child(battler)
 		_player_battlers.append(battler)
 
-	# 创建敌人 battler（网格排列）
-	_enemy_battlers.clear()
-	var enemy_idx := 0
-	for j in encounter.enemy_ids.size():
-		var eid = encounter.enemy_ids[j]
-		var count = encounter.enemy_counts[j] if j < encounter.enemy_counts.size() else 1
-		var template = PartyData.get_enemy(eid)
-		if template == null:
-			continue
-		for k in count:
-			var battler = _create_enemy_battler(template)
-			var col = enemy_idx % 3
-			var row = int(enemy_idx / 3)
-			battler.position = Vector2(700 + col * 170, 120 + row * 160)
-			battler_container.add_child(battler)
-			_enemy_battlers.append(battler)
-			enemy_idx += 1
+	# ── 解析波次数据 ──
+	_waves.clear()
+	_all_enemy_battlers.clear()
+	_current_wave_index = 0
+	_wave_spawning = false
 
-	# 创建 BattlerList
-	battler_list = BattlerList.new(_player_battlers, _enemy_battlers)
+	if encounter.waves and not encounter.waves.is_empty():
+		_waves = encounter.waves
+		_max_enemies_on_field = encounter.max_enemies_on_field
+	else:
+		# 向后兼容：旧格式自动转单波
+		var w := WaveData.new()
+		w.enemy_ids = encounter.enemy_ids
+		w.enemy_counts = encounter.enemy_counts
+		_waves = [w]
+		_max_enemies_on_field = 4
 
-	# 连接死亡动画
+	# ── 创建 BattlerList（敌人初始为空，通过 _spawn_wave 填充）──
+	battler_list = BattlerList.new(_player_battlers, [])
+	battler_list.wave_mode = true
+	battler_list.wave_cleared.connect(_on_wave_cleared)
+
+	# ── 连接死亡动画 ──
 	for b in battler_list.get_all_battlers():
 		b.stats.health_depleted.connect(_on_battler_depleted.bind(b))
 
-	# 设置 TurnQueue
+	# ── 设置 TurnQueue ──
 	turn_queue = ActiveTurnQueue.new()
 	add_child(turn_queue)
 	turn_queue.setup(battler_list)
@@ -85,6 +95,9 @@ func start(squad: Array[String], encounter) -> void:
 		ui_player_list.setup(battler_list)
 	if ui_turn_bar and ui_turn_bar.has_method("fade_in"):
 		ui_turn_bar.fade_in()
+
+	# 生成第一波敌人
+	_spawn_wave(0)
 
 	turn_queue.is_active = true
 
@@ -196,6 +209,65 @@ func _scale_sprite_to_height(sprite: Sprite2D, target_height: float) -> void:
 		var scale_factor = target_height / tex_size.y
 		sprite.scale = Vector2(scale_factor, scale_factor)
 
+func _spawn_wave(index: int) -> void:
+	if index >= _waves.size():
+		return
+
+	_wave_spawning = true
+	var wave_data: WaveData = _waves[index]
+
+	# 清除旧的敌人列表（准备填充新波次敌人）
+	battler_list.enemies.clear()
+
+	var enemy_idx := 0
+	for j in wave_data.enemy_ids.size():
+		var eid := wave_data.enemy_ids[j]
+		var count := wave_data.enemy_counts[j] if j < wave_data.enemy_counts.size() else 1
+		var template = PartyData.get_enemy(eid)
+		if template == null:
+			continue
+		for k in count:
+			var battler := _create_enemy_battler(template)
+			battler.position = _get_enemy_position(enemy_idx)
+			battler_container.add_child(battler)
+			battler_list.enemies.append(battler)
+			_all_enemy_battlers.append(battler)
+			battler.stats.health_depleted.connect(_on_battler_depleted.bind(battler))
+			battler.stats.health_depleted.connect(func(): battler_list._check_enemy_status())
+			enemy_idx += 1
+
+	# 连接 BattlerList 玩家状态检查（新敌人需要重新绑定）
+	for p in battler_list.players:
+		if not p.stats.health_depleted.is_connected(battler_list._check_player_status):
+			p.stats.health_depleted.connect(battler_list._check_player_status)
+
+	# 波次提示文字
+	if not wave_data.wave_message.is_empty():
+		var msg_label := Label.new()
+		msg_label.text = wave_data.wave_message
+		msg_label.set_anchors_preset(Control.PRESET_CENTER_TOP)
+		msg_label.position = Vector2(0, 20)
+		msg_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		msg_label.add_theme_color_override("font_color", Color(1, 0.9, 0.3))
+		msg_label.add_theme_font_size_override("font_size", 32)
+		add_child(msg_label)
+		# 2秒后淡出
+		var tw := create_tween()
+		tw.tween_interval(1.0)
+		tw.tween_property(msg_label, "modulate:a", 0.0, 1.0)
+		tw.tween_callback(msg_label.queue_free)
+
+	print("[CombatArena] Wave ", index + 1, "/", _waves.size(), " spawned with ", enemy_idx, " enemies")
+	_wave_spawning = false
+
+
+func _get_enemy_position(index: int) -> Vector2:
+	"""根据 max_enemies_on_field 在右侧固定区域排列"""
+	var max_per_row := mini(3, _max_enemies_on_field)
+	var col := index % max_per_row
+	var row := int(index / max_per_row)
+	return Vector2(700 + col * 170, 120 + row * 160)
+
 func _on_battler_depleted(battler) -> void:
 	if is_instance_valid(battler):
 		battler.set_meta("dead", true)
@@ -203,6 +275,33 @@ func _on_battler_depleted(battler) -> void:
 		tween.tween_property(battler, "modulate", Color(1, 1, 1, 0), 0.5)
 		await tween.finished
 		battler.visible = false
+
+func _on_wave_cleared() -> void:
+	if _wave_spawning:
+		return
+
+	_current_wave_index += 1
+
+	if _current_wave_index < _waves.size():
+		# 还有下一波：暂停回合，延迟刷新
+		if turn_queue:
+			turn_queue.pause()
+		# 更新 turn_bar 显示（新敌人即将出现）
+		if ui_turn_bar and ui_turn_bar.has_method("fade_out"):
+			ui_turn_bar.fade_out()
+		await get_tree().create_timer(0.8).timeout
+		_spawn_wave(_current_wave_index)
+		# 刷新 turn_bar
+		if ui_turn_bar and ui_turn_bar.has_method("setup"):
+			ui_turn_bar.setup(battler_list)
+		if ui_turn_bar and ui_turn_bar.has_method("fade_in"):
+			ui_turn_bar.fade_in()
+		if turn_queue:
+			turn_queue.resume()
+	else:
+		# 所有波次完成 → 触发战斗胜利
+		battler_list.wave_mode = false
+		battler_list.battlers_downed.emit()
 
 func _on_player_needs_input(battler) -> void:
 	_current_input_battler = battler
@@ -273,13 +372,15 @@ func _on_boss_summon(template_id: String) -> void:
 	if template == null:
 		return
 	var battler = _create_enemy_battler(template)
-	battler.position = Vector2(1050 + randi() % 200, 350 + randi() % 200)
+	var pos_idx := battler_list.enemies.size()
+	battler.position = _get_enemy_position(pos_idx)
 	battler.set_meta("summoned", true)
 	battler.set_meta("turns_alive", 0)
 	battler_container.add_child(battler)
 	battler_list.enemies.append(battler)
+	_all_enemy_battlers.append(battler)
 	battler.stats.health_depleted.connect(_on_battler_depleted.bind(battler))
-	battler.stats.health_depleted.connect(battler_list._check_enemy_status)
+	battler.stats.health_depleted.connect(func(): battler_list._check_enemy_status())
 
 func _on_boss_eat(minion) -> void:
 	battler_list.enemies.erase(minion)
