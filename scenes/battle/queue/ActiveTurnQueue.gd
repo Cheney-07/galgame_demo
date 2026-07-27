@@ -160,3 +160,11 @@ func _on_combat_end() -> void:
 		"exp": total_exp,
 		"gold": total_gold
 	})
+
+## 暂停回合处理（波次切换时使用）
+func pause() -> void:
+	is_active = false
+
+## 恢复回合处理，新敌人自动加入充能循环
+func resume() -> void:
+	is_active = true
