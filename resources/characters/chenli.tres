@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CharacterTemplate" load_steps=2 format=3 uid="uid://ct_chenli"]
+
+[ext_resource type="Script" path="res://resources/characters/character_template.gd" id="1_tpl"]
+
+[resource]
+script = ExtResource("1_tpl")
+char_id = "chenli"
+char_name = "陈立"
+portrait_path = "res://images/chenli.png"
+base_stats = {
+"STR": 8, "MAG": 15, "VIT": 8, "AGI": 16, "TEC": 12, "CHA": 8
+}
+growth_rates = {
+"STR": 0.8, "MAG": 1.5, "VIT": 0.8, "AGI": 1.5, "TEC": 1.2, "CHA": 0.8
+}
+skill_pool = ["danmaku_rensha", "dream_seal"]
+battle_role = "attacker"
+battle_portrait = "res://images/chenli_attack.png"
+description = "远程多段输出，弹幕Hit数关联AGI"

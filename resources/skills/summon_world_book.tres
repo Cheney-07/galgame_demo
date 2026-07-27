@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_summon"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "summon_world_book"
+skill_name = "召唤·随机世界书"
+skill_type = "special"
+target_type = "self"
+power = 0.0
+stat_scale = "TEC"
+hit_count = 1
+cooldown = 1
+effects = []
+description = "随机世界书模板召唤助战2-3回合，召唤池随等级解锁"
+icon_path = "res://images/icons/skills/laocongskill.png"

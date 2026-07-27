@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CharacterTemplate" load_steps=2 format=3 uid="uid://ct_hajilong"]
+
+[ext_resource type="Script" path="res://resources/characters/character_template.gd" id="1_tpl"]
+
+[resource]
+script = ExtResource("1_tpl")
+char_id = "hajilong"
+char_name = "哈基龙"
+portrait_path = "res://images/hajilong.png"
+base_stats = {
+"STR": 18, "MAG": 5, "VIT": 13, "AGI": 8, "TEC": 7, "CHA": 8
+}
+growth_rates = {
+"STR": 1.8, "MAG": 0.5, "VIT": 1.3, "AGI": 0.8, "TEC": 0.7, "CHA": 0.8
+}
+skill_pool = ["block_smash"]
+battle_portrait = ""
+battle_role = "attacker"
+description = "高物理输出，朴实刚猛"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CharacterTemplate" load_steps=2 format=3 uid="uid://ct_laocong"]
+
+[ext_resource type="Script" path="res://resources/characters/character_template.gd" id="1_tpl"]
+
+[resource]
+script = ExtResource("1_tpl")
+char_id = "laocong"
+char_name = "牢聪"
+portrait_path = "res://images/laocong.png"
+base_stats = {
+"STR": 7, "MAG": 16, "VIT": 8, "AGI": 10, "TEC": 15, "CHA": 10
+}
+growth_rates = {
+"STR": 0.7, "MAG": 1.6, "VIT": 0.8, "AGI": 1.0, "TEC": 1.5, "CHA": 1.0
+}
+skill_pool = ["summon_world_book"]
+battle_portrait = ""
+battle_role = "summoner"
+description = "召唤随机世界书模板助战"

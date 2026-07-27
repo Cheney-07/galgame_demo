@@ -1,0 +1,104 @@
+# ============================================================================
+# 社交对话 - Social Interactions
+# ============================================================================
+
+# ─── social_chenli_day1 ───
+label social_chenli_day1
+[background arg="res://images/bg tokyo_sunset.jpg" fade="0.5"]
+今天的训练结束了，正在返回营地休息的路上
+join chenli right [animation="Fade In"]
+chenli: 哟，你来了。今天的训练怎么样？
+join zhujue left [animation="Slide In Up"]
+zhujue: 还不错，感觉稍微变强了一点。
+chenli: 哈哈，那就好。有空我们一起去探索吧，我的弹幕最近又精进了不少。
+陈立拍了拍你的肩膀，给了你一个充满信心的微笑。
+leave --All-- [animation="Slide Out Down"]
+do GameState.set_game_phase("schedule")
+
+# ─── social_hajiyou_day1 ───
+label social_hajiyou_day1
+[background arg="res://images/bg altar_room.png" fade="0.5"]
+join hajiyou center
+hajiyou: 降临者，你来了。关于这个世界的真相，我还有很多没来得及告诉你。
+zhujue: 那就慢慢告诉我吧。
+hajiyou: 你比我想象的更有耐心。这很好。
+哈基佑翻开了一本古老的典籍，里面的文字闪烁着微光。
+了解了一段时间后。。。
+hajiyou: 今天就先到这里吧，我要躺床上休息了
+zhujue: 好
+leave hajiyou [animation="Slide Out Up" length="1.5"]
+[background arg="res://images/cg/hajiyou_cg1.jpg" fade="0.0"]
+zhujue: 和哈基佑的关系更进一步了
+do GameState.set_game_phase("schedule")
+
+# ─── social_laocong_day1 ───
+label social_laocong_day1
+[background arg="res://images/bg sky_crack.png" fade="0.5"]
+join laocong center
+laocong: 我最近在研究一种新的召唤术……要不要看看？
+zhujue: 好啊，让我看看你能召出什么。
+牢聪翻开了一本世界书，一束光芒从书页中射出。
+join slime right
+虽然只是只小史莱姆，但他的眼中充满了认真。
+zhujue: 这只史莱姆看起来有些特殊呢。
+laocong: 这应该是酒馆里特殊的史莱姆
+说完，牢聪就睡着了。
+leave laocong [animation="Instant Out" length="1.0"]
+[background arg="res://images/cg/laocong_cg1.jpg" fade="0.0"]
+zhujue: 睡的可真香啊。
+牢聪对你的好感上升了。
+do GameState.set_game_phase("schedule")
+
+# ─── social_laoma_day1 ───
+label social_laoma_day1
+[background arg="res://images/battle_bg.png" fade="0.5"]
+join laoma center
+laoma: 数据分析了三遍，我发现这片大陆的元素分布很不均匀。
+zhujue: 你总是这么认真啊。
+laoma: 认真是因为在乎。不过……和你们在一起的时候，我更放松一些。
+leave laoma
+[background arg="res://images/cg/laoma_cg1.jpg" fade="0.0"]
+说罢，老马就去袅袅了。
+zhujue: 和老马的关系更进一步了。
+do GameState.set_game_phase("schedule")
+
+# ─── social_laoxiang_day1 ───
+label social_laoxiang_day1
+[background arg="res://images/bgliang.png" fade="0.5"]
+join laoxiang center
+laoxiang: 小猫最近好像更喜欢你了呢。你看，它在你腿上睡着了。
+zhujue: 它真可爱。你的治愈魔法也很温暖。
+laoxiang: 能帮到大家，就是我最开心的事。
+leave laoxiang
+do GameState.set_game_phase("schedule")
+
+# ─── social_hajilong_day1 ───
+label social_hajilong_day1
+[background arg="res://images/battle_bg.png" fade="0.5"]
+join hajilong center
+hajilong: 想看我一拳打碎这块石头吗？
+protagonist: ……你又来了。
+话音未落，哈基龙已经一拳砸了下去，石头裂成两半。
+hajilong: 哈哈，这才叫力量！
+说完，哈基龙就去找陈立展示力量了
+update hajilong leftmost [animation="Instant In" length="1.5"]
+join chenli rightmost [animation="Zoom Center In" length="1.5"]
+hajilong: 来大干一场吧！哈哈哈！
+chenli: 战斗爽！！
+leave hajilong
+leave chenli
+join zhujue center
+zhujue: 真好啊。
+leave zhujue
+[background arg="res://images/cg/hajilong_cg1.jpg" fade="0.0"]
+哈基龙对你的态度更亲密了
+do GameState.set_game_phase("schedule")
+label social_hajiyou_day2
+join  center
+<Empty Text Event>
+label social_hajiyou_day3
+join  center
+<Empty Text Event>
+label social_laoma_day2
+join  center
+<Empty Text Event>

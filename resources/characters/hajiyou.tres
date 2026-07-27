@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CharacterTemplate" load_steps=2 format=3 uid="uid://ct_hajiyou"]
+
+[ext_resource type="Script" path="res://resources/characters/character_template.gd" id="1_tpl"]
+
+[resource]
+script = ExtResource("1_tpl")
+char_id = "hajiyou"
+char_name = "哈基佑"
+portrait_path = "res://images/hajiyou.png"
+base_stats = {
+"STR": 10, "MAG": 15, "VIT": 10, "AGI": 10, "TEC": 10, "CHA": 12
+}
+growth_rates = {
+"STR": 1.0, "MAG": 1.5, "VIT": 1.0, "AGI": 1.0, "TEC": 1.0, "CHA": 1.2
+}
+skill_pool = ["yanling_spell", "boil_cabbage"]
+battle_portrait = ""
+battle_role = "caster"
+description = "攻击/辅助双形态切换"

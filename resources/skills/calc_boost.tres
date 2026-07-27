@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_calc_boost"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "calc_boost"
+skill_name = "算力增幅"
+skill_type = "buff"
+target_type = "single_ally"
+power = 0.0
+stat_scale = "TEC"
+hit_count = 1
+cooldown = 0
+effects = [{
+"type": "buff",
+"stat": "STR",
+"value": 5,
+"duration": 3
+}]
+description = "算力增幅：单体ATK↑，STR+5持续3回合"
+icon_path = ""

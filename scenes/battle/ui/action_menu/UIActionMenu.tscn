@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://scenes/battle/ui/action_menu/UIActionMenu.gd" id="1"]
+
+[node name="UIActionMenu" type="Control"]
+anchors_preset = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1720.0
+offset_bottom = 70.0
+mouse_filter = 2
+script = ExtResource("1")

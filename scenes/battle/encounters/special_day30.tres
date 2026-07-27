@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EncounterData" format=3 uid="uid://j2fn5lmf14ot"]
+
+[ext_resource type="Script" uid="uid://363dylmqt3g2" path="res://scenes/battle/encounters/EncounterData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+encounter_id = "special_day30"
+battle_type = "special"
+background_path = "res://images/battle/bg_boss.png"
+enemy_ids = Array[String](["boss", "hanbao", "hanbao", "slime", "bianbian", "bianbian"])
+enemy_counts = Array[int]([1, 3, 1, 2, 2, 1])

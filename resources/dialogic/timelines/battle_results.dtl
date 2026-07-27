@@ -1,0 +1,36 @@
+[dialogic]
+version=3
+
+# ============================================================================
+# 战斗结果 - Battle Results
+# ============================================================================
+
+# ─── battle_victory_explore ───
+label battle_victory_explore
+[background arg="res://images/bg/yongshi.png" fade="0.5"]
+战斗结束了，敌人被全部击败。
+队员们互相搀扶着，虽然疲惫但脸上都带着胜利的笑容。
+zhujue: 大家辛苦了，回去休息吧。
+do GameState.set_game_phase("schedule")
+
+# ─── battle_victory_quest ───
+label battle_victory_quest
+[background arg="res://images/bg light_pillar.png" fade="0.5"]
+委托完成！委托人感激地向你们道谢。
+金币和战利品已经收入囊中，今天也是胜利的一天。
+do GameState.set_game_phase("schedule")
+
+# ─── battle_victory_battle ───
+label battle_victory_battle
+[background arg="res://images/battle_bg.png" fade="0.5"]
+hajiyou: 强敌已被击败，我们成功🍗了黑潮！
+zhujue: 我们……真的做到了。
+hajiyou: 这次胜利证明了我们的成长，前方还有更长的路要走。
+do GameState.set_game_phase("schedule")
+
+# ─── battle_defeat ───
+label battle_defeat
+[background arg="res://images/bg sky_crack.png" fade="0.5"]
+战斗失败了……队伍倒在了战场上。
+但故事还没有结束。站起来，重新开始吧。
+do GameState.set_game_phase("schedule")

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyTemplate" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scenes/battle/enemies/EnemyTemplate.gd" id="1"]
+[resource]
+script = ExtResource("1")
+enemy_id = "slime"
+enemy_name = "史莱姆"
+hp = 60
+str = 8
+mag = 3
+vit = 4
+agi = 40
+tec = 3
+cha = 1
+sprite_path = "res://images/battle/sprites/slime.png"
+icon_path = "res://images/battle/icons/slime.png"
+skills = []
+exp_reward = 20
+gold_reward = 10
+ai_behavior = "aggressive"

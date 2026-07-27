@@ -1,0 +1,191 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="gamedemo1"
+run/main_scene="res://scenes/menu/splash.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://autoload/GameState.gd"
+PartyData="*res://autoload/PartyData.gd"
+StoryFlags="*res://autoload/StoryFlags.gd"
+SaveManager="*res://autoload/SaveManager.gd"
+ImageUtils="*res://autoload/ImageUtils.gd"
+Dialogic="*uid://ds2q0uclmolvu"
+DialogicBridge="*res://autoload/DialogicBridge.gd"
+
+[dialogic]
+
+directories/dch_directory={
+"bianbian": "res://resources/characters/bianbian.dch",
+"chenli": "res://resources/dialogic/characters/chenli.dch",
+"direlaocong": "res://resources/characters/direlaocong.dch",
+"hajilong": "res://resources/dialogic/characters/hajilong.dch",
+"hajiyou": "res://resources/dialogic/characters/hajiyou.dch",
+"hanbao": "res://resources/characters/hanbao.dch",
+"laocong": "res://resources/dialogic/characters/laocong.dch",
+"laoma": "res://resources/dialogic/characters/laoma.dch",
+"laoxiang": "res://resources/dialogic/characters/laoxiang.dch",
+"slime": "res://resources/characters/slime.dch",
+"zhujue": "res://resources/dialogic/characters/zhujue.dch"
+}
+directories/dtl_directory={
+"battle_results": "res://resources/dialogic/timelines/battle_results.dtl",
+"dialogic/timeline": "res://resources/dialogic/timeline.dtl",
+"prologue": "res://resources/dialogic/timelines/prologue.dtl",
+"resources/timeline": "res://resources/timeline.dtl",
+"social": "res://resources/dialogic/timelines/social.dtl",
+"special_battles": "res://resources/dialogic/timelines/special_battles.dtl",
+"timeline": "res://timeline.dtl",
+"timelines/timeline": "res://resources/dialogic/timelines/timeline.dtl"
+}
+layout/style_directory={
+"": "res://resources/dialogic/styles/Visual Novel Style.tres",
+"Visual Novel Style": "res://resources/dialogic/styles/Visual Novel Style.tres"
+}
+glossary/default_case_sensitive=true
+layout/style_list=["res://resources/dialogic/styles/Visual Novel Style.tres"]
+layout/default_style="res://resources/dialogic/styles/Visual Novel Style.tres"
+variables={
+"Game": {
+"all_friends": true,
+"ap": 10,
+"battles": 0,
+"chapter": 0,
+"chenli": false,
+"day": 1,
+"deaths": 0,
+"erzhoumustart": false,
+"hajilong": false,
+"laocong": false,
+"laoma": false,
+"laoxiang": false,
+"max_ap": 10,
+"phase": "vn",
+"really": true,
+"resurrected": false,
+"talk_slots": 3,
+"time": "morning",
+"victories": 0
+},
+"Player": {
+"AGI": 10,
+"CHA": 10,
+"MAG": 10,
+"STR": 10,
+"TEC": 10,
+"VIT": 10
+},
+"主角": {
+"affection": 0,
+"talk_slots": 3,
+"talk_today": 0
+},
+"哈基佑": {
+"affection": 0,
+"talk_slots": 3,
+"talk_today": 0
+},
+"哈基龙": {
+"affection": 0,
+"talk_slots": 3,
+"talk_today": 0
+},
+"牢翔": {
+"affection": 0,
+"talk_slots": 3,
+"talk_today": 0
+},
+"牢聪": {
+"affection": 0,
+"talk_slots": 3,
+"talk_today": 0
+},
+"老马": {
+"affection": 0,
+"talk_slots": 3,
+"talk_today": 0
+},
+"陈立": {
+"affection": 0,
+"talk_slots": 3,
+"talk_today": 0
+}
+}
+extensions_folder="res://addons/dialogic_additions"
+text/letter_speed=0.01
+text/initial_text_reveal_skippable=true
+text/text_reveal_skip_delay=0.1
+text/advance_delay=0.1
+text/autoadvance_per_character_delay=0.1
+text/autoadvance_ignored_characters_enabled=true
+animations/join_default_length=0.5
+animations/join_default_wait=true
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/cross_fade_default_length=0.5
+choices/autofocus_first=true
+choices/delay=0.2
+choices/reveal_delay=0
+choices/reveal_by_input=false
+save/autosave_delay=60.0
+save/encryption_on_exports_only=true
+text/autopauses={}
+audio/channel_defaults={
+"": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": false,
+"volume": 0.0
+},
+"music": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": true,
+"volume": 0.0
+}
+}
+text/input_action="dialogic_default_action"
+text/autocolor_names=true
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+
+[input]
+
+dialogic_default_action={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":88,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

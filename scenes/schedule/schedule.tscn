@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://schedule_main"]
+
+[ext_resource type="Script" path="res://scenes/schedule/ScheduleHub.gd" id="1_schedule"]
+
+[node name="ScheduleHub" type="CanvasLayer"]
+script = ExtResource("1_schedule")

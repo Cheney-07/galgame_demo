@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EncounterData" format=3 uid="uid://13trulit3k"]
+
+[ext_resource type="Script" uid="uid://363dylmqt3g2" path="res://scenes/battle/encounters/EncounterData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+encounter_id = "quest_default"
+battle_type = "quest"
+background_path = "res://images/battle/bg_quest.png"
+enemy_ids = Array[String](["slime", "slime", "hanbao", "bianbian"])
+enemy_counts = Array[int]([2, 2, 2, 2])

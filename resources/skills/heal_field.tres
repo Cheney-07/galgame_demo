@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_heal_field"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "heal_field"
+skill_name = "治愈领域"
+skill_type = "heal"
+target_type = "all_allies"
+power = 0.3
+stat_scale = "CHA"
+hit_count = 1
+cooldown = 2
+effects = [{
+"type": "hot",
+"value": 5,
+"duration": 3
+}]
+description = "治愈领域：全队持续回血3回合，每回合回复CHA×0.3"
+icon_path = "res://images/icons/skills/laoxiangskill.png"

@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://bv10hxa5kkr3p"]
+
+[ext_resource type="Texture2D" uid="uid://w2u4effyjk4" path="res://resources/dialogic/images/choice_hover.png" id="1"]
+
+[resource]
+content_margin_left = 40.0
+content_margin_top = 40.0
+content_margin_right = 40.0
+content_margin_bottom = 30.0
+texture = ExtResource("1")

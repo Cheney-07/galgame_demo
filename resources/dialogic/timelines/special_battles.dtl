@@ -1,0 +1,418 @@
+[dialogic]
+version=3
+
+# ============================================================================
+# 特殊战斗剧情 - Special Battle Timelines
+# ============================================================================
+
+# ─── 第五天 战前 ───
+label special_pre_day5
+[background arg="res://images/schedule_bg.png" fade="0.5"]
+zhujue: 已经到第五天了吗。
+join hajiyou center
+hajiyou: 是的，不出意外的外，已经有大量怪物从封印里逃出来了。
+zhujue: 走吧，我们去消灭他们。
+hajiyou: 收到！
+[background arg="res://images/battle/bg_boss.png" fade="0.0"]
+hajiyou: 前面好像有敌人，小心！
+zhujue: 我们不得不战斗了，准备好！
+和哈基佑并肩作战着，突然有一只怪物出现在了主角身后
+hajiyou: 不好，小心你背后！
+leave hajiyou
+zhujue: 坏菜了👎
+[background arg="res://images/bg/shanguang.png" fade="0.8"]
+zhujue: holyshit
+[background arg="res://images/battle_bg.png" fade="0.0"]
+只听砰砰两声，怪物直接应声到底
+别担心，后背交给我
+join chenli center
+待你看清那人面容时，你不由得大吃一惊。
+zhujue: 我去，这不是陈立吗，难道说？
+join hajiyou leftmost
+hajiyou: 多谢了，东方幻想乡的巫女。
+chenli: 不必谢，怪物还没清理完成，先继续战斗吧。
+hajiyou: 好的，继续进攻。
+leave chenli
+leave hajiyou
+do GameState.set_game_phase("battle")
+
+# ─── 第五天 战后胜利(解锁陈立) ───
+label special_post_day5_win
+[background arg="res://images/battle_bg.png" fade="0.5"]
+zhujue: 终于结束了……大家都还好吗？
+join hajiyou left
+hajiyou: 我没事，先打扫战场吧。
+join chenli right
+chenli: 我也没事，这小怪物还不是我的对手。
+hajiyou: 我来介绍一下，这是东方幻想乡的巫女，平时也会辅助清理怪物的工作。比较擅长弹幕远程攻击
+chenli: 幸会。
+leave chenli
+zhujue: （心想）难道我在学校认识的他们，都在异世界里有一个对映相关联的人格，还真是神奇。
+hajiyou: 要不要将陈立招募进我们的队伍，或许对以后的作战有很大帮助
+leave hajiyou
+- 招募！必须招募！！🐥
+	join zhujue left
+	zhujue: 陈立，你愿不愿意加入我们拯救世界小分队
+	zhujue: 不仅免费包吃住，更有死亡无限复活等众多入队豪礼
+	join chenli right
+	chenli: wc，这么强，我必须立刻加入
+	zhujue: 好，那就这么愉快的决定了，跟我们回营地吧。
+	leave chenli
+	leave zhujue
+	set {Game.chenli} = true
+	do GameState.recruit_character("chenli")
+- 还是算了，我们精力有限😭😭
+	join hajiyou left
+	hajiyou: 好吧，这样好像也很合理
+	join chenli right
+	chenli: 你会后悔的。😭😭😭
+	leave hajiyou
+	leave chenli
+	set {Game.all_friends} = false
+do GameState.mark_special_battle_won()
+do GameState.advance_day()
+do GameState.set_game_phase("schedule")
+
+# ─── 第五天 战斗失败 ───
+label special_post_day5_lose
+[background arg="res://images/battle_bg.png" fade="0.5"]
+join zhujue left
+zhujue: 不行……我们太弱了。
+join hajiyou right
+hajiyou: 不能放弃，我们得继续前进！
+zhujue: 你说得对。回去休整，下次一定要赢。
+leave hajiyou
+leave zhujue
+set {Game.really} = false
+set {Game.all_friends} = false
+do GameState.advance_day()
+do GameState.set_game_phase("schedule")
+
+# ─── 第十天 战前 ───
+label special_pre_day10
+[background arg="res://images/battle_bg.png" fade="0.5"]
+join zhujue left
+zhujue: 第十天了，我们已经成长了不少，迅速解决战斗吧。
+if {Game.chenli} == true:
+	join chenli right
+	chenli: 我的弹幕能帮你们更快结束战斗！来干来干！
+	leave chenli
+join hajiyou right
+hajiyou: 前面又有敌人来袭！准备迎战！！！
+leave --All--
+do GameState.set_game_phase("battle")
+
+# ─── 第十天 战后胜利(解锁老马) ───
+label special_post_day10_win
+[background arg="res://images/battle_bg.png" fade="0.5"]
+zhujue: 胜利了！
+if {Game.chenli} == true:
+	join chenli center
+	chenli: 我刚刚飞到天上去侦察信息的时候，发现好像有一个人被关在了笼子里。
+	zhujue: 还有囚禁play，那我们赶紧过去凑个热闹。
+	chenli: 没问题。
+	leave chenli
+else:
+	join hajiyou center
+	hajiyou: 这次变得更加轻松了呢，不过敌人好像也更加强大了，要小心。
+	正在四周打扫战场，突然发现前面有一个笼子。
+	zhujue: 欸，哈基佑，那边的笼子怎么关着一个人，我们快过去看看。
+	hajiyou: 欸，云朵，哒哒哒哒哒。
+	leave hajiyou
+将那个人从笼子里解救了出来
+join laoma right
+laoma: 谢谢你们救了我。我是老马😭😭😭
+join hajiyou left
+zhujue: （心想）果然还是这样，老马也是有一个异世界的身份，不知道下一个会是谁呢。
+hajiyou: 老马你为什么会被关到笼子里。
+laoma: 都是因为邪恶老聪，他为了玩酒馆，就把我ai的key全部抢走了，还把我关到了笼子里😭😭😭
+zhujue: woc，老聪怎么这么坏。
+hajiyou: 要不要将老马招募进我们的队伍？
+- 肯定要让他加入，老马我们帮你复仇
+	laoma: 谢谢你们，不过老聪很强，一定要小心他的汉堡攻击。
+	zhujue: 没问题，先跟我们回营地里休整把。
+	leave --All--
+	set {Game.laoma} = true
+	do GameState.recruit_character("laoma")
+- 还是算了，我们人数已经够多了
+	hajiyou: 这样也好。
+	laoma: 😭😭😭😭😭
+	leave --All--
+	set {Game.all_friends} = false
+do GameState.mark_special_battle_won()
+do GameState.advance_day()
+do GameState.set_game_phase("schedule")
+
+# ─── 第十天 战斗失败 ───
+label special_post_day10_lose
+[background arg="res://images/battle_bg.png" fade="0.5"]
+zhujue: 还是不够强大……
+zhujue: 回去重新训练吧。
+set {Game.all_friends} = false
+set {Game.really} = false
+do GameState.advance_day()
+do GameState.set_game_phase("schedule")
+
+# ─── 第十五天 战前 ───
+label special_pre_day15
+[background arg="res://images/battle_bg.png" fade="0.5"]
+join hajiyou center
+hajiyou: 前面好像有一个小猫，这里魔物很多，小猫也太危险了。
+zhujue: 那我们赶紧过去救他吧
+一堆怪物突然拦住了去路
+join bianbian right
+bianbian: 叫嚼嚼！！！！！！！！！！！！！！
+hajiyou: 没办法，只能先清理掉怪物了。
+leave hajiyou
+if {Game.chenli} == true:
+	join chenli left
+	chenli: 今天也有战斗，大家准备好！
+	leave chenli
+if {Game.laoma} == true:
+	join laoma center
+	laoma: 大狗大狗嚼嚼嚼
+	leave laoma
+do GameState.set_game_phase("battle")
+
+# ─── 第十五天 战后胜利(解锁牢翔) ───
+label special_post_day15_win
+[background arg="res://images/battle_bg.png" fade="0.5"]
+join laoxiang right
+laoxiang: 各位！你们受伤了吗？让我来治疗！
+join hajiyou left
+hajiyou: 居然是只猫娘🐱，怪不得会在这里出现一只小猫。
+zhujue: 这个好这个好
+zhujue: 牢翔在这里异世界里对应的是小猫，下一个会是谁呢？
+leave --All--
+- 让牢翔加入小队
+	zhujue: 全年包吃住无休，无限次数复活，牢翔快加入我们
+	join laoxiang center
+	laoxiang: OK！！
+	leave laoxiang
+	set {Game.laoxiang} = true
+	do GameState.recruit_character("laoxiang")
+- 我对小猫过敏😭😭😭
+	join hajiyou center
+	hajiyou: 那就没有办法了，那我们就在此别过吧牢翔😭
+	join laoxiang center
+	laoxiang: see you again 😭
+	leave --All--
+	set {Game.all_friends} = false
+do GameState.mark_special_battle_won()
+do GameState.advance_day()
+do GameState.set_game_phase("schedule")
+
+# ─── 第十五天 战斗失败 ───
+label special_post_day15_lose
+[background arg="res://images/battle_bg.png" fade="0.5"]
+laoxiang: 你们还好吗？
+zhujue: 这次没能成功……我们需要更强的力量。
+laoxiang: 😭
+set {Game.all_friends} = false
+set {Game.really} = false
+do GameState.advance_day()
+do GameState.set_game_phase("schedule")
+
+# ─── 第二十天 战前(解锁哈基龙) ───
+label special_pre_day20
+[background arg="res://images/battle_bg.png" fade="0.5"]
+join zhujue left
+zhujue: 第二十天了，前方好像有一股强大的气息。
+join hajiyou right
+hajiyou: 那个是……哈基龙？他怎么也在这里！
+zhujue: 哈基龙？果然遇到的全部是在那边认识的啊
+hajiyou: 走！我们去支援他
+leave --All--
+do GameState.set_game_phase("battle")
+
+# ─── 第二十天 战后胜利(解锁哈基龙) ───
+label special_post_day20_win
+[background arg="res://images/battle_bg.png" fade="0.5"]
+join zhujue left
+zhujue: 哈基龙看样子在这边是一个战士
+join hajilong right
+hajilong: 多谢你们出手相助。我一直在独自对抗这些怪物。
+hajilong: 要不要让哈基龙加入我们呢？
+- 欢迎加入！一起并肩作战！
+	hajiyou: 你的方块攻击真是厉害，加入我们吧！
+	zhujue: 没错，我们正需要你这样的强力队友。
+	hajilong: 好！有同伴就是不一样，一起上吧！
+	zhujue: 欢迎入队，哈基龙！出发回营地！
+	leave --All--
+	set {Game.hajilong} = true
+	do GameState.recruit_character("hajilong")
+- 你需要休息，不勉强
+	hajilong: 也好，我自己能应付。
+	hajiyou: 好吧……
+	leave --All--
+	set {Game.all_friends} = false
+do GameState.mark_special_battle_won()
+do GameState.advance_day()
+do GameState.set_game_phase("schedule")
+
+# ─── 第二十天 战斗失败 ───
+label special_post_day20_lose
+[background arg="res://images/battle_bg.png" fade="0.5"]
+zhujue: 太强了……这些怪物不是我们能对付的。
+hajilong: 你们快走！我掩护你们！
+zhujue: 可是你……
+hajilong: 别管我，快走！
+zhujue: 我们会回来的！
+set {Game.really} = false
+set {Game.all_friends} = false
+do GameState.advance_day()
+do GameState.set_game_phase("schedule")
+# ─── 第二十五天 战前(BOSS) ───
+label special_pre_day25
+[background arg="res://images/battle_bg.png" fade="0.5"]
+zhujue: 第二十五了……这里的气氛很不对劲。
+hajiyou: 小心！有一股强大的邪恶能量！
+join direlaocong center
+direlaocong: 哈哈哈哈哈！小牛魔🐂们居然还敢找上门来，自投罗网。
+if {Game.laoma} == true:
+	join laoma left
+	laoma: 是邪恶汉堡牢聪！就是他抢走了我的key😭😭😭。
+join zhujue left
+zhujue: 牢聪在这里居然变成了反派吗，那就没办法了😀😀，看我狠狠插入
+zhujue: 就是你夺走了老马的key，看我们打败你给他复仇！
+direlaocong: 就凭你们，还想要打败我。获得了酒馆的力量，我就是无敌的！！
+direlaocong: 我要把你们都变成我的翅膀！
+牢聪随手一招，瞬间出现许多汉堡怪物。
+join hanbao right
+join bianbian rightmost
+update direlaocong right
+join laoxiang leftmost
+laoxiang: 大家当心，这场战斗很危险，我来给你们提供后方支援
+leave --All--
+do GameState.set_game_phase("battle")
+
+# ─── 第二十五天 战后胜利(解锁牢聪) ───
+label special_post_day25_win
+[background arg="res://images/bg city_day.png" fade="0.5"]
+zhujue: 我们真的赢了……
+join laocong center
+laocong: 谢谢你们打败了我的黑化形态……我真的太羞愧了。
+zhujue: 牢聪？你是那个邪恶汉堡？
+laocong: 不，那是被黑暗力量控制的另一个我。现在我自由了。
+laocong: 让我加入你们吧，我的召唤能力可以帮上大忙！
+leave --All--
+- 可以可以
+	zhujue: Lets go~！
+	set {Game.laocong} = true
+	do GameState.recruit_character("laocong")
+- nonono
+	laocong: 😭😭😭
+	set {Game.all_friends} = false
+do GameState.mark_special_battle_won()
+do GameState.advance_day()
+do GameState.set_game_phase("schedule")
+
+# ─── 第二十五天 战斗失败(坏结局) ───
+label special_post_day25_lose
+[background arg="res://images/bg sky_crack.png" fade="0.5"]
+join direlaocong center
+direlaocong: 哈哈哈！就这点实力？太弱了！
+direlaocong: 你的同伴都将被我囚禁在城堡里！
+zhujue: 不！大家……
+join hajiyou left
+hajiyou: 不要啊，亚美咯~😭
+if {Game.chenli} == true:
+	join chenli leftmost
+	chenli: 我是坚决不会屈服的，🤬！！！
+if {Game.laoma} == true:
+	join laoma right
+	laoma: 不要啊牢聪，我把我的key全部给你，不要啊！😭
+if {Game.hajilong} == true:
+	join hajilong rightmost
+	hajilong: 😭😭😭
+if {Game.laoxiang} == true:
+	direlaocong: 我看这小猫也是风韵犹存啊~😋
+	一把拿到手里。
+	join laoxiang center
+	laoxiang: 🙁🙁😭😭
+	laoxiang: 喵喵喵？😀
+direlaocong: 不错不错，你先慢慢冒险，这些小牛魔🐂我就先拿下了，byebye~
+leave --All--
+join zhujue center
+zhujue: 不，😭😭😭😭。
+黑化的牢聪将所有角色全部囚禁到了自己的城堡里。
+主角成了光杆司令，失去了所有伙伴……
+zhujue: 我不能接受……我该怎么办……
+leave --All--
+jump badend1
+label badend1
+[background fade="0.0"]
+达成坏结局【黄毛牢聪】bad end 1.
+do 
+
+# ─── 第三十天 战前(最终战) ───
+label special_pre_day30
+[background arg="res://images/bg altar_room.png" fade="0.5"]
+zhujue: 这是最后一场战斗了。
+hajiyou: 我们经历了这么多，一定可以赢的！
+if {Game.chenli} == true:
+	chenli: 把所有的力量都用上吧！
+if {Game.laoma} == true:
+	laoma: 算力链路全速运转！
+if {Game.laoxiang} == true:
+	laoxiang: 我会守护你们的！
+if {Game.laocong} == true:
+	laocong: 召唤术已经准备好了！
+zhujue: 为了重返光明，大家上啊！
+do GameState.set_game_phase("battle")
+
+# ─── 第三十天 胜利(真结局判定) ───
+label special_post_day30_win
+[background arg="res://images/bg/the city_shuguang.png" fade="0.5"]
+zhujue: 我们……我们赢了！
+hajiyou: 终于。。。
+if {Game.erzhoumustart} == true:
+	jump erzhoumu_end
+jump goodend1
+label goodend1
+[background arg="res://images/bg altar_room.png" fade="0.0"]
+join hajiyou center
+hajiyou: 万分感谢您的协助，我们的世界终于恢复了和平，我们为您准备了一场庆功宴，还请记得参加。
+leave hajiyou
+参加完了庆功宴，这件事情总算告一段落。
+[background arg="res://images/bg/the city_light.png" fade="0.0"]
+几年过后，镶银钟城又恢复了往日的繁华，你任命成为钟城的城主。
+join hajiyou center
+hajiyou: 召唤仪式好像出了问题，不知为何我们无法启动传送让您返回。
+zhujue: 这边时间的流逝速度很慢对吧。
+hajiyou: 是的，不过。。。
+zhujue: 没事，方法你们慢慢找，其实住在这边也挺不错的。
+hajiyou: 好的，我明白了。
+leave hajiyou
+你在异世界这边继续居住着，之前冒险途中遇到的伙伴也都回来与你见了面，协助你管理城中事务。
+zhujue: 城主很爽。
+[background arg="res://images/cg/goodend_1.png" fade="0.0"]
+达成好结局 good_end1【转生成为异世界勇者的幸福生活】
+if {Game.all_friends} == true:
+	if {Game.really} == true:
+		隐藏的黑暗力量显现——成功解锁了第二周目，在主界面开始游戏将解锁特殊结局
+		set {Game.erzhoumustart} = true
+do 
+
+# ─── 第三十天 战斗失败(坏结局) ───
+label special_post_day30_lose
+[background arg="res://images/bg sky_crack.png" fade="0.5"]
+zhujue: 我们……输了……
+黑潮的力量彻底压制了你们，异世界被黑暗占领。
+所有角色倒在了最终战场上，再也没有醒来。
+zhujue: 如果……如果我更强大一些……
+jump badend2
+label badend2
+[background arg="res://images/bg tokyo_sunset.jpg" fade="0.0"]
+哈基佑没有骗你，你成功返回到了原来的世界。
+醒来还是第二天凌晨六点。
+join zhujue center
+zhujue: 感觉做了好长一个梦啊，但是想不起来了，太可惜了。
+你忘记了你冒险的经历，而且你有种奇怪的感觉，明明记得感觉你有几个熟悉的人，却怎么也想不起来他们的样貌和名字了。
+随着时间的流逝，这种感觉也逐渐模糊了。
+[background arg="res://images/cg/bad_end2.png" fade="0.0"]
+达成坏结局bad_end2【遗忘的梦境】
+do 
+label erzhoumu_end
+[background arg="res://images/bg/the city_run.png" fade="0.0"]
+he

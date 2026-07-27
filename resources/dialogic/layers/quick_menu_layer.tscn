@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://ck7mtfuwytcuf"]
+
+[ext_resource type="Script" uid="uid://cxkq25pua6acw" path="res://resources/dialogic/layers/quick_menu_layer.gd" id="1"]
+
+[node name="QuickMenuLayer" type="Control" unique_id=1959125333]
+layout_mode = 3
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+script = ExtResource("1")

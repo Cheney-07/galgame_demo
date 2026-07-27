@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_overclock"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "overclock_link"
+skill_name = "超频链接"
+skill_type = "buff"
+target_type = "all_allies"
+power = 0.0
+stat_scale = "TEC"
+hit_count = 1
+cooldown = 2
+effects = [{
+"type": "buff",
+"stat": "TEC",
+"value": 4,
+"duration": 3
+}]
+description = "超频链接：全队TEC↑，TEC+4持续3回合"
+icon_path = ""

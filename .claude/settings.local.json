@@ -1,0 +1,41 @@
+{
+  "env": {
+    "GODOT_PATH": "E:/study/godot/Godot_v4.7.1-stable_win64.exe"
+  },
+  "permissions": {
+    "allow": [
+      "mcp__godot__get_project_info",
+      "Bash(where godot *)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Program Files \\\\(x86\\\\)/**)",
+      "mcp__godot__get_godot_version",
+      "mcp__godot__create_scene",
+      "mcp__godot__add_node",
+      "mcp__godot__save_scene",
+      "mcp__godot__get_uid",
+      "mcp__godot__run_project",
+      "mcp__godot__stop_project",
+      "mcp__godot__get_debug_output",
+      "Bash(\"E:/study/godot/Godot_v4.7.1-stable_win64.exe\" --path \"E:/gamedemo1\" --verbose)",
+      "Bash(disown)",
+      "Bash(\"E:/study/godot/Godot_v4.7.1-stable_win64.exe\" --path \"E:/gamedemo1\")",
+      "mcp__godot__update_project_uids",
+      "mcp__godot__launch_editor",
+      "Bash(\"E:/study/godot/Godot_v4.7.1-stable_win64.exe\" --headless --path \"E:/gamedemo1\" --script \"res://autoload/GameState.gd\")",
+      "Bash(\"E:/study/godot/Godot_v4.7.1-stable_win64.exe\" --headless --check-only --path \"E:/gamedemo1\")",
+      "Bash(\"E:/study/godot/Godot_v4.7.1-stable_win64.exe\" --headless --path \"E:/gamedemo1\" --script \"res://scenes/vn/VnScene.gd\" -s parse)",
+      "Bash(echo \"Game PID: $!\")",
+      "Bash(python3 -c ' *)",
+      "Bash(python3)",
+      "Bash(xxd)",
+      "Bash(sed -i '88s/skill_pool.clear\\(\\)/skill_pool.clear\\(\\)\\\\n\\\\t\\\\t\\\\tvar sp: Array = data.get\\(\"skill_pool\", []\\)\\\\n\\\\t\\\\t\\\\tfor sk in sp:\\\\n\\\\t\\\\t\\\\t\\\\tskill_pool.append\\(str\\(sk\\)\\)/' autoload/PartyData.gd)",
+      "Bash(sed -i '89,91d' autoload/PartyData.gd)",
+      "mcp__tavily__tavily_crawl",
+      "mcp__tavily__tavily_search",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  },
+  "enabledPlugins": {}
+}

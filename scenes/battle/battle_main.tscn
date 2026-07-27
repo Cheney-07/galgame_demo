@@ -1,0 +1,7 @@
+[gd_scene load_steps=4 format=3 uid="uid://battle_main"]
+[ext_resource type="Script" path="res://scenes/battle/arena/CombatArena.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://arena_tscn" path="res://scenes/battle/arena/CombatArena.tscn" id="2"]
+
+[node name="BattleMain" type="CanvasLayer"]
+
+[node name="Arena" parent="." instance=ExtResource("2")]

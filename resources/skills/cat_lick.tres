@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_cat_lick"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "cat_lick"
+skill_name = "小猫舔舔"
+skill_type = "heal"
+target_type = "single_ally"
+power = 0.8
+stat_scale = "CHA"
+hit_count = 1
+cooldown = 0
+effects = []
+description = "小猫舔舔：单体回血，回复量=CHA×0.8"
+icon_path = "res://images/icons/skills/laoxiangskill.png"

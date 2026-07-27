@@ -1,0 +1,236 @@
+[dialogic]
+version=3
+
+# ============================================================================
+# 序章 - Prologue
+# ============================================================================
+
+# ─── prologue_dream ───
+label prologue_dream
+[background arg="res://images/mengjing.png" fade="0.5"]
+if {Game.erzhoumustart} == true:
+	恭喜你，这已经是第二周目剧情线了，不过因为是demo，作者太懒还没有做后续剧情，后续是想在第二周目加上ai实时生成对话的功能。不过等有时间在做吧，demo到此结束了，期待正式版吧。🐥🐥玩的开心。
+像踩着薄得快要破裂的冰，又像在深海里向上游——四周的空气黏稠得仿佛要把声音也吞没。你张开口，却听不见自己喘息的声音。
+# SFX: bell_tinkle
+可是却听见了铃声。清脆、细小，一下一下敲在意识的边缘，像有人用指甲轻敲玻璃杯口，又像冰裂时发出的第一声脆响。你转过头，却看不见任何人。雾从地面涌起，灰白的潮水漫过膝盖，带着一种不属于人间的冰凉，很快没过腰际。
+你胸口发紧，抬手想拨开雾，指尖却碰到一阵冰冷坚硬的东西。
+那是一枚吊坠。
+银色的链子像蛇一样缠绕在你的右手腕上，细密的链节每一环都刻着你无法辨认的文字。吊坠本身像一滴凝固的夜：黑曜石般的材质，却并非完全不透光——里面有细碎的光点流动，缓慢、规律，如同把一整片星空封进了玻璃。
+「若你愿意，便将故事翻到下一页。」
+有什么在黑暗里呼唤你的名字。不是吼，不是喊，是一声轻而确定的呼唤，像母亲叫醒睡过头的孩子。你想回应，喉咙却发不出声音。吊坠里的星光骤然亮起，从温和的流转变成剧烈的燃烧——
+世界被强行翻页般撕开。
+jump prologue_wakeup
+
+# ─── prologue_wakeup ───
+label prologue_wakeup
+[background arg="res://images/bghei.png" fade="0.5"]
+你猛地睁开眼。
+天还没亮。窗外是城市沉默的夜光——六本木方向的大楼群在远处像一排没睡醒的黑影，只有顶楼的航空障碍灯在一明一灭地眨眼。你的背心一片冰凉，T恤黏在皮肤上，呼吸仍乱得像刚跑完一公里，手还保持着握拳的姿势。
+你缓慢摊开掌心，空的。
+坐在床边，赤脚踩在木地板上，让那种实在的触感把梦的余韵一点一点挤出去。窗外偶尔有车驶过，轮胎碾过路面的声音由远及近、再由近及远。你听着那个声音，试图用它覆盖脑子里还在回响的铃声。
+你揉了揉脸，把枕头翻了个面，重新躺下去。
+jump chapter1_morning
+
+# ─── chapter1_morning ───
+label chapter1_morning
+[background arg="res://images/bgliang.png" fade="0.5"]
+清晨醒来时，你用了很久才把自己从那场梦里拔出来。
+梦里的雾、铃声、城的剪影——它们不是一醒来就散去的那种梦。它们像潮水退去后留在沙滩上的盐渍：明明已经不在，却刺眼地提醒你「它来过」。你盯着天花板，听见自己呼吸的声音在房间里来回碰壁。
+你翻身下床，踩进拖鞋里，趿拉着走到洗手间。镜子里的人眼下有点青，你拧开水龙头，冷水拍上脸的瞬间，那股黏稠的梦意终于松动了一点。
+可当你低头擦脸时，脑子里忽然闪回梦里那句刻在吊坠背面的文字。每一个字的轮廓都清晰得像印在视网膜上：
+「若你愿意，便将故事翻到下一页。」
+你把毛巾挂回去，抬眼再次看向镜子。镜子里的人是你——头发乱糟糟，脸上还挂着水珠，表情却不像刚睡醒的样子。你盯着镜中的自己，心里莫名生出一种不耐烦。
+join zhujue center [animation="Zoom In" z_index="5"]
+zhujue: 。。。
+leave zhujue [animation="Zoom Out"]
+jump chapter1_daytime
+
+# ─── chapter1_daytime ───
+label chapter1_daytime
+[background arg="res://images/bg tokyo_sunset.jpg" fade="0.5"]
+一天就这样被生活推着走。
+上午的课程填满了注意力：教授在讲量子力学的基本假设，黑板上写满了算式。你记笔记，翻书，偶尔走神——不是想梦，而是想为什么梦里的细节在白天反而更清晰。
+你坐电车回家。车厢里人不多，你靠门站着，看窗外掠过的街景。站台、路灯、便利店的招牌——每一样你都见过无数次，但今天它们在你眼里有一种奇怪的新鲜感，像你隔了很久才重新看见它们。
+你告诉自己：梦而已。
+可当你在门口掏钥匙时，手指却顿了一下。
+你把钥匙插进锁孔，转动，开门。关上门的那一刻，外面的喧闹被隔绝，屋子里恢复成你熟悉的安静。
+也就在这份安静里，梦的残影又慢慢浮上来。
+jump chapter1_night_book
+
+# ─── chapter1_night_book ───
+label chapter1_night_book
+[background arg="res://images/bgliang.png" fade="0.5"]
+你洗了澡。热水冲在肩上时你试图把注意力集中在水温上，但脑子会自动回到梦里那片雾。你吃了晚饭——便利店的便当，微波炉加热两分钟。
+一天的疲惫压下来。你关了电视，房间突然静得过分。台灯的光晕在桌面上圈出一块温暖的岛屿，其余地方都陷在暗里。你把窗帘拉严，布料和窗框摩擦的声音闷闷的，像隔着一层厚布。风声被挡在外面。
+你准备上床时，脚步却停住了。
+床边地板上，多了一串项链。
+它就那样安静地躺着，仿佛从来都在那里。
+join zhujue center [animation="Instant In"]
+你蹲下去，伸手。
+拿起吊坠坐到桌前，开了台灯。暖黄的光落在上面，那吊坠的内部好像正在缓缓流动
+下一秒，一股强大的引力瞬间将你吸进吊坠。
+leave zhujue
+jump chapter1_night
+
+# ─── chapter1_night ───
+label chapter1_night
+[background arg="res://images/hei.png" fade="0.5"]
+眼前空无一物，一片漆黑
+zhujue: 这是哪里，我要似了吗
+又是一阵眩晕感传来
+jump temple_hall
+
+# ─── temple_hall ───
+label temple_hall
+[background arg="res://images/bg altar_room.png" fade="0.5"]
+眼前的黑暗渐渐回复明亮。
+第一样回到你感官里的东西，是膝盖上的压力。你跪在冰冷的大理石地板上，石面传来的凉意透过裤子的布料直渗进皮肤。
+你跪在一座巨大魔法阵的正中央。阵纹像银色骨骼嵌在大理石里——不是画上去的，是嵌进石材本身的，像大理石在形成时就把这道阵纹长在了自己体内。阵纹发出微弱的脉动，与你的心跳保持着某种对应的节奏：你心跳快，它脉动快；你心跳慢，它脉动慢。
+数十名披袍祭司围成同心圆。他们的袍子是深色的，从脖颈遮到脚踝，兜帽拉得很低，你看不清任何一个的脸。但你能感觉到他们的目光——所有的目光都像针一样钉在你身上。
+join hajiyou center
+站在最内圈的一个祭司上前一步。他的兜帽比其他人稍浅，袍子边缘有银线镶边。当他抬起头时，你看见一张熟悉的脸。
+zhujue: 「wc,这不是哈基佑吗」。
+zhujue: 看来我真活到头了
+hajiyou: 降临者啊——历经百年，我等终于将您从星海彼端唤回。您即是预言中的「星之守夜者」。请——为我等垂死的世界，重燃黎明。
+zhujue: 你喉咙干得发疼。舔了舔嘴唇，心里想到：「还有cosplay，这个好这个好」
+hajiyou: 此地为奥菲斯大陆，星环圣庭之神殿。您能降临在这里，已经说明仪式成功。至于为何是您……
+他抬手指向阵纹一处最深的凹槽。那凹槽在大理石面上形成一个漆黑的凹陷，位置恰好在他脚边半步远。
+hajiyou: 因为「记录之钥」选择了您。
+zhujue: 你咽了一口几乎没有的唾沫，让声音尽量稳：「如果这是一场召唤——我有选择权吗？能不能回去？」
+hajiyou: 回去……并非不可能。但在此之前，永夜会先吞没这里。我们没有时间再等一个世纪，等下一位合适的降临者。
+jump after_ritual
+
+# ─── after_ritual ───
+label after_ritual
+[background arg="res://images/bg altar_room.png" fade="0.5"]
+join hajiyou center
+魔法阵的银光完全褪去后，祭司们像退潮般散开。他们没有立刻离开大殿，而是退到同心圆的外圈，留出一条通往内殿的通道。衣摆拖曳在大理石上的声音窸窸窣窣地响了一会儿，最后归于沉寂。
+你的膝盖仍然发软，站直的动作需要扶着大腿完成。那两个圣庭骑士一左一右架起你的手臂——不是粗暴的抓捕，不像是押解囚犯。他们的手指扣在你臂弯的位置，力度刚好能防止你摔倒，又不会让你觉得被控制。
+hajiyou: 降临者……请随我来。您需要休息，也需要知道一些真相。
+zhujue: 你喘着气，呼吸还没完全恢复平稳：「真相？先告诉我——我还能回去吗？」
+hajiyou: 这个问题……等您看过镶银钟城之后，再问不迟。
+leave hajiyou [animation="Slide Out Down"]
+- 接受命运，跟随哈基佑前往钟城
+	jump prologue_end_accept
+- 坚持要先弄清楚真相 | [if {Player.CHA} == 15.0] [else="hide"]
+	jump prologue_end_insist
+- 沉默不语，静观其变
+	jump prologue_end_silent
+- 用武力逼迫他说出实情 | [if {Player.STR} == 15.0] [else="hide"]
+	jump prologue_end_force
+
+# ─── prologue_end_accept ───
+label prologue_end_accept
+[background arg="res://images/bg altar_room.png" fade="0.5"]
+zhujue: 「好，我跟你走。」
+虽然前路未知，但你已决定接受这一切。无论接下来要面对什么，你已经不再迷茫。
+jump mache_in_road
+
+# ─── prologue_end_insist ───
+label prologue_end_insist
+[background arg="res://images/bg altar_room.png" fade="0.5"]
+zhujue: 「不，你先回答我——为什么是我？」
+hajiyou: 「降临者，您比我想象的更固执。」
+你的坚定让他微微点头，或许这才是被选中之人应有的姿态。
+jump mache_in_road
+
+# ─── prologue_end_silent ───
+label prologue_end_silent
+[background arg="res://images/bg altar_room.png" fade="0.5"]
+zhujue: 你没有说话，只是看着哈基佑的眼睛。沉默有时候比言语更有力量。
+hajiyou: 「……很好。至少您没有轻易做出冲动的决定。」
+jump mache_in_road
+
+# ─── prologue_end_force ───
+label prologue_end_force
+[background arg="res://images/bg altar_room.png" fade="0.5"]
+zhujue: 「别再绕弯子了。告诉我所有真相，否则——」
+hajiyou: 「降临者，武力在这里并无意义。但您的气势……我认可了。」
+你的强硬让祭司们纷纷后退，只有哈基佑依旧面不改色。
+jump mache_in_road
+do GameState.set_game_phase("schedule")
+label mache_in_road
+[background arg="res://images/bg/housecar.png" fade="0.0"]
+你和哈基佑坐在前往钟城的马车上
+zhujue: 所以呢，现在可以向我说明这个世界到底是怎么回事了吧。
+join hajiyou center [animation="Slide From Right" length="1.5"]
+hajiyou: 故事要从很久之前开始，当时的世界，美好而和平，直到...
+你和哈基佑坐在前往钟城的马车上，哈基佑向你讲述了这个世界的故事
+leave hajiyou
+[background arg="res://images/bg/the city_light.png" fade="0.5"]
+hajiyou: 从前，镶银钟城是一个非常繁荣的城市，人们在此安居乐业。
+hajiyou: 但是，突然有一天，宁静的世界被轰然打破
+[background arg="res://images/bg/the city_run.png" fade="0.0"]
+hajiyou: 一股邪恶黑暗力量笼罩了光明，无数怪物从黑暗中降下，人们四处奔逃
+hajiyou: 我们将其称为带来灾祸与黑暗的狂潮——黑潮。
+hajiyou: 我率领无数魔法师对抗黑潮，虽然暂时消灭了一部分怪物，但是那黑潮中的怪物仿佛如潮水一般源源不断的涌出。
+hajiyou: 就在我们精疲力竭，以为世界将迎来毁灭的时刻
+hajiyou: 一位勇士出现了
+[background arg="res://images/bg/yongshi.png" fade="0.0"]
+hajiyou: 他拿起一把铁剑，剑中涌现起万丈光芒，将黑暗彻底粉碎
+[background arg="res://images/bg/the city_shuguang.png" fade="0.0"]
+hajiyou: 黑潮也被封印于镶银钟城的时钟之上，但那位勇士却好像消失了一般，毫无踪迹
+hajiyou: 这些年来，我们一直在找寻能够彻底消灭黑潮的办法，但是始终找不到破解之法
+hajiyou: 但也并非毫无进展，我们找到了从星海彼岸召唤勇者的办法，而之前那位勇士貌似也正是来自星海彼岸的异世之人
+hajiyou: 我们将彻底摧毁黑潮，重返光明的希望寄托于此
+hajiyou: 虽已知晓召唤方法，可不知为何仪式却从未成功
+hajiyou: 而黑潮却不给我们等待的机会
+[background arg="res://images/bg/the city_break.png" fade="0.0"]
+hajiyou: 封印出现松动，已经有怪物开始从封印缺口里逃出，开始为祸人间。
+hajiyou: 我们不得已重新将镶银钟城封闭，并派重兵把手，消灭逃出的怪物
+hajiyou: 不过，这并不是长久之策。等到黑潮完全苏醒，冲破封印的那一天，世界将再度迎来黑暗。
+[background arg="res://images/bg/housecar.png" fade="0.0"]
+join hajiyou center
+hajiyou: 像是冥冥中有命运指引一般，我们在最后一次仪式中，成功召唤到了您。
+hajiyou: 我们相信您就是我们这个世界的救世主，将为我们的世界重燃黎明。
+leave hajiyou
+join zhujue leftmost
+- ......
+	jump chenmo
+- 哈基佑，我一定救你呀（😭😭）
+	jump continue
+- 好吧，那么我该怎么做
+	jump continue
+label chenmo
+[background arg="res://images/bg/housecar.png" fade="0.0"]
+leave zhujue
+join hajiyou center
+hajiyou: 您也无需有太多顾虑
+hajiyou: 由于您是异世之人的特殊性，即使您在这个世界受到了伤害，甚至是死亡，您也会安然无恙的在营地里复活。
+hajiyou: 这也是为什么我们会将希望寄托于您的重要原因之一
+hajiyou: 即使最终您没能拯救世界，您也会重返会自己的世界，时间之差，若书中记录无错，就好比是做了一场梦的时间。
+leave hajiyou
+- 放下顾虑，继续前行
+	jump continue
+label continue
+[background arg="res://images/bg/housecar.png" fade="0.0"]
+leave zhujue
+join hajiyou center
+hajiyou: 具体方法，到了营地我会向您详细说明。
+leave hajiyou
+jump jieshao
+label jieshao
+[background arg="res://images/schedule_bg.png" fade="0.0"]
+join hajiyou center
+hajiyou: 我们到了，这就是以后我们的营地。
+hajiyou: 营地是我们日常生活和训练的场所，您和您的队友都会住在这里。
+hajiyou: 在这里，您每天会拥有八点行动力，行动力可用于执行日常的各种行动，购物无需行动力，而休息则会进入第二天重新恢复满您的行动力。要注意的是，未消耗完的行动力到第二天会自动清空，所以，尽可能的合理安排行动，将行动力充分使用
+hajiyou: 由于您刚到这里，实力还无法对抗黑潮，所以您可以点击左下角训练，在点击对应角色进行训练，训练会综合提示角色的各种属性。其中力量加攻击伤害，魔力加法术伤害，敏捷会增加攻击和施法速度...
+hajiyou: 交流可以进行和角色的专属剧情，增加和角色的羁绊
+hajiyou: 做饭可以消耗食材来制作提示成员属性的食物，有的还可以让您一天精力更加充沛，恢复您的行动力
+hajiyou: 探索可以通过击败怪物获得食材，并有概率获得宝箱，开出金币和武器，使自身实力大大提升，但有时怪物会过于强大，需小心谨慎
+hajiyou: 而委托则可以赚取金币，怪物强度也较低，不过击败怪物掉落的食材会被委托方回收。
+hajiyou: 购物则是可以使用您从各种途径获取的金币来换取强力的装备，提升实力。
+hajiyou: 如果战斗失败也不用担心，由于您异世之人的特殊效果，您和您的队员会满状态复活在营地里。
+hajiyou: 需要特别注意的是，每过四天，也就是第五天时，封印都会进一步松动，怪物会从黑潮内冲出，我们将强制进行战斗，对怪物进行封印。
+hajiyou: 总共会有五个周期，也就是到第二十五天时，黑潮将完全突破封印，我们将直面最强大的敌人。希望您能在这些天内尽快提升队伍实力。
+要注意的是，本游戏没有自动存档，所以请在关键剧情时手动存档（其实是作者懒得在剧情中间里再插入这个功能了）🐕
+hajiyou: 所需说的就这么多了，我以后也将会与您并肩作战，还有什么疑问吗？
+- 我都听懂了，Let‘s Go~!~!
+	hajiyou: 好的，再次感谢您能帮助我们
+	leave hajiyou
+	do GameState.set_game_phase("schedule")
+- 我没有听懂，请再说明一遍
+	hajiyou: 好的，那我再来说明一下。
+	leave hajiyou
+	jump jieshao

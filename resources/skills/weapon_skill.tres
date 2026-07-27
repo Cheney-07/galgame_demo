@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_weapon_skill"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "weapon_skill"
+skill_name = "武器技能"
+skill_type = "damage"
+target_type = "single_enemy"
+power = 1.8
+stat_scale = "STR"
+hit_count = 1
+cooldown = 2
+effects = []
+description = "主角技能：装备决定类型"
+icon_path = ""

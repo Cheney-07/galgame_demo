@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_block_smash"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "block_smash"
+skill_name = "方块连击"
+skill_type = "damage"
+target_type = "single_enemy"
+power = 0.8
+stat_scale = "STR"
+hit_count = 3
+cooldown = 0
+effects = []
+description = "方块连击：3段物理攻击，每段STR×0.8"
+icon_path = ""

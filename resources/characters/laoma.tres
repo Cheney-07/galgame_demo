@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CharacterTemplate" load_steps=2 format=3 uid="uid://ct_laoma"]
+
+[ext_resource type="Script" path="res://resources/characters/character_template.gd" id="1_tpl"]
+
+[resource]
+script = ExtResource("1_tpl")
+char_id = "laoma"
+char_name = "牢马"
+portrait_path = "res://images/laoma.png"
+base_stats = {
+"STR": 8, "MAG": 12, "VIT": 10, "AGI": 10, "TEC": 16, "CHA": 10
+}
+growth_rates = {
+"STR": 0.8, "MAG": 1.2, "VIT": 1.0, "AGI": 1.0, "TEC": 1.6, "CHA": 1.0
+}
+skill_pool = ["calc_boost", "overclock_link"]
+battle_portrait = ""
+battle_role = "support"
+description = "算力增幅+超频链接，羁绊：牢聪召唤+1"

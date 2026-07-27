@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyTemplate" format=3 uid="uid://cd1a5vyshwiw4"]
+
+[ext_resource type="Script" uid="uid://3qnyqousplkg" path="res://scenes/battle/enemies/EnemyTemplate.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+enemy_id = "boss"
+enemy_name = "哦吼吼"
+hp = 1000
+str = 80
+mag = 4
+vit = 4
+agi = 50
+tec = 3
+cha = 1
+sprite_path = "res://images/battle/sprites/boss.png"
+icon_path = "res://images/battle/icons/boss.png"
+exp_reward = 40
+gold_reward = 20

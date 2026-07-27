@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_dream_seal"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "dream_seal"
+skill_name = "梦想封印"
+skill_type = "damage"
+target_type = "single_enemy"
+power = 2.5
+stat_scale = "STR"
+hit_count = 1
+cooldown = 3
+effects = []
+description = "单体高伤奥义，冷却3回合"
+icon_path = "res://images/icons/skills/chenliskill.png"

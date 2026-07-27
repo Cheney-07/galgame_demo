@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://scenes/battle/ui/effects/UIDamageLabel.gd" id="1"]
+
+[node name="UIDamageLabel" type="Label"]
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1")

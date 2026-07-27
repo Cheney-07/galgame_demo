@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_boil_cabbage"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "boil_cabbage"
+skill_name = "煮白菜"
+skill_type = "heal"
+target_type = "all_allies"
+power = 0.5
+stat_scale = "MAG"
+hit_count = 1
+cooldown = 0
+effects = []
+description = "辅助形态：煮白菜全队回复，回复量关联MAG"
+icon_path = "res://images/icons/skills/hajiyouskill_2.png"

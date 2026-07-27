@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cx5ovwl2gtnx7"]
+
+[ext_resource type="Script" uid="uid://dndh6dijrtbxu" path="res://scenes/menu/Splash.gd" id="1"]
+
+[node name="Splash" type="CanvasLayer" unique_id=1354000304]
+script = ExtResource("1")

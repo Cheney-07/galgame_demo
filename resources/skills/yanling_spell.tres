@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_yanling"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "yanling_spell"
+skill_name = "言灵术"
+skill_type = "damage"
+target_type = "single_enemy"
+power = 2.0
+stat_scale = "MAG"
+hit_count = 1
+cooldown = 0
+effects = []
+description = "攻击形态：小说言灵术，MAG法术攻击"
+icon_path = "res://images/icons/skills/hayiyouskill_1.png"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://sk_danmaku"]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "danmaku_rensha"
+skill_name = "弹幕连射"
+skill_type = "damage"
+target_type = "single_enemy"
+power = 0.4
+stat_scale = "STR"
+hit_count = 1
+cooldown = 0
+effects = []
+description = "多段弹幕攻击，Hit数 = 3 + AGI/5"
+icon_path = "res://images/icons/skills/chenliskill.png"
