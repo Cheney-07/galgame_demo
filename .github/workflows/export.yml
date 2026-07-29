@@ -23,6 +23,13 @@ jobs:
         with:
           lfs: true
 
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
+          mv /root/.local/share/godot/export_templates/4.7.1.stable ~/.local/share/godot/export_templates/4.7.1.stable
+          
       - name: Setup directories
         run: |
           mkdir -p ${{ env.EXPORT_DIR }}/windows
