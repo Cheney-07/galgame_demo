@@ -46,7 +46,7 @@ overrides = {
 "font_size": "18",
 "name_label_font": "res://fonts/NotoSansSC-Regular.otf",
 "name_label_font_size": "18"
-
+}
 
 [sub_resource type="Resource" id="Resource_txkrr"]
 script = ExtResource("2_6hcxs")

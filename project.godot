@@ -173,7 +173,6 @@ window/stretch/aspect="expand"
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
 [gui]
-
 theme/default_font_size=16
 theme/default_theme="res://resources/global_theme.tres"
 
