@@ -23,7 +23,7 @@ jobs:
   export:
     runs-on: ubuntu-24.04
     container:
-      image: barichello/godot-ci:4.7.1-stable
+      image: barichello/godot-ci:4.7.1
 
     steps:
       - name: Checkout
