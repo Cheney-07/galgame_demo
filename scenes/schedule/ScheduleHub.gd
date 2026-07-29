@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var _cn_font: Font = preload("res://fonts/NotoSansSC-Regular.otf")
+
 ## ScheduleHub — 日程视觉化主界面
 ## 角色立绘排列 + 动作按钮 + 队员/编队子面板
 
@@ -96,12 +98,14 @@ func _setup_header() -> void:
 	add_child(panel)
 
 	chapter_label = Label.new()
+	chapter_label.add_theme_font_override("font", _cn_font)
 	chapter_label.position = Vector2(16, 10)
 	chapter_label.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	chapter_label.add_theme_font_size_override("font_size", 20)
 	panel.add_child(chapter_label)
 
 	ap_label = Label.new()
+	ap_label.add_theme_font_override("font", _cn_font)
 	ap_label.anchor_left = 1.0; ap_label.anchor_right = 1.0
 	ap_label.position = Vector2(-210, 10)
 	ap_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -161,6 +165,7 @@ func _setup_character_sprites() -> void:
 
 		# 名字标签
 		var name_lbl: Label = Label.new()
+		name_lbl.add_theme_font_override("font", _cn_font)
 		name_lbl.name = "NameLabel"
 		name_lbl.text = c.char_name + " Lv." + str(c.level)
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -373,9 +378,7 @@ func _create_overlay(title: String) -> Control:
 	back.position = Vector2(16, 16); back.custom_minimum_size = Vector2(90, 32)
 	back.add_theme_font_size_override("font_size", 14)
 	back.pressed.connect(_close_sub_panel)
-	sub_panel.add_child(back)
-
-	var tl: Label = Label.new(); tl.text = title
+	sub_panel.add_child(back)var tl: Label = Label.new(); tl.add_theme_font_override("font", _cn_font); tl.text = title
 	tl.anchor_left = 0.5; tl.anchor_right = 0.5; tl.position = Vector2(0, 18)
 	tl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tl.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
@@ -393,8 +396,7 @@ var _last_toast: Label = null
 
 func _show_toast(msg: String) -> void:
 	if _last_toast and is_instance_valid(_last_toast):
-		_last_toast.queue_free()
-	var lbl: Label = Label.new(); lbl.text = msg; _last_toast = lbl
+		_last_toast.queue_free()var lbl: Label = Label.new(); lbl.add_theme_font_override("font", _cn_font); lbl.text = msg; _last_toast = lbl
 	lbl.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	lbl.add_theme_font_size_override("font_size", 16)
 	lbl.anchor_left = 0.5; lbl.anchor_right = 0.5
@@ -406,8 +408,7 @@ func _show_toast(msg: String) -> void:
 	t.tween_callback(lbl.queue_free)
 
 func _show_rest_confirm() -> void:
-	var c: Control = _create_overlay("休息")
-	var m: Label = Label.new(); m.text = "剩余 " + str(GameState.current_ap) + " AP 将清零\n确认休息至第二天？"
+	var c: Control = _create_overlay("休息")var m: Label = Label.new(); m.add_theme_font_override("font", _cn_font); m.text = "剩余 " + str(GameState.current_ap) + " AP 将清零\n确认休息至第二天？"
 	m.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	m.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	m.anchor_left = 0.5; m.anchor_right = 0.5
@@ -439,8 +440,7 @@ func _do_day_transition() -> void:
 	t.tween_property(black, "color", Color(0,0,0,1), 0.5)
 	t.tween_callback(func():
 		GameState.advance_day()
-		_refresh_char_labels()
-		var dt: Label = Label.new(); dt.text = "第 " + str(GameState.current_day) + " 天"
+		_refresh_char_labels()var dt: Label = Label.new(); dt.add_theme_font_override("font", _cn_font); dt.text = "第 " + str(GameState.current_day) + " 天"
 		dt.set_anchors_preset(Control.PRESET_FULL_RECT)
 		dt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; dt.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		dt.add_theme_color_override("font_color", Color(1,1,1)); dt.add_theme_font_size_override("font_size", 48)
@@ -451,8 +451,7 @@ func _do_day_transition() -> void:
 	t.tween_callback(black.queue_free)
 
 func _show_placeholder(title: String) -> void:
-	var c: Control = _create_overlay(title)
-	var m: Label = Label.new(); m.text = "开发中..."; m.set_anchors_preset(Control.PRESET_CENTER)
+	var c: Control = _create_overlay(title)var m: Label = Label.new(); m.add_theme_font_override("font", _cn_font); m.text = "开发中..."; m.set_anchors_preset(Control.PRESET_CENTER)
 	m.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	m.add_theme_color_override("font_color", Color(0.6, 0.6, 0.6))
 	m.add_theme_font_size_override("font_size", 24)
@@ -652,9 +651,7 @@ func _show_system_menu() -> void:
 	vbox.offset_left = -200.0; vbox.offset_right = 200.0
 	vbox.offset_top = -180.0; vbox.offset_bottom = 180.0
 	vbox.add_theme_constant_override("separation", 14)
-	content.add_child(vbox)
-
-	var title: Label = Label.new(); title.text = "系统菜单"
+	content.add_child(vbox)var title: Label = Label.new(); title.add_theme_font_override("font", _cn_font); title.text = "系统菜单"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	title.add_theme_font_size_override("font_size", 24)
@@ -731,8 +728,7 @@ func _do_schedule_load(slot_name: String, idx: int) -> void:
 
 func _make_volume_row(label_text: String, bus: StringName) -> HBoxContainer:
 	var hbox: HBoxContainer = HBoxContainer.new()
-	hbox.add_theme_constant_override("separation", 8)
-	var lbl: Label = Label.new(); lbl.text = label_text
+	hbox.add_theme_constant_override("separation", 8)var lbl: Label = Label.new(); lbl.add_theme_font_override("font", _cn_font); lbl.text = label_text
 	lbl.custom_minimum_size = Vector2(70, 0)
 	lbl.add_theme_color_override("font_color", Color(1, 1, 1))
 	lbl.add_theme_font_size_override("font_size", 16)
@@ -746,9 +742,7 @@ func _make_volume_row(label_text: String, bus: StringName) -> HBoxContainer:
 	slider.min_value = 0.0; slider.max_value = 1.0; slider.step = 0.05
 	slider.value = cur
 	slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hbox.add_child(slider)
-
-	var val_lbl: Label = Label.new(); val_lbl.text = str(int(cur * 100)) + "%"
+	hbox.add_child(slider)var val_lbl: Label = Label.new(); val_lbl.add_theme_font_override("font", _cn_font); val_lbl.text = str(int(cur * 100)) + "%"
 	val_lbl.custom_minimum_size = Vector2(40, 0); val_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	val_lbl.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
 	val_lbl.add_theme_font_size_override("font_size", 14)
@@ -827,9 +821,7 @@ func _build_character_card(char_id: String, _parent: Control) -> Control:
 	var info: VBoxContainer = VBoxContainer.new()
 	info.name = "Info"; info.anchor_left = 0.55; info.anchor_top = 0.12
 	info.offset_right = -60.0; info.add_theme_constant_override("separation", 8)
-	root.add_child(info)
-
-	var name_lbl: Label = Label.new(); name_lbl.text = c.char_name + "  Lv." + str(c.level)
+	root.add_child(info)var name_lbl: Label = Label.new(); name_lbl.add_theme_font_override("font", _cn_font); name_lbl.text = c.char_name + "  Lv." + str(c.level)
 	name_lbl.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	name_lbl.add_theme_font_size_override("font_size", 28)
 	info.add_child(name_lbl)
@@ -837,8 +829,7 @@ func _build_character_card(char_id: String, _parent: Control) -> Control:
 	var role_desc: String = ""
 	if c.template and c.template.has_method("get"):
 		var desc_var: Variant = c.template.get("description")
-		role_desc = str(desc_var) if desc_var != null else ""
-	var role_lbl: Label = Label.new(); role_lbl.text = "定位: " + role_desc
+		role_desc = str(desc_var) if desc_var != null else ""var role_lbl: Label = Label.new(); role_lbl.add_theme_font_override("font", _cn_font); role_lbl.text = "定位: " + role_desc
 	role_lbl.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
 	role_lbl.add_theme_font_size_override("font_size", 16)
 	info.add_child(role_lbl)
@@ -853,8 +844,7 @@ func _build_character_card(char_id: String, _parent: Control) -> Control:
 		icon.custom_minimum_size = Vector2(28, 28)
 		var itex: Texture2D = ImageUtils.load_icon("res://images/icons/stats/" + st + ".png", 28.0)
 		if itex: icon.texture = itex
-		row.add_child(icon)
-		var st_lbl := Label.new(); st_lbl.text = STAT_LABELS[st] + ": " + str(c.get_base_stat(st))
+		row.add_child(icon)var st_lbl := Label.new(); st_lbl.add_theme_font_override("font", _cn_font); st_lbl.text = STAT_LABELS[st] + ": " + str(c.get_base_stat(st))
 		st_lbl.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
 		st_lbl.add_theme_font_size_override("font_size", 18)
 		st_lbl.custom_minimum_size = Vector2(160, 0)
@@ -868,8 +858,7 @@ func _build_character_card(char_id: String, _parent: Control) -> Control:
 		bar_bg.add_child(bar_fg)
 		info.add_child(row)
 
-	info.add_child(_make_spacer(10))
-	var aff_lbl: Label = Label.new(); aff_lbl.text = "好感度: " + str(c.affection)
+	info.add_child(_make_spacer(10))var aff_lbl: Label = Label.new(); aff_lbl.add_theme_font_override("font", _cn_font); aff_lbl.text = "好感度: " + str(c.affection)
 	aff_lbl.add_theme_color_override("font_color", Color(1, 0.8, 0.6))
 	aff_lbl.add_theme_font_size_override("font_size", 18)
 	info.add_child(aff_lbl)
@@ -882,6 +871,7 @@ func _build_character_card(char_id: String, _parent: Control) -> Control:
 		else:
 			skill_names.append(sid)
 	var skills_lbl: Label = Label.new()
+	skills_lbl.add_theme_font_override("font", _cn_font)
 	skills_lbl.text = "技能: " + ", ".join(skill_names)
 	skills_lbl.add_theme_color_override("font_color", Color(0.7, 0.8, 1.0))
 	skills_lbl.add_theme_font_size_override("font_size", 14)

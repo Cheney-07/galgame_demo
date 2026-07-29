@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var _cn_font: Font = preload("res://fonts/NotoSansSC-Regular.otf")
+
 ## MainScene — 场景管理器
 ## 根据 GameState.game_phase 管理 VN / Schedule / Battle 场景切换
 
@@ -187,6 +189,7 @@ func _get_encounter(battle_type: String):
 
 func _show_error(msg: String) -> void:
 	var label := Label.new()
+	label.add_theme_font_override("font", _cn_font)
 	label.text = msg
 	label.add_theme_color_override("font_color", Color(1, 0, 0))
 	label.add_theme_font_size_override("font_size", 24)

@@ -244,6 +244,7 @@ func _spawn_wave(index: int) -> void:
 	# 波次提示文字
 	if not wave_data.wave_message.is_empty():
 		var msg_label := Label.new()
+		msg_label.add_theme_font_override("font", _cn_font)
 		msg_label.text = wave_data.wave_message
 		msg_label.set_anchors_preset(Control.PRESET_CENTER_TOP)
 		msg_label.position = Vector2(0, 20)
@@ -484,6 +485,7 @@ func _on_battle_ended(result: Dictionary) -> void:
 
 func _show_result_text(text: String) -> void:
 	var label := Label.new()
+	label.add_theme_font_override("font", _cn_font)
 	label.text = text
 	label.set_anchors_preset(Control.PRESET_CENTER)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

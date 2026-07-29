@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var _cn_font: Font = preload("res://fonts/NotoSansSC-Regular.otf")
+
 ## Schedule — 日程主界面
 ## 显示AP、日期、动作按钮，管理训练/交流/休息等子面板
 
@@ -101,6 +103,7 @@ func _setup_header() -> void:
 
 	# Chapter + Day label (left)
 	chapter_label = Label.new()
+	chapter_label.add_theme_font_override("font", _cn_font)
 	chapter_label.name = "ChapterLabel"
 	chapter_label.position = Vector2(20, 12)
 	chapter_label.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
@@ -109,6 +112,7 @@ func _setup_header() -> void:
 
 	# AP label (right)
 	ap_label = Label.new()
+	ap_label.add_theme_font_override("font", _cn_font)
 	ap_label.name = "APLabel"
 	ap_label.anchor_left = 1.0
 	ap_label.anchor_right = 1.0
@@ -285,6 +289,7 @@ func _create_overlay(title: String) -> Control:
 
 	# Title
 	var title_label: Label = Label.new()
+	title_label.add_theme_font_override("font", _cn_font)
 	title_label.text = title
 	title_label.anchor_left = 0.5
 	title_label.anchor_right = 0.5
@@ -312,6 +317,7 @@ func _create_overlay(title: String) -> Control:
 
 func _show_toast(msg: String) -> void:
 	var label: Label = Label.new()
+	label.add_theme_font_override("font", _cn_font)
 	label.text = msg
 	label.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	label.add_theme_font_size_override("font_size", 18)
@@ -343,6 +349,7 @@ func _build_training_char_grid(content: Control) -> void:
 	_clear_content_area(content)
 
 	var hint: Label = Label.new()
+	hint.add_theme_font_override("font", _cn_font)
 	hint.text = "选择要训练的角色"
 	hint.anchor_left = 0.5
 	hint.anchor_right = 0.5
@@ -542,6 +549,7 @@ func _show_rest_confirm() -> void:
 	var content: Control = _create_overlay("休息")
 
 	var msg: Label = Label.new()
+	msg.add_theme_font_override("font", _cn_font)
 	msg.text = "剩余 " + str(GameState.current_ap) + " AP 将清零\n确认休息至第二天？"
 	msg.anchor_left = 0.5
 	msg.anchor_right = 0.5
@@ -591,6 +599,7 @@ func _do_day_transition() -> void:
 		GameState.advance_day()
 
 		var day_text: Label = Label.new()
+		day_text.add_theme_font_override("font", _cn_font)
 		day_text.text = "第 " + str(GameState.current_day) + " 天"
 		day_text.set_anchors_preset(Control.PRESET_FULL_RECT)
 		day_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -618,6 +627,7 @@ func _show_placeholder_panel(btn: Button) -> void:
 	var content: Control = _create_overlay(label)
 
 	var msg: Label = Label.new()
+	msg.add_theme_font_override("font", _cn_font)
 	msg.text = "开发中..."
 	msg.set_anchors_preset(Control.PRESET_CENTER)
 	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
