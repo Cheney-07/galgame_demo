@@ -64,6 +64,7 @@ func _setup_buttons() -> void:
 
 func _make_button(text: String, callback: Callable) -> Button:
 	var btn := Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = text
 	btn.custom_minimum_size = Vector2(button_width, button_height)
 	btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -100,6 +101,7 @@ func _make_stylebox(color: Color) -> StyleBoxFlat:
 
 func _make_panel_button(text: String, normal_c: Color, hover_c: Color) -> Button:
 	var btn := Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = text
 	btn.custom_minimum_size = Vector2(280, 40)
 	btn.add_theme_font_size_override("font_size", 17)
@@ -254,6 +256,7 @@ func _show_load_panel() -> void:
 
 func _make_slot_button(slot_name: String, is_load: bool) -> Button:
 	var btn := Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.custom_minimum_size = Vector2(120, 80)
 	btn.add_theme_font_size_override("font_size", 13)
 	btn.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
