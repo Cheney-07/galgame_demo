@@ -1,4 +1,6 @@
 @tool
+
+var _cn_font: Font = preload("res://fonts/NotoSansSC-Regular.otf")
 extends DialogicLayoutLayer
 
 ## 快捷菜单层 — 存档/读档/自动/快进/设置
@@ -65,6 +67,7 @@ func _make_button(text: String, callback: Callable) -> Button:
 	btn.text = text
 	btn.custom_minimum_size = Vector2(button_width, button_height)
 	btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	btn.add_theme_font_override("font", _cn_font)
 	btn.add_theme_font_size_override("font_size", font_size)
 	btn.add_theme_color_override("font_color", Color(1, 1, 1))
 	btn.add_theme_stylebox_override("normal", _make_stylebox(button_color))
