@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  GODOT_VERSION: 4.7.1
+  GODOT_VERSION: 4.7.1-stable
   EXPORT_DIR: build
 
 jobs:
