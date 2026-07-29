@@ -8,14 +8,14 @@ on:
   workflow_dispatch:
 
 env:
-  GODOT_VERSION: 4.7-stable
+  GODOT_VERSION: 4.7.1-stable
   EXPORT_DIR: build
 
 jobs:
   export:
     runs-on: ubuntu-24.04
     container:
-      image: barichello/godot-ci:4.7-stable
+      image: barichello/godot-ci:4.7.1-stable
 
     steps:
       - name: Checkout
@@ -34,17 +34,17 @@ jobs:
       - name: Export Windows x64
         run: |
           godot --headless --export-release "Windows Desktop" \
-            ${{ env.EXPORT_DIR }}/windows/黎明之诗.exe
+            ${{ env.EXPORT_DIR }}/windows/黎明之诗demo.exe
 
       - name: Export Linux x64
         run: |
           godot --headless --export-release "Linux" \
-            ${{ env.EXPORT_DIR }}/linux/黎明之诗.x86_64
+            ${{ env.EXPORT_DIR }}/linux/黎明之诗demo.x86_64
 
       - name: Export macOS
         run: |
           godot --headless --export-release "macOS" \
-            ${{ env.EXPORT_DIR }}/macos/黎明之诗.zip
+            ${{ env.EXPORT_DIR }}/macos/黎明之诗demo.zip
 
       - name: Export Web
         run: |
