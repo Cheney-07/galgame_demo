@@ -174,7 +174,7 @@ func _on_phase_changed(phase: String) -> void:
 func _on_daily_talks_changed() -> void:
 	if not Dialogic.has_subsystem("VAR"):
 		return
-	var V := Dialogic.VAR
+	var V: Node = Dialogic.VAR
 	for cid in PartyData.get_all_character_ids():
 		var folder: String = CHAR_VAR_NAMES.get(cid, "")
 		if folder.is_empty():
@@ -197,7 +197,7 @@ func _sync_game_variables() -> void:
 	if not Dialogic.has_subsystem("VAR"):
 		return
 
-	var V := Dialogic.VAR
+	var V: Node= Dialogic.VAR
 
 	# ── Game ──
 	_set_var(V, "Game.day", GameState.current_day)
