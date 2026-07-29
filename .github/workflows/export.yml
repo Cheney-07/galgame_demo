@@ -40,7 +40,10 @@ jobs:
 
       - name: Create export directories
         run: |
-          mkdir -p ${{ env.EXPORT_DIR }}/{windows,linux,macos,web}
+          mkdir -p ${{ env.EXPORT_DIR }}/windows
+          mkdir -p ${{ env.EXPORT_DIR }}/linux
+          mkdir -p ${{ env.EXPORT_DIR }}/macos
+          mkdir -p ${{ env.EXPORT_DIR }}/web
 
       # ---------- 导出 ----------
       - name: Export Windows x64
