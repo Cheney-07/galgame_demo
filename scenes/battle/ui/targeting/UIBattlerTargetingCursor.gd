@@ -10,6 +10,7 @@ func setup(possible_targets: Array, _all_battlers: Array, _turn_queue) -> void:
 			continue
 
 		var btn := Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.text = t.display_name
 		btn.custom_minimum_size = Vector2(120, 40)
 		if t.is_player:
@@ -23,6 +24,7 @@ func setup(possible_targets: Array, _all_battlers: Array, _turn_queue) -> void:
 		add_child(btn)
 
 	var cancel := Button.new()
+	cancel.add_theme_font_override("font", _cn_font)
 	cancel.text = "取消"
 	cancel.position = Vector2(800, 920)
 	cancel.pressed.connect(func():

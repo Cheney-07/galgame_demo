@@ -1,6 +1,8 @@
 @tool
 extends DialogicLayoutLayer
 
+var _cn_font: Font = preload("res://fonts/NotoSansSC-Regular.otf")
+
 ## 快捷菜单层 — 存档/读档/自动/快进/设置
 ## 按钮居中放置，含多栏位存档读档界面
 
@@ -62,9 +64,11 @@ func _setup_buttons() -> void:
 
 func _make_button(text: String, callback: Callable) -> Button:
 	var btn := Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = text
 	btn.custom_minimum_size = Vector2(button_width, button_height)
 	btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	btn.add_theme_font_override("font", _cn_font)
 	btn.add_theme_font_size_override("font_size", font_size)
 	btn.add_theme_color_override("font_color", Color(1, 1, 1))
 	btn.add_theme_stylebox_override("normal", _make_stylebox(button_color))
@@ -97,6 +101,7 @@ func _make_stylebox(color: Color) -> StyleBoxFlat:
 
 func _make_panel_button(text: String, normal_c: Color, hover_c: Color) -> Button:
 	var btn := Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = text
 	btn.custom_minimum_size = Vector2(280, 40)
 	btn.add_theme_font_size_override("font_size", 17)
@@ -191,6 +196,7 @@ func _make_overlay(title_text: String) -> VBoxContainer:
 	overlay_panel.add_child(vbox)
 
 	var title := Label.new()
+	title.add_theme_font_override("font", _cn_font)
 	title.text = title_text
 	title.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	title.add_theme_font_size_override("font_size", 26)
@@ -251,6 +257,7 @@ func _show_load_panel() -> void:
 
 func _make_slot_button(slot_name: String, is_load: bool) -> Button:
 	var btn := Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.custom_minimum_size = Vector2(120, 80)
 	btn.add_theme_font_size_override("font_size", 13)
 	btn.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
@@ -351,6 +358,7 @@ func _show_settings_panel() -> void:
 	panel.add_child(vbox)
 
 	var title := Label.new()
+	title.add_theme_font_override("font", _cn_font)
 	title.text = "设置"
 	title.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	title.add_theme_font_size_override("font_size", 26)
@@ -387,6 +395,7 @@ func _make_volume_row(label_text: String, bus_name: StringName) -> Control:
 	hbox.add_theme_constant_override("separation", 8)
 
 	var lbl := Label.new()
+	lbl.add_theme_font_override("font", _cn_font)
 	lbl.text = label_text
 	lbl.custom_minimum_size = Vector2(80, 0)
 	lbl.add_theme_color_override("font_color", Color(1, 1, 1))
@@ -407,6 +416,7 @@ func _make_volume_row(label_text: String, bus_name: StringName) -> Control:
 	hbox.add_child(slider)
 
 	var val_label := Label.new()
+	val_label.add_theme_font_override("font", _cn_font)
 	val_label.text = str(int(current_vol * 100)) + "%"
 	val_label.custom_minimum_size = Vector2(40, 0)
 	val_label.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
@@ -435,6 +445,7 @@ func _on_return_to_menu() -> void:
 
 func _show_toast(msg: String) -> void:
 	var label := Label.new()
+	label.add_theme_font_override("font", _cn_font)
 	label.text = msg
 	label.add_theme_color_override("font_color", Color(1, 1, 1, 0.9))
 	label.add_theme_font_size_override("font_size", 16)

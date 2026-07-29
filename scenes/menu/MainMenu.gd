@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var _cn_font: Font = preload("res://fonts/NotoSansSC-Regular.otf")
+
 ## MainMenu — 主菜单界面
 ## 左侧: 按钮竖排 | 右侧: 角色立绘竖排
 
@@ -212,6 +214,7 @@ func _show_sub_screen(action: String) -> void:
 	sub_screen.add_child(overlay)
 
 	var back_btn: Button = Button.new()
+	back_btn.add_theme_font_override("font", _cn_font)
 	back_btn.text = "← 返回"
 	back_btn.add_theme_font_size_override("font_size", 20)
 	back_btn.anchor_left = 0.02; back_btn.anchor_top = 0.02
@@ -252,6 +255,7 @@ func _close_sub_screen() -> void:
 
 func _make_btn(text: String, color: Color, hover_color: Color, min_size: Vector2) -> Button:
 	var btn := Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = text
 	btn.custom_minimum_size = min_size
 	btn.add_theme_font_size_override("font_size", 16)
@@ -279,6 +283,7 @@ func _create_info_screen(parent: Control, title: String, body: String) -> void:
 	center.add_theme_constant_override("separation", 20)
 
 	var title_label: Label = Label.new()
+	title_label.add_theme_font_override("font", _cn_font)
 	title_label.text = title
 	title_label.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	title_label.add_theme_font_size_override("font_size", 36)
@@ -286,6 +291,7 @@ func _create_info_screen(parent: Control, title: String, body: String) -> void:
 	center.add_child(title_label)
 
 	var body_label: Label = Label.new()
+	body_label.add_theme_font_override("font", _cn_font)
 	body_label.text = body
 	body_label.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
 	body_label.add_theme_font_size_override("font_size", 20)
@@ -308,6 +314,7 @@ func _create_load_screen(parent: Control) -> void:
 	container.add_theme_constant_override("separation", 10)
 
 	var title := Label.new()
+	title.add_theme_font_override("font", _cn_font)
 	title.text = "读档"
 	title.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	title.add_theme_font_size_override("font_size", 28)
@@ -324,6 +331,7 @@ func _create_load_screen(parent: Control) -> void:
 	for i in SLOT_COUNT:
 		var slot_name := "slot_" + str(i)
 		var btn := Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.custom_minimum_size = Vector2(170, 80)
 		btn.add_theme_font_size_override("font_size", 13)
 		btn.focus_mode = Control.FOCUS_NONE
@@ -378,6 +386,7 @@ func _create_cg_screen(parent: Control) -> void:
 	container.add_theme_constant_override("separation", 8)
 
 	var title := Label.new()
+	title.add_theme_font_override("font", _cn_font)
 	title.text = "CG 画廊"
 	title.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	title.add_theme_font_size_override("font_size", 28)
@@ -386,6 +395,7 @@ func _create_cg_screen(parent: Control) -> void:
 
 	# 进度条
 	var progress_label := Label.new()
+	progress_label.add_theme_font_override("font", _cn_font)
 	progress_label.name = "CGProgress"
 	var unlocked_count := 0
 	for cg in cg_list:
@@ -466,6 +476,7 @@ func _make_cg_card(cg_id: String) -> Control:
 
 		# 名称标签（图片下方 30px 空间）
 		var label := Label.new()
+		label.add_theme_font_override("font", _cn_font)
 		label.anchor_left = 0.0; label.anchor_top = 1.0
 		label.anchor_right = 1.0; label.anchor_bottom = 1.0
 		label.offset_top = -30.0; label.offset_bottom = 0.0
@@ -490,6 +501,7 @@ func _make_cg_card(cg_id: String) -> Control:
 		card.add_child(bg)
 
 		var question := Label.new()
+		question.add_theme_font_override("font", _cn_font)
 		question.anchor_left = 0.0; question.anchor_top = 0.0
 		question.anchor_right = 1.0; question.anchor_bottom = 1.0
 		question.add_theme_color_override("font_color", Color(0.4, 0.4, 0.45))
@@ -500,6 +512,7 @@ func _make_cg_card(cg_id: String) -> Control:
 		card.add_child(question)
 
 		var lock_label := Label.new()
+		lock_label.add_theme_font_override("font", _cn_font)
 		lock_label.anchor_left = 0.0; lock_label.anchor_top = 1.0
 		lock_label.anchor_right = 1.0; lock_label.anchor_bottom = 1.0
 		lock_label.offset_top = -30.0; lock_label.offset_bottom = 0.0
@@ -554,6 +567,7 @@ func _show_cg_fullscreen(cg_id: String) -> void:
 	full.add_child(tex_rect)
 
 	var name_label := Label.new()
+	name_label.add_theme_font_override("font", _cn_font)
 	name_label.text = _cg_display_name(cg_id)
 	name_label.anchor_left = 0.0; name_label.anchor_bottom = 0.95
 	name_label.anchor_right = 1.0
@@ -563,6 +577,7 @@ func _show_cg_fullscreen(cg_id: String) -> void:
 	full.add_child(name_label)
 
 	var close_btn := Button.new()
+	close_btn.add_theme_font_override("font", _cn_font)
 	close_btn.text = "← 返回画廊"
 	close_btn.anchor_left = 0.02; close_btn.anchor_top = 0.02
 	close_btn.offset_right = 140.0; close_btn.offset_bottom = 40.0
@@ -603,6 +618,7 @@ func _create_settings_screen(parent: Control) -> void:
 	container.add_theme_constant_override("separation", 20)
 
 	var title: Label = Label.new()
+	title.add_theme_font_override("font", _cn_font)
 	title.text = "设置"
 	title.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	title.add_theme_font_size_override("font_size", 32)
@@ -610,6 +626,7 @@ func _create_settings_screen(parent: Control) -> void:
 	container.add_child(title)
 
 	var fs_btn: Button = Button.new()
+	fs_btn.add_theme_font_override("font", _cn_font)
 	fs_btn.text = "窗口 / 全屏"
 	fs_btn.custom_minimum_size = Vector2(300, 45)
 	fs_btn.add_theme_font_size_override("font_size", 18)
@@ -622,6 +639,7 @@ func _create_settings_screen(parent: Control) -> void:
 	container.add_child(fs_btn)
 
 	var hint: Label = Label.new()
+	hint.add_theme_font_override("font", _cn_font)
 	hint.text = "更多设置将在后续版本完善"
 	hint.add_theme_color_override("font_color", Color(0.6, 0.6, 0.6))
 	hint.add_theme_font_size_override("font_size", 14)
@@ -638,6 +656,7 @@ func _create_help_screen(parent: Control) -> void:
 	container.add_theme_constant_override("separation", 12)
 
 	var title: Label = Label.new()
+	title.add_theme_font_override("font", _cn_font)
 	title.text = "操作帮助"
 	title.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	title.add_theme_font_size_override("font_size", 28)
@@ -655,12 +674,14 @@ func _create_help_screen(parent: Control) -> void:
 		var hbox: HBoxContainer = HBoxContainer.new()
 		hbox.add_theme_constant_override("separation", 30)
 		var key_label: Label = Label.new()
+		key_label.add_theme_font_override("font", _cn_font)
 		key_label.text = entry[0]
 		key_label.add_theme_color_override("font_color", Color(1, 0.8, 0.4))
 		key_label.add_theme_font_size_override("font_size", 18)
 		key_label.custom_minimum_size = Vector2(250, 0)
 		hbox.add_child(key_label)
 		var desc_label: Label = Label.new()
+		desc_label.add_theme_font_override("font", _cn_font)
 		desc_label.text = entry[1]
 		desc_label.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
 		desc_label.add_theme_font_size_override("font_size", 18)

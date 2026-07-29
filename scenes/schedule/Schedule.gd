@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var _cn_font: Font = preload("res://fonts/NotoSansSC-Regular.otf")
+
 ## Schedule — 日程主界面
 ## 显示AP、日期、动作按钮，管理训练/交流/休息等子面板
 
@@ -101,6 +103,7 @@ func _setup_header() -> void:
 
 	# Chapter + Day label (left)
 	chapter_label = Label.new()
+	chapter_label.add_theme_font_override("font", _cn_font)
 	chapter_label.name = "ChapterLabel"
 	chapter_label.position = Vector2(20, 12)
 	chapter_label.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
@@ -109,6 +112,7 @@ func _setup_header() -> void:
 
 	# AP label (right)
 	ap_label = Label.new()
+	ap_label.add_theme_font_override("font", _cn_font)
 	ap_label.name = "APLabel"
 	ap_label.anchor_left = 1.0
 	ap_label.anchor_right = 1.0
@@ -149,6 +153,7 @@ func _setup_action_panel() -> void:
 
 	for action in ACTIONS:
 		var btn: Button = Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.custom_minimum_size = Vector2(350, 52)
 		btn.add_theme_font_size_override("font_size", 22)
 		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -275,6 +280,7 @@ func _create_overlay(title: String) -> Control:
 
 	# Back button
 	var back_btn: Button = Button.new()
+	back_btn.add_theme_font_override("font", _cn_font)
 	back_btn.text = "← 返回"
 	back_btn.position = Vector2(20, 20)
 	back_btn.custom_minimum_size = Vector2(100, 35)
@@ -285,6 +291,7 @@ func _create_overlay(title: String) -> Control:
 
 	# Title
 	var title_label: Label = Label.new()
+	title_label.add_theme_font_override("font", _cn_font)
 	title_label.text = title
 	title_label.anchor_left = 0.5
 	title_label.anchor_right = 0.5
@@ -312,6 +319,7 @@ func _create_overlay(title: String) -> Control:
 
 func _show_toast(msg: String) -> void:
 	var label: Label = Label.new()
+	label.add_theme_font_override("font", _cn_font)
 	label.text = msg
 	label.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	label.add_theme_font_size_override("font_size", 18)
@@ -343,6 +351,7 @@ func _build_training_char_grid(content: Control) -> void:
 	_clear_content_area(content)
 
 	var hint: Label = Label.new()
+	hint.add_theme_font_override("font", _cn_font)
 	hint.text = "选择要训练的角色"
 	hint.anchor_left = 0.5
 	hint.anchor_right = 0.5
@@ -440,6 +449,7 @@ func _on_train_stat_selected(btn: Button, content: Control) -> void:
 		old_confirm.queue_free()
 
 	var confirm_btn: Button = Button.new()
+	confirm_btn.add_theme_font_override("font", _cn_font)
 	confirm_btn.name = "ConfirmBtn"
 	confirm_btn.text = "确认训练 [3AP]"
 	confirm_btn.anchor_left = 0.5
@@ -498,6 +508,7 @@ func _build_social_list(content: Control) -> void:
 		var has_ap: bool = GameState.current_ap >= 1
 
 		var btn: Button = Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.custom_minimum_size = Vector2(450, 48)
 		btn.add_theme_font_size_override("font_size", 18)
 
@@ -542,6 +553,7 @@ func _show_rest_confirm() -> void:
 	var content: Control = _create_overlay("休息")
 
 	var msg: Label = Label.new()
+	msg.add_theme_font_override("font", _cn_font)
 	msg.text = "剩余 " + str(GameState.current_ap) + " AP 将清零\n确认休息至第二天？"
 	msg.anchor_left = 0.5
 	msg.anchor_right = 0.5
@@ -552,6 +564,7 @@ func _show_rest_confirm() -> void:
 	content.add_child(msg)
 
 	var confirm_btn: Button = Button.new()
+	confirm_btn.add_theme_font_override("font", _cn_font)
 	confirm_btn.text = "确认休息"
 	confirm_btn.anchor_left = 0.5
 	confirm_btn.anchor_right = 0.5
@@ -566,6 +579,7 @@ func _show_rest_confirm() -> void:
 	content.add_child(confirm_btn)
 
 	var cancel_btn: Button = Button.new()
+	cancel_btn.add_theme_font_override("font", _cn_font)
 	cancel_btn.text = "取消"
 	cancel_btn.anchor_left = 0.5
 	cancel_btn.anchor_right = 0.5
@@ -591,6 +605,7 @@ func _do_day_transition() -> void:
 		GameState.advance_day()
 
 		var day_text: Label = Label.new()
+		day_text.add_theme_font_override("font", _cn_font)
 		day_text.text = "第 " + str(GameState.current_day) + " 天"
 		day_text.set_anchors_preset(Control.PRESET_FULL_RECT)
 		day_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -618,6 +633,7 @@ func _show_placeholder_panel(btn: Button) -> void:
 	var content: Control = _create_overlay(label)
 
 	var msg: Label = Label.new()
+	msg.add_theme_font_override("font", _cn_font)
 	msg.text = "开发中..."
 	msg.set_anchors_preset(Control.PRESET_CENTER)
 	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -645,6 +661,7 @@ func _make_button_style(bg_color: Color) -> StyleBoxFlat:
 
 func _make_select_button(text: String, width: int, height: int, font_size: int) -> Button:
 	var btn: Button = Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = text
 	btn.custom_minimum_size = Vector2(width, height)
 	btn.add_theme_font_size_override("font_size", font_size)

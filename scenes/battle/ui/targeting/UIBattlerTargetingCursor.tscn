@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://40hz6mr97cyu"]
 [ext_resource type="Script" path="res://scenes/battle/ui/targeting/UIBattlerTargetingCursor.gd" id="1"]
 
 [node name="UIBattlerTargetingCursor" type="Control"]
