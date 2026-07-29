@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://arena_tscn"]
+[gd_scene format=3 uid="uid://arena_tscn"]
 [ext_resource type="Script" path="res://scenes/battle/arena/CombatArena.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://turnbar_tscn" path="res://scenes/battle/ui/turn_bar/UITurnBar.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://playerlist_tscn" path="res://scenes/battle/ui/player_panel/UIPlayerBattlerList.tscn" id="3"]

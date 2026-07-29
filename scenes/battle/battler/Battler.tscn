@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://battler_tscn"]
+[gd_scene format=3 uid="uid://battler_tscn"]
 [ext_resource type="Script" path="res://scenes/battle/battler/Battler.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/battle/battler/BattlerStats.gd" id="2"]
 

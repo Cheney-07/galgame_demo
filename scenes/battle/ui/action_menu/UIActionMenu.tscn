@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://1x4lo21yh0lw"]
 [ext_resource type="Script" path="res://scenes/battle/ui/action_menu/UIActionMenu.gd" id="1"]
 
 [node name="UIActionMenu" type="Control"]

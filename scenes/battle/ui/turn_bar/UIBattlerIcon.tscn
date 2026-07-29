@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://oye0xwaafn3o"]
 [ext_resource type="Script" path="res://scenes/battle/ui/turn_bar/UIBattlerIcon.gd" id="1"]
 
 [node name="UIBattlerIcon" type="TextureRect"]
