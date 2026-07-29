@@ -1,0 +1,86 @@
+name: Export & Deploy
+
+on:
+  push:
+    branches: [main, master]
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+env:
+  GODOT_VERSION: 4.7-stable
+  EXPORT_DIR: build
+
+jobs:
+  export:
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.7-stable
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup directories
+        run: |
+          mkdir -p ${{ env.EXPORT_DIR }}/windows
+          mkdir -p ${{ env.EXPORT_DIR }}/linux
+          mkdir -p ${{ env.EXPORT_DIR }}/macos
+          mkdir -p ${{ env.EXPORT_DIR }}/web
+
+      # ---------- 导出 ----------
+      - name: Export Windows x64
+        run: |
+          godot --headless --export-release "Windows Desktop" \
+            ${{ env.EXPORT_DIR }}/windows/黎明之诗.exe
+
+      - name: Export Linux x64
+        run: |
+          godot --headless --export-release "Linux" \
+            ${{ env.EXPORT_DIR }}/linux/黎明之诗.x86_64
+
+      - name: Export macOS
+        run: |
+          godot --headless --export-release "macOS" \
+            ${{ env.EXPORT_DIR }}/macos/黎明之诗.zip
+
+      - name: Export Web
+        run: |
+          godot --headless --export-release "Web" \
+            ${{ env.EXPORT_DIR }}/web/index.html
+
+      # ---------- 上传构建产物 ----------
+      - name: Upload Windows
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64
+          path: ${{ env.EXPORT_DIR }}/windows/
+
+      - name: Upload Linux
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-x64
+          path: ${{ env.EXPORT_DIR }}/linux/
+
+      - name: Upload macOS
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: ${{ env.EXPORT_DIR }}/macos/
+
+      - name: Upload Web
+        uses: actions/upload-artifact@v4
+        with:
+          name: web
+          path: ${{ env.EXPORT_DIR }}/web/
+
+      # ---------- 部署 Web 到 GitHub Pages ----------
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.EXPORT_DIR }}/web
+          force_orphan: true
