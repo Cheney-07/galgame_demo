@@ -8,14 +8,14 @@ on:
   workflow_dispatch:
 
 env:
-  GODOT_VERSION: 4.7.1-stable
+  GODOT_VERSION: 4.7.1
   EXPORT_DIR: build
 
 jobs:
   export:
     runs-on: ubuntu-24.04
     container:
-      image: barichello/godot-ci:4.7.1-stable
+      image: barichello/godot-ci:4.7.1
 
     steps:
       - name: Checkout
