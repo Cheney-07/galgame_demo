@@ -1,19 +1,28 @@
-[gd_resource type="Resource" script_class="CharacterTemplate" load_steps=2 format=3 uid="uid://ct_laoma"]
+[gd_resource type="Resource" script_class="CharacterTemplate" format=3 uid="uid://ceiyuie1ntsdi"]
 
-[ext_resource type="Script" path="res://resources/characters/character_template.gd" id="1_tpl"]
+[ext_resource type="Script" uid="uid://6kg6nxgvwioa" path="res://resources/characters/character_template.gd" id="1_tpl"]
 
 [resource]
 script = ExtResource("1_tpl")
 char_id = "laoma"
 char_name = "牢马"
+description = "算力增幅+超频链接，羁绊：牢聪召唤+1"
 portrait_path = "res://images/laoma.png"
 base_stats = {
-"STR": 8, "MAG": 12, "VIT": 10, "AGI": 10, "TEC": 16, "CHA": 10
+"AGI": 10,
+"CHA": 10,
+"MAG": 12,
+"STR": 10,
+"TEC": 16,
+"VIT": 10
 }
 growth_rates = {
-"STR": 0.8, "MAG": 1.2, "VIT": 1.0, "AGI": 1.0, "TEC": 1.6, "CHA": 1.0
+"AGI": 1.0,
+"CHA": 1.0,
+"MAG": 1.2,
+"STR": 0.8,
+"TEC": 1.6,
+"VIT": 1.0
 }
-skill_pool = ["calc_boost", "overclock_link"]
-battle_portrait = ""
+skill_pool = Array[String](["calc_boost", "overclock_link"])
 battle_role = "support"
-description = "算力增幅+超频链接，羁绊：牢聪召唤+1"

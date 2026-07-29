@@ -6,11 +6,11 @@
 script = ExtResource("1")
 enemy_id = "boss"
 enemy_name = "哦吼吼"
-hp = 1000
-str = 80
+hp = 3000
+str = 600
 mag = 4
-vit = 4
-agi = 50
+vit = 10
+agi = 70
 tec = 3
 cha = 1
 sprite_path = "res://images/battle/sprites/boss.png"

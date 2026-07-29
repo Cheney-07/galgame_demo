@@ -4,14 +4,14 @@ extends Node
 ## 统一加载纹理并自动修正规格（缩放/裁剪）
 
 func load_texture(path: String, target_size: Vector2 = Vector2.ZERO, keep_aspect: bool = true) -> Texture2D:
-	if path.is_empty() or not FileAccess.file_exists(path):
+	if path.is_empty() or not ResourceLoader.exists(path):
 		push_warning("[ImageUtils] File not found: ", path)
 		return null
 
 	# 尝试 Godot 原生加载
 	var tex: Texture2D = load(path) as Texture2D
 	if tex == null:
-		# 降级：从 Image 加载
+		# 编辑器降级：从 Image 文件加载（导出包中由 load() 直接完成）
 		var img: Image = Image.load_from_file(path)
 		if img == null or img.is_empty():
 			push_warning("[ImageUtils] Failed to load image: ", path)
@@ -70,7 +70,7 @@ func load_icon(path: String, icon_size: float = 64.0) -> Texture2D:
 
 
 func get_image_size(path: String) -> Vector2:
-	if path.is_empty() or not FileAccess.file_exists(path):
+	if path.is_empty() or not ResourceLoader.exists(path):
 		return Vector2.ZERO
 	var tex: Texture2D = load_texture(path)
 	if tex:

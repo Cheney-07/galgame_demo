@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyTemplate" format=3 uid="uid://djaweco7phk2i"]
+
+[ext_resource type="Script" uid="uid://3qnyqousplkg" path="res://scenes/battle/enemies/EnemyTemplate.gd" id="1_dfp7g"]
+
+[resource]
+script = ExtResource("1_dfp7g")
+enemy_id = "hanbao2"
+enemy_name = "汉堡"
+hp = 300
+str = 50
+mag = 2
+vit = 3
+agi = 55
+tec = 2
+cha = 1
+sprite_path = "res://images/battle/sprites/hanbao.png"
+icon_path = "res://images/battle/icons/hanbao.png"
+exp_reward = 10
+gold_reward = 5

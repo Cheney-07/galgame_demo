@@ -1,19 +1,28 @@
-[gd_resource type="Resource" script_class="CharacterTemplate" load_steps=2 format=3 uid="uid://ct_laocong"]
+[gd_resource type="Resource" script_class="CharacterTemplate" format=3 uid="uid://c26jdgulm7v1a"]
 
-[ext_resource type="Script" path="res://resources/characters/character_template.gd" id="1_tpl"]
+[ext_resource type="Script" uid="uid://6kg6nxgvwioa" path="res://resources/characters/character_template.gd" id="1_tpl"]
 
 [resource]
 script = ExtResource("1_tpl")
 char_id = "laocong"
 char_name = "牢聪"
+description = "召唤随机世界书模板助战"
 portrait_path = "res://images/laocong.png"
 base_stats = {
-"STR": 7, "MAG": 16, "VIT": 8, "AGI": 10, "TEC": 15, "CHA": 10
+"AGI": 30,
+"CHA": 30,
+"MAG": 30,
+"STR": 30,
+"TEC": 30,
+"VIT": 30
 }
 growth_rates = {
-"STR": 0.7, "MAG": 1.6, "VIT": 0.8, "AGI": 1.0, "TEC": 1.5, "CHA": 1.0
+"AGI": 1.0,
+"CHA": 1.0,
+"MAG": 1.6,
+"STR": 0.7,
+"TEC": 1.5,
+"VIT": 0.8
 }
-skill_pool = ["summon_world_book"]
-battle_portrait = ""
+skill_pool = Array[String](["summon_world_book", "laocong_hanbao_summon"])
 battle_role = "summoner"
-description = "召唤随机世界书模板助战"

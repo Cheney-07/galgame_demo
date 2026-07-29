@@ -4,8 +4,8 @@ extends CanvasLayer
 
 var slides = [
 	"res://images/splash_slide_01.png",
+	"res://images/game_menu.png",
 ]
-# splash_slide_02/03 图片格式问题无法加载，只保留第1张
 var current_index: int = 0
 var display: TextureRect
 var tween: Tween
@@ -16,6 +16,14 @@ const FADE_DURATION: float = 0.5
 const SLIDE_DURATION: float = 3.0
 
 func _ready() -> void:
+	# 黑色背景（防止灰屏）
+	var bg := ColorRect.new()
+	bg.color = Color(0, 0, 0, 1)
+	bg.anchor_left = 0; bg.anchor_top = 0
+	bg.anchor_right = 1; bg.anchor_bottom = 1
+	add_child(bg)
+	move_child(bg, 0)
+
 	# 创建全屏显示
 	display = TextureRect.new()
 	display.name = "SplashDisplay"
@@ -37,11 +45,12 @@ func _ready() -> void:
 
 
 func load_texture(path: String) -> Texture2D:
-	if not FileAccess.file_exists(path):
+	if not ResourceLoader.exists(path):
 		return null
 	var tex = load(path)
 	if tex != null:
 		return tex
+	# 编辑器降级方案：从文件直接加载（导出包中无效但不影响）
 	var img = Image.load_from_file(path)
 	if img == null or img.is_empty():
 		return null
@@ -92,6 +101,13 @@ func _next_slide() -> void:
 
 
 func finish() -> void:
+	# 给根视口添加黑色遮罩，跨场景持续存在（防止切场景间隙闪灰屏）
+	var black := ColorRect.new()
+	black.name = "SplashToMenuBlack"
+	black.color = Color(0, 0, 0, 1)
+	black.set_anchors_preset(Control.PRESET_FULL_RECT)
+	black.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	get_tree().root.add_child(black)
 	# 切换到主菜单
 	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
 

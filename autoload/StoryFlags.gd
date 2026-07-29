@@ -18,6 +18,9 @@ var unlocked_endings: Array = []
 # CG画廊
 var unlocked_cgs: Array = []      # CG文件名列表，如 ["hajiyou_cg1", "laoma_cg2"]
 
+# 主菜单角色立绘
+var met_characters: Array[String] = []
+
 # 战斗相关
 var total_battles: int = 0
 var total_victories: int = 0
@@ -29,6 +32,8 @@ signal choice_made(choice_id: String)
 signal cg_unlocked(cg_id: String)
 
 func _ready() -> void:
+	load_global_progress()
+	cg_unlocked.connect(_on_cg_unlocked)
 	print("[StoryFlags] Initialized.")
 
 func clear_all() -> void:
@@ -75,6 +80,62 @@ func unlock_cg(cg_id: String) -> void:
 
 func is_cg_unlocked(cg_id: String) -> bool:
 	return cg_id in unlocked_cgs
+
+
+func mark_character_met(char_id: String) -> void:
+	if char_id not in met_characters:
+		met_characters.append(char_id)
+		save_global_progress()
+		print("[StoryFlags] Character met: ", char_id)
+
+
+func is_character_met(char_id: String) -> bool:
+	return char_id in met_characters
+
+
+# 全局进度持久化（CG/结局独立于存档槽，跨周目保留）
+const GLOBAL_PROGRESS_PATH := "user://global_progress.cfg"
+
+func save_global_progress() -> void:
+	var data := {
+		"unlocked_cgs": unlocked_cgs,
+		"unlocked_endings": unlocked_endings,
+		"met_characters": met_characters,
+	}
+	var file := FileAccess.open(GLOBAL_PROGRESS_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(data))
+		file.close()
+
+func load_global_progress() -> bool:
+	if not FileAccess.file_exists(GLOBAL_PROGRESS_PATH):
+		return false
+	var file := FileAccess.open(GLOBAL_PROGRESS_PATH, FileAccess.READ)
+	if file == null:
+		return false
+	var json_string := file.get_as_text()
+	file.close()
+	var json := JSON.new()
+	if json.parse(json_string) != OK:
+		return false
+	var data = json.data
+	if data.has("unlocked_cgs"):
+		for cg in data["unlocked_cgs"]:
+			if cg not in unlocked_cgs:
+				unlocked_cgs.append(cg)
+	if data.has("unlocked_endings"):
+		for e in data["unlocked_endings"]:
+			if e not in unlocked_endings:
+				unlocked_endings.append(e)
+	if data.has("met_characters"):
+		for ch in data["met_characters"]:
+			if ch not in met_characters:
+				met_characters.append(ch)
+	return true
+
+func _on_cg_unlocked(_cg_id: String) -> void:
+	save_global_progress()
+
 
 # 序列化
 func serialize() -> Dictionary:

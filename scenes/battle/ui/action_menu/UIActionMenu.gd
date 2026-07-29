@@ -4,7 +4,7 @@ class_name UIActionMenu extends Control
 signal action_selected(action: BattlerAction)
 signal menu_closed()
 
-func setup(battler) -> void:
+func setup(battler, disabled_action_names: Array[String] = []) -> void:
 	var btn_scene = load("res://scenes/battle/ui/action_menu/UIActionButton.tscn")
 	var hbox := HBoxContainer.new()
 	hbox.add_theme_constant_override("separation", 10)

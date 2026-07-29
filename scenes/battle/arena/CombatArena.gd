@@ -11,7 +11,7 @@ var _player_battlers: Array = []
 var _current_input_battler = null
 
 # 波次系统
-var _waves: Array[WaveData] = []
+var _waves: Array = []
 var _max_enemies_on_field: int = 4
 var _current_wave_index: int = 0
 var _all_enemy_battlers: Array = []     # 所有波次的敌人（用于奖励结算）
@@ -88,15 +88,16 @@ func start(squad: Array[String], encounter) -> void:
 		turn_queue.boss_summon_requested.connect(_on_boss_summon)
 		turn_queue.boss_eat_minion.connect(_on_boss_eat)
 
-	if ui_turn_bar and ui_turn_bar.has_method("setup"):
-		ui_turn_bar.setup(battler_list)
 	if ui_player_list and ui_player_list.has_method("setup"):
 		ui_player_list.setup(battler_list)
-	if ui_turn_bar and ui_turn_bar.has_method("fade_in"):
-		ui_turn_bar.fade_in()
 
 	# 生成第一波敌人
 	_spawn_wave(0)
+
+	if ui_turn_bar and ui_turn_bar.has_method("setup"):
+		ui_turn_bar.setup(battler_list)
+	if ui_turn_bar and ui_turn_bar.has_method("fade_in"):
+		ui_turn_bar.fade_in()
 
 	turn_queue.is_active = true
 
@@ -305,7 +306,10 @@ func _on_wave_cleared() -> void:
 func _on_player_needs_input(battler) -> void:
 	_current_input_battler = battler
 	var menu = UIActionMenu.new()
-	menu.setup(battler)
+	var disabled_actions: Array[String] = []
+	if battler.char_id == "laocong" and _count_friendly_hanbaos() >= 3:
+		disabled_actions.append("召唤汉堡")
+	menu.setup(battler, disabled_actions)
 	menu.position = Vector2(100, 620)
 	menu.custom_minimum_size = Vector2(1720, 70)
 	add_child(menu)
@@ -366,13 +370,29 @@ func _on_action_executed(battler, result: Dictionary) -> void:
 		label.position = Vector2(800, 400)
 		label.show_miss()
 
+	# 玩家牢聪召唤汉堡
+	if battler.char_id == "laocong" and battler.last_action_name == "召唤汉堡":
+		_summon_friendly_hanbao(battler)
+
 func _on_boss_summon(template_id: String) -> void:
 	var template = PartyData.get_enemy(template_id)
 	if template == null:
 		return
+	# 场上最多3个召唤汉堡，防止溢出
+	var alive_summoned := 0
+	for e in battler_list.enemies:
+		if e.get_meta("summoned", false) and e.stats.health > 0:
+			alive_summoned += 1
+	if alive_summoned >= 3:
+		return
 	var battler = _create_enemy_battler(template)
-	var pos_idx := battler_list.enemies.size()
-	battler.position = _get_enemy_position(pos_idx)
+	# 找死亡敌人的位置复用
+	var spawn_pos := _get_enemy_position(battler_list.enemies.size())
+	for e in battler_list.enemies:
+		if e.stats.health <= 0 and is_instance_valid(e):
+			spawn_pos = e.position
+			break
+	battler.position = spawn_pos
 	battler.set_meta("summoned", true)
 	battler.set_meta("turns_alive", 0)
 	battler_container.add_child(battler)
@@ -385,6 +405,57 @@ func _on_boss_eat(minion) -> void:
 	battler_list.enemies.erase(minion)
 	if is_instance_valid(minion):
 		minion.queue_free()
+
+func _summon_friendly_hanbao(caster) -> void:
+	# 检查场上我方汉堡数量（最多3个）
+	var count := 0
+	for b in battler_list.players:
+		if b.char_id == "friendly_hanbao" and b.stats.health > 0:
+			count += 1
+	if count >= 3:
+		return
+
+	var template = PartyData.get_enemy("friendly_hanbao")
+	if template == null:
+		return
+	var battler = _create_enemy_battler(template)
+	battler.is_player = true
+	battler.char_id = "friendly_hanbao"
+	battler.display_name = "我方汉堡"
+
+	# 血量 = 牢聪最大血量 / 5
+	var caster_hp: int = caster.stats.max_health
+	battler.stats.max_health = maxi(1, int(caster_hp / 5))
+	battler.stats.health = battler.stats.max_health
+
+	# 从屏幕上方依次排列
+	battler.position = Vector2(300 + count * 80, 200 + count * 60)
+	battler_container.add_child(battler)
+	battler_list.players.append(battler)
+
+	# 连接信号
+	battler.stats.health_depleted.connect(_on_battler_depleted.bind(battler))
+	battler.stats.health_depleted.connect(func(): _check_all_players_status())
+
+	print("[CombatArena] 牢聪召唤了我方汉堡，HP=", battler.stats.health)
+
+
+func _count_friendly_hanbaos() -> int:
+	var n := 0
+	for b in battler_list.players:
+		if b.char_id == "friendly_hanbao" and b.stats.health > 0:
+			n += 1
+	return n
+
+
+func _check_all_players_status() -> void:
+	"""检查所有玩家（包括召唤物）是否全灭"""
+	for p in battler_list.players:
+		if p.stats.health > 0:
+			return
+	battler_list.has_player_won = false
+	battler_list.battlers_downed.emit()
+
 
 func _on_battle_ended(result: Dictionary) -> void:
 	ui_turn_bar.fade_out()
@@ -421,9 +492,10 @@ func _show_result_text(text: String) -> void:
 	add_child(label)
 
 func _play_special_aftermath(won: bool) -> void:
-	GameState.set_game_phase("vn")
 	var timeline = "res://resources/dialogic/timelines/special_battles.dtl"
 	if GameState.battle_type == "special":
+		# 特殊战斗：切 VN 播放战斗后剧情（时间线接管画面）
+		GameState.set_game_phase("vn")
 		var day = str(GameState.current_day)
 		if won:
 			GameState.mark_special_battle_won()
@@ -434,7 +506,15 @@ func _play_special_aftermath(won: bool) -> void:
 			GameState.last_battle_won = false
 			var label = "special_post_day" + day + "_lose"
 			DialogicBridge.start_timeline(timeline, label)
+
 	else:
-		GameState.set_game_phase("vn")
-		var scene_id := "battle_victory_" + GameState.battle_type
-		DialogicBridge.start_timeline("res://resources/dialogic/timelines/battle_results.dtl", scene_id)
+		if won:
+			# 胜利：切 VN 播放战斗结算剧情
+			GameState.last_battle_won = true
+			GameState.set_game_phase("vn")
+			var scene_id := "battle_victory_" + GameState.battle_type
+			DialogicBridge.start_timeline("res://resources/dialogic/timelines/battle_results.dtl", scene_id)
+		else:
+			# 失败：直接回日程，不切 VN（否则 _transition_to_vn 会释放本节点，协程中断导致灰屏）
+			GameState.last_battle_won = false
+			GameState.set_game_phase("schedule")

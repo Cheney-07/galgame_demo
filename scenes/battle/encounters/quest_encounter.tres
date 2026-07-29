@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="EncounterData" load_steps=3 format=3 uid="uid://13trulit3k"]
+[gd_resource type="Resource" script_class="EncounterData" format=3 uid="uid://13trulit3k"]
 
 [ext_resource type="Script" uid="uid://363dylmqt3g2" path="res://scenes/battle/encounters/EncounterData.gd" id="1"]
-[ext_resource type="Resource" path="res://scenes/battle/encounters/waves/quest_wave1.tres" id="2"]
+[ext_resource type="Resource" uid="uid://cy6gxtudax6un" path="res://scenes/battle/encounters/waves/quest_wave1.tres" id="2"]
 [ext_resource type="Resource" path="res://scenes/battle/encounters/waves/quest_wave2.tres" id="3"]
 
 [resource]
@@ -9,5 +9,4 @@ script = ExtResource("1")
 encounter_id = "quest_default"
 battle_type = "quest"
 background_path = "res://images/battle/bg_quest.png"
-max_enemies_on_field = 4
-waves = Array[Resource("res://scenes/battle/encounters/WaveData.gd")]([ExtResource("2"), ExtResource("3")])
+waves = [ExtResource("2"), ExtResource("3")]

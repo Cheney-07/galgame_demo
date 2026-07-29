@@ -63,11 +63,12 @@ func setup_nodes() -> void:
 
 
 func _load_texture(path: String) -> Texture2D:
-	if not FileAccess.file_exists(path):
+	if not ResourceLoader.exists(path):
 		return null
 	var tex: Resource = load(path)
 	if tex != null:
 		return tex
+	# 编辑器降级方案：从文件直接加载（导出包中无效但不影响）
 	var img: Image = Image.load_from_file(path)
 	if img == null or img.is_empty():
 		return null

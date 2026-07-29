@@ -4,10 +4,18 @@ extends DialogicLayoutLayer
 ## 快捷菜单层 — 存档/读档/自动/快进/设置
 ## 按钮居中放置，含多栏位存档读档界面
 
+@export_group("Layout")
+@export var menu_offset_x: float = -150
+@export var menu_offset_y: float = -20
+
 @export_group("Button Style")
 @export var button_color: Color = Color(0.12, 0.12, 0.22, 0.85)
 @export var button_hover_color: Color = Color(0.22, 0.22, 0.4, 0.9)
-@export var font_size: int = 15
+@export var font_size: int = 12
+@export var button_width: float = 65
+@export var button_height: float = 22
+@export var button_padding_h: int = 6
+@export var button_padding_v: int = 2
 @export var panel_bg_color: Color = Color(0.08, 0.08, 0.15, 0.92)
 
 const SAVE_SLOT_COUNT := 9
@@ -31,8 +39,8 @@ func _setup_buttons() -> void:
 	container.anchors_preset = Control.PRESET_CENTER_BOTTOM
 	container.anchor_top = 1.0
 	container.anchor_bottom = 1.0
-	container.offset_top = -50
-	container.offset_left = -150
+	container.offset_top = menu_offset_y
+	container.offset_left = menu_offset_x
 	container.offset_right = 0
 	container.offset_bottom = 0
 	container.add_theme_constant_override("separation", 6)
@@ -55,7 +63,8 @@ func _setup_buttons() -> void:
 func _make_button(text: String, callback: Callable) -> Button:
 	var btn := Button.new()
 	btn.text = text
-	btn.custom_minimum_size = Vector2(65, 28)
+	btn.custom_minimum_size = Vector2(button_width, button_height)
+	btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	btn.add_theme_font_size_override("font_size", font_size)
 	btn.add_theme_color_override("font_color", Color(1, 1, 1))
 	btn.add_theme_stylebox_override("normal", _make_stylebox(button_color))
@@ -75,6 +84,10 @@ func _make_button(text: String, callback: Callable) -> Button:
 func _make_stylebox(color: Color) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = color
+	sb.content_margin_left = button_padding_h
+	sb.content_margin_right = button_padding_h
+	sb.content_margin_top = button_padding_v
+	sb.content_margin_bottom = button_padding_v
 	sb.corner_radius_top_left = 4
 	sb.corner_radius_top_right = 4
 	sb.corner_radius_bottom_left = 4
@@ -296,6 +309,9 @@ func _do_load(slot_name: String, _btn: Button) -> void:
 			SaveManager.load(slot_num)
 		# 恢复 Dialogic 状态
 		Dialogic.Save.load(slot_name)
+		# 关闭面板并重载场景，避免与当前时间线冲突
+		_close_overlay()
+		get_tree().change_scene_to_file("res://scenes/main.tscn")
 	else:
 		_show_toast("该栏位没有存档")
 

@@ -54,7 +54,7 @@ static func from_skill_data(skill_data) -> BattlerAction:
 			action.stat_scale = skill_data.stat_scale
 			action.icon_path = skill_data.icon_path
 			action.readiness_saved = 0.0
-			action.target_scope = BattlerAction.TargetScope.SINGLE_ENEMY
+			action.target_scope = _map_target_type(skill_data.target_type)
 			return action
 
 	return null

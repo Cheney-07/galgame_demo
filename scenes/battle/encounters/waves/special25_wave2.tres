@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="WaveData" load_steps=2 format=3]
-[ext_resource type="Script" path="res://scenes/battle/encounters/WaveData.gd" id="1"]
+[gd_resource type="Resource" script_class="WaveData" format=3 uid="uid://dte03vmln0imu"]
+
+[ext_resource type="Script" uid="uid://bv1q3wsr4n7w8" path="res://scenes/battle/encounters/WaveData.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
-enemy_ids = Array[String](["diren_laocong", "hanbao"])
-enemy_counts = Array[int]([1, 3])
-wave_message = "邪恶汉堡出现了！"
+enemy_ids = Array[String](["diren_laocong", "hanbao2"])
+enemy_counts = Array[int]([1, 4])
+wave_message = "牢聪要将你变成他的翅膀！"

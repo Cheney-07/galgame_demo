@@ -10,6 +10,7 @@ enum StatType { MAX_HEALTH, MAX_ENERGY, ATTACK, MAGIC_ATTACK, DEFENSE, SPEED, HI
 @export var base_speed := 70
 @export var base_hit_chance := 90
 @export var base_evasion := 5
+@export var base_cha := 10
 
 var max_health := base_max_health
 var attack := base_attack
@@ -18,6 +19,7 @@ var defense := base_defense
 var speed := base_speed
 var hit_chance := base_hit_chance
 var evasion := base_evasion
+var cha := base_cha
 
 var health := max_health:
 	set(value):
@@ -52,6 +54,7 @@ func init_from_character(char_data) -> void:
 	base_speed = char_data.get_stat("AGI")
 	base_hit_chance = 80 + char_data.get_stat("TEC") * 2
 	base_evasion = char_data.get_stat("AGI") / 2
+	base_cha = char_data.get_stat("CHA")
 	_refresh_all()
 
 func init_from_enemy(template) -> void:
@@ -62,10 +65,11 @@ func init_from_enemy(template) -> void:
 	base_speed = template.agi
 	base_hit_chance = 80 + template.tec * 2
 	base_evasion = template.agi / 2
+	base_cha = template.cha
 	_refresh_all()
 
 func _refresh_all() -> void:
-	for key in ["max_health", "attack", "magic_attack", "defense", "speed", "hit_chance", "evasion"]:
+	for key in ["max_health", "attack", "magic_attack", "defense", "speed", "hit_chance", "evasion", "cha"]:
 		_recalculate(key)
 	health = max_health
 

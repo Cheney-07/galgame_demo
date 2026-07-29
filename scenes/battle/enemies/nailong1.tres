@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyTemplate" format=3 uid="uid://dt1u57w1suvpd"]
+
+[ext_resource type="Script" uid="uid://3qnyqousplkg" path="res://scenes/battle/enemies/EnemyTemplate.gd" id="1_4xg3r"]
+
+[resource]
+script = ExtResource("1_4xg3r")
+enemy_id = "nailong1"
+enemy_name = "绷住奶龙"
+hp = 400
+str = 50
+mag = 3
+vit = 4
+agi = 40
+tec = 3
+cha = 100
+sprite_path = "res://images/battle/sprites/bengzhu_nailong.png"
+icon_path = "res://images/battle/icons/bengzhu_nailong.png"
+exp_reward = 20

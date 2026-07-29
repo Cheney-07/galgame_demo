@@ -1,19 +1,28 @@
-[gd_resource type="Resource" script_class="CharacterTemplate" load_steps=2 format=3 uid="uid://ct_laoxiang"]
+[gd_resource type="Resource" script_class="CharacterTemplate" format=3 uid="uid://c2yotybi8hhaj"]
 
-[ext_resource type="Script" path="res://resources/characters/character_template.gd" id="1_tpl"]
+[ext_resource type="Script" uid="uid://6kg6nxgvwioa" path="res://resources/characters/character_template.gd" id="1_tpl"]
 
 [resource]
 script = ExtResource("1_tpl")
 char_id = "laoxiang"
 char_name = "牢翔"
+description = "回复系，治疗量与CHA挂钩"
 portrait_path = "res://images/laoxiang.png"
 base_stats = {
-"STR": 7, "MAG": 12, "VIT": 12, "AGI": 12, "TEC": 10, "CHA": 15
+"AGI": 15,
+"CHA": 20,
+"MAG": 15,
+"STR": 15,
+"TEC": 15,
+"VIT": 15
 }
 growth_rates = {
-"STR": 0.7, "MAG": 1.2, "VIT": 1.2, "AGI": 1.2, "TEC": 1.0, "CHA": 1.5
+"AGI": 1.2,
+"CHA": 1.5,
+"MAG": 1.2,
+"STR": 0.7,
+"TEC": 1.0,
+"VIT": 1.2
 }
-skill_pool = ["cat_lick", "heal_field"]
-battle_portrait = ""
+skill_pool = Array[String](["cat_lick", "heal_field"])
 battle_role = "healer"
-description = "回复系，治疗量与CHA挂钩"

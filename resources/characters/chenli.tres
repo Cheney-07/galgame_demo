@@ -1,19 +1,28 @@
-[gd_resource type="Resource" script_class="CharacterTemplate" load_steps=2 format=3 uid="uid://ct_chenli"]
+[gd_resource type="Resource" script_class="CharacterTemplate" format=3 uid="uid://b1siimja6ri52"]
 
-[ext_resource type="Script" path="res://resources/characters/character_template.gd" id="1_tpl"]
+[ext_resource type="Script" uid="uid://6kg6nxgvwioa" path="res://resources/characters/character_template.gd" id="1_tpl"]
 
 [resource]
 script = ExtResource("1_tpl")
 char_id = "chenli"
 char_name = "陈立"
+description = "远程多段输出，弹幕Hit数关联AGI"
 portrait_path = "res://images/chenli.png"
+battle_portrait = "res://images/chenli_attack.png"
 base_stats = {
-"STR": 8, "MAG": 15, "VIT": 8, "AGI": 16, "TEC": 12, "CHA": 8
+"AGI": 16,
+"CHA": 8,
+"MAG": 15,
+"STR": 8,
+"TEC": 12,
+"VIT": 8
 }
 growth_rates = {
-"STR": 0.8, "MAG": 1.5, "VIT": 0.8, "AGI": 1.5, "TEC": 1.2, "CHA": 0.8
+"AGI": 1.5,
+"CHA": 0.8,
+"MAG": 1.5,
+"STR": 0.8,
+"TEC": 1.2,
+"VIT": 0.8
 }
-skill_pool = ["danmaku_rensha", "dream_seal"]
-battle_role = "attacker"
-battle_portrait = "res://images/chenli_attack.png"
-description = "远程多段输出，弹幕Hit数关联AGI"
+skill_pool = Array[String](["danmaku_rensha", "dream_seal"])

@@ -2,8 +2,8 @@
 # 社交对话 - Social Interactions
 # ============================================================================
 
-# ─── social_chenli_day1 ───
-label social_chenli_day1
+# ─── social_chenli_1 ───
+label social_chenli_1
 [background arg="res://images/bg tokyo_sunset.jpg" fade="0.5"]
 今天的训练结束了，正在返回营地休息的路上
 join chenli right [animation="Fade In"]
@@ -15,8 +15,8 @@ chenli: 哈哈，那就好。有空我们一起去探索吧，我的弹幕最近
 leave --All-- [animation="Slide Out Down"]
 do GameState.set_game_phase("schedule")
 
-# ─── social_hajiyou_day1 ───
-label social_hajiyou_day1
+# ─── social_hajiyou_1 ───
+label social_hajiyou_1
 [background arg="res://images/bg altar_room.png" fade="0.5"]
 join hajiyou center
 hajiyou: 降临者，你来了。关于这个世界的真相，我还有很多没来得及告诉你。
@@ -31,8 +31,8 @@ leave hajiyou [animation="Slide Out Up" length="1.5"]
 zhujue: 和哈基佑的关系更进一步了
 do GameState.set_game_phase("schedule")
 
-# ─── social_laocong_day1 ───
-label social_laocong_day1
+# ─── social_laocong_1 ───
+label social_laocong_1
 [background arg="res://images/bg sky_crack.png" fade="0.5"]
 join laocong center
 laocong: 我最近在研究一种新的召唤术……要不要看看？
@@ -49,8 +49,8 @@ zhujue: 睡的可真香啊。
 牢聪对你的好感上升了。
 do GameState.set_game_phase("schedule")
 
-# ─── social_laoma_day1 ───
-label social_laoma_day1
+# ─── social_laoma_1 ───
+label social_laoma_1
 [background arg="res://images/battle_bg.png" fade="0.5"]
 join laoma center
 laoma: 数据分析了三遍，我发现这片大陆的元素分布很不均匀。
@@ -62,8 +62,8 @@ leave laoma
 zhujue: 和老马的关系更进一步了。
 do GameState.set_game_phase("schedule")
 
-# ─── social_laoxiang_day1 ───
-label social_laoxiang_day1
+# ─── social_laoxiang_1 ───
+label social_laoxiang_1
 [background arg="res://images/bgliang.png" fade="0.5"]
 join laoxiang center
 laoxiang: 小猫最近好像更喜欢你了呢。你看，它在你腿上睡着了。
@@ -72,8 +72,8 @@ laoxiang: 能帮到大家，就是我最开心的事。
 leave laoxiang
 do GameState.set_game_phase("schedule")
 
-# ─── social_hajilong_day1 ───
-label social_hajilong_day1
+# ─── social_hajilong_1 ───
+label social_hajilong_1
 [background arg="res://images/battle_bg.png" fade="0.5"]
 join hajilong center
 hajilong: 想看我一拳打碎这块石头吗？
@@ -93,12 +93,62 @@ leave zhujue
 [background arg="res://images/cg/hajilong_cg1.jpg" fade="0.0"]
 哈基龙对你的态度更亲密了
 do GameState.set_game_phase("schedule")
-label social_hajiyou_day2
-join  center
-<Empty Text Event>
-label social_hajiyou_day3
-join  center
-<Empty Text Event>
-label social_laoma_day2
-join  center
-<Empty Text Event>
+label social_hajiyou_2
+[background arg="res://images/schedule_bg.png" fade="0.0"]
+join hajiyou center
+zhujue: 哈基佑，你说如果我们有一天我们胜利了。
+zhujue: 然后我回到了我原本的世界。
+zhujue: 但是却忘记了你该怎么办。
+hajiyou: 那我就给你一张我的照片吧，希望你看到这张照片后，可以想起我们的冒险经历。
+zhujue: 我还可以从这里带物品回去吗。
+hajiyou: 你还记得你身上的那个吊坠吗，它就象征着你和主世界的联系，它内部还有一小块储存空间，你只需要将照片放进去就可以带回主世界了。
+zhujue: 😭😭😭，我会记得你的。
+zhujue: 作为留念，我也送给你一个礼物吧。
+hajiyou: 是什么呢。
+join nailong right
+zhujue: 是你在另一个世界最喜欢的超级奶龙。
+hajiyou: 🤩🤩，我一眼就爱上了她。我会永远感谢这份礼物的。😋😋。
+leave --All--
+[background arg="res://images/cg/hajiyou_cg3.jpg" fade="0.0"]
+获得了哈基佑的正脸照片。
+和哈基佑的关系更近了一步。
+do GameState.set_game_phase("schedule")
+label social_hajiyou_3
+[background arg="res://images/schedule_bg.png" fade="0.0"]
+join hajiyou center
+zhujue: 其实我在原本的世界也认识你，只不过是不同世界的你。
+hajiyou: 居然在那边的世界也有一个我吗，看来召唤并非简单的随机召唤。召唤的主世界和异世界一定还存在着更深层的联系。
+zhujue: 要不然我来讲一讲你在那边的故事吧。
+hajiyou: 好啊。
+zhujue: 向哈基佑讲了另一个世界的许多趣事。
+前面忘了，中间忘了，后面忘了，反正最后送给你一张哈基佑美图
+[background arg="res://images/cg/hajiyou_cg2.jpg" fade="0.0"]
+和哈基佑亲密度满级了。
+你成功攻略了哈基佑，他在战斗中会变得更加努力。
+do GameState.set_game_phase("schedule")
+label social_laoma_2
+[background arg="res://images/schedule_bg.png" fade="0.0"]
+join laoma center
+zhujue: 老马，可以让ai帮我生成黄色本子吗？
+laoma: 当然没问题，你要看什么样的。
+zhujue: 全屏黄色颜色的本子。
+laoma: 。。。。。。生成好了。
+zhujue: 太感谢了，这有助于我的😍色盲训练。
+laoma: 帮到你就好。
+leave --All--
+老马对你的好感度上升了。
+do GameState.set_game_phase("schedule")
+label social_laoma_3
+[background arg="res://images/schedule_bg.png" fade="0.0"]
+join laoma center
+zhujue: 老马，你能再讲讲牢聪为什么要抢你的apikey吗。
+laoma: 其实，我和牢聪关系挺好的，但是有一天，他好像被黑潮给影响了。
+laoma: 最后就把我给关起来了。😭
+zhujue: 原来如此，看来是被邪恶😈影响了意志。
+zhujue: 不过放心，我们一定会帮你救回真正的牢聪。
+laoma: 谢谢你们😭😭😭✍。
+和老马的亲密度等级达到最高了。
+[background arg="res://images/cg/laoma_cg2.jpg" fade="0.0"]
+。。。。。赫尔墨斯，帮我启用绷住模式。
+成功攻略了老🐎😋😋。
+do GameState.set_game_phase("schedule")

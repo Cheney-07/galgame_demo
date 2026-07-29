@@ -91,6 +91,15 @@ class CharacterData:
 			skill_pool.append(str(sk))
 		affection = data.get("affection", 0)
 
+		# 从模板合并技能（确保新添加的技能不会丢失）
+		if template and template.get("skill_pool"):
+			for sk in template.get("skill_pool"):
+				if str(sk) not in skill_pool:
+					skill_pool.append(str(sk))
+			for sk in template.get("skill_pool"):
+				if str(sk) not in skill_pool:
+					skill_pool.append(str(sk))
+
 # ----------------------------------------------------------------------
 # 技能注册表
 # ----------------------------------------------------------------------
@@ -126,9 +135,46 @@ func reset() -> void:
 	print("[PartyData] Reset to template defaults.")
 
 
+# 静态文件清单 — 导出包里 DirAccess 无法列 .pck 目录，用此列表替代运行时扫描。
+# 添加新资源后需同步更新此列表。
+const _SKILL_FILES := [
+	"danmaku_rensha.tres", "dream_seal.tres", "yanling_spell.tres",
+	"boil_cabbage.tres", "summon_world_book.tres", "calc_boost.tres",
+	"overclock_link.tres", "cat_lick.tres", "heal_field.tres",
+	"block_smash.tres", "weapon_attack.tres", "weapon_skill.tres",
+	"laocong_hanbao_summon.tres",
+]
+
+const _CHAR_FILES := [
+	"protagonist.tres", "hajiyou.tres", "hajilong.tres",
+	"chenli.tres", "laoma.tres", "laoxiang.tres", "laocong.tres",
+]
+
+const _ENEMY_FILES := [
+	"slime.tres", "slime1.tres", "slime2.tres",
+	"bianbian.tres", "bianbian1.tres", "bianbian2.tres",
+	"hanbao.tres", "hanbao1.tres", "hanbao2.tres",
+	"nailong1.tres", "nailong2.tres",
+	"diren_laocong.tres", "friendly_hanbao.tres", "boss.tres",
+]
+
+const _ENCOUNTER_FILES := [
+	"default_encounter.tres", "explore_encounter.tres", "quest_encounter.tres",
+	"special_day5.tres", "special_day10.tres", "special_day15.tres",
+	"special_day20.tres", "special_day25.tres", "special_day30.tres",
+]
+
+const _STATIC_FILES := {
+	"res://resources/skills/": _SKILL_FILES,
+	"res://resources/characters/": _CHAR_FILES,
+	"res://scenes/battle/enemies/": _ENEMY_FILES,
+	"res://scenes/battle/encounters/": _ENCOUNTER_FILES,
+}
+
+
 func _load_skill_registry() -> void:
 	var dir: String = "res://resources/skills/"
-	var files: PackedStringArray = _list_files(dir, ".tres")
+	var files: PackedStringArray = _get_file_list(dir, ".tres")
 	for f in files:
 		var res: Resource = load(dir + f)
 		if res == null or not res.has_method("get") or res.get("skill_id") == "":
@@ -140,7 +186,7 @@ func _load_skill_registry() -> void:
 
 func _load_character_templates() -> void:
 	var dir: String = "res://resources/characters/"
-	var files: PackedStringArray = _list_files(dir, ".tres")
+	var files: PackedStringArray = _get_file_list(dir, ".tres")
 	for f in files:
 		if f.ends_with("_template.gd"):
 			continue
@@ -154,7 +200,9 @@ func _load_character_templates() -> void:
 			print("[PartyData] Loaded character: ", c.char_name, " (", c.char_id, ")")
 
 
-func _list_files(dir: String, ext: String) -> PackedStringArray:
+func _get_file_list(dir: String, ext: String) -> PackedStringArray:
+	if _STATIC_FILES.has(dir):
+		return PackedStringArray(_STATIC_FILES[dir])
 	var out: PackedStringArray = []
 	var da: DirAccess = DirAccess.open(dir)
 	if da == null:
@@ -220,14 +268,78 @@ func deserialize(data: Dictionary) -> void:
 	for id in data:
 		if characters.has(id):
 			characters[id].deserialize(data[id])
+			# 从模板合并技能（确保新添加的技能不会丢失）
+			var ch = characters[id]
+			if ch.template and ch.template.get("skill_pool"):
+				for sk in ch.template.get("skill_pool"):
+					if str(sk) not in ch.skill_pool:
+						ch.skill_pool.append(str(sk))
 	print("[PartyData] State deserialized.")
+
+
+# ----------------------------------------------------------------------
+# 导出依赖清单（仅用于让 Godot 导出系统追踪动态加载的资源）
+# 这些 preload() 不会被调用，纯粹是为了在导出包中包含通过 DirAccess
+# 动态发现并加载的 .tres 文件。添加新资源后需要同步更新此列表。
+# ----------------------------------------------------------------------
+static func _export_manifest() -> void:
+	# -- 技能 --
+	preload("res://resources/skills/danmaku_rensha.tres")
+	preload("res://resources/skills/dream_seal.tres")
+	preload("res://resources/skills/yanling_spell.tres")
+	preload("res://resources/skills/boil_cabbage.tres")
+	preload("res://resources/skills/summon_world_book.tres")
+	preload("res://resources/skills/calc_boost.tres")
+	preload("res://resources/skills/overclock_link.tres")
+	preload("res://resources/skills/cat_lick.tres")
+	preload("res://resources/skills/heal_field.tres")
+	preload("res://resources/skills/block_smash.tres")
+	preload("res://resources/skills/weapon_attack.tres")
+	preload("res://resources/skills/weapon_skill.tres")
+	preload("res://resources/skills/laocong_hanbao_summon.tres")
+
+	# -- 角色模板 --
+	preload("res://resources/characters/protagonist.tres")
+	preload("res://resources/characters/hajiyou.tres")
+	preload("res://resources/characters/hajilong.tres")
+	preload("res://resources/characters/chenli.tres")
+	preload("res://resources/characters/laoma.tres")
+	preload("res://resources/characters/laoxiang.tres")
+	preload("res://resources/characters/laocong.tres")
+
+	# -- 敌人模板 --
+	preload("res://scenes/battle/enemies/slime.tres")
+	preload("res://scenes/battle/enemies/slime1.tres")
+	preload("res://scenes/battle/enemies/slime2.tres")
+	preload("res://scenes/battle/enemies/bianbian.tres")
+	preload("res://scenes/battle/enemies/bianbian1.tres")
+	preload("res://scenes/battle/enemies/bianbian2.tres")
+	preload("res://scenes/battle/enemies/hanbao.tres")
+	preload("res://scenes/battle/enemies/hanbao1.tres")
+	preload("res://scenes/battle/enemies/hanbao2.tres")
+	preload("res://scenes/battle/enemies/nailong1.tres")
+	preload("res://scenes/battle/enemies/nailong2.tres")
+	preload("res://scenes/battle/enemies/diren_laocong.tres")
+	preload("res://scenes/battle/enemies/friendly_hanbao.tres")
+	preload("res://scenes/battle/enemies/boss.tres")
+
+	# -- 遭遇战数据 --
+	preload("res://scenes/battle/encounters/default_encounter.tres")
+	preload("res://scenes/battle/encounters/explore_encounter.tres")
+	preload("res://scenes/battle/encounters/quest_encounter.tres")
+	preload("res://scenes/battle/encounters/special_day5.tres")
+	preload("res://scenes/battle/encounters/special_day10.tres")
+	preload("res://scenes/battle/encounters/special_day15.tres")
+	preload("res://scenes/battle/encounters/special_day20.tres")
+	preload("res://scenes/battle/encounters/special_day25.tres")
+	preload("res://scenes/battle/encounters/special_day30.tres")
 
 # ----------------------------------------------------------------------
 # 敌人/遭遇注册表
 # ----------------------------------------------------------------------
 func _load_enemy_templates() -> void:
 	var dir := "res://scenes/battle/enemies/"
-	var files := _list_files(dir, ".tres")
+	var files := _get_file_list(dir, ".tres")
 	for f in files:
 		if f.ends_with("EnemyTemplate.gd"):
 			continue
@@ -240,7 +352,7 @@ func _load_enemy_templates() -> void:
 
 func _load_encounter_data() -> void:
 	var dir := "res://scenes/battle/encounters/"
-	var files := _list_files(dir, ".tres")
+	var files := _get_file_list(dir, ".tres")
 	for f in files:
 		var res: Resource = load(dir + f)
 		if res == null or res.get("battle_type") == null:

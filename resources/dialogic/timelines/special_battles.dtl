@@ -83,6 +83,14 @@ hajiyou: 不能放弃，我们得继续前进！
 zhujue: 你说得对。回去休整，下次一定要赢。
 leave hajiyou
 leave zhujue
+看来这次战斗输掉了呢，需要攻略援助吗？
+- 不需要。
+	可以可以，那就继续摸索吧，其实也挺好打的对吧。
+- 快给我攻略，奖杯来的这怎么打。
+	😀
+	哈基佑数值比较高，可以重点给哈基佑训练，然后让主角在第一身位抗伤害。
+	这是作者过的方法，当然，你也可以尝试其它方法，存好档就行。
+	好了，继续战斗吧。
 set {Game.really} = false
 set {Game.all_friends} = false
 do GameState.advance_day()
@@ -258,6 +266,12 @@ hajilong: 你们快走！我掩护你们！
 zhujue: 可是你……
 hajilong: 别管我，快走！
 zhujue: 我们会回来的！
+战斗失败了呢，需要攻略援助吗？
+- 不需要
+	可以可以，干了xdm。
+- 需要😭
+	攻略就是，一定要带上牢翔，给牢翔升级，毕竟续航真的很重要。当然，其它方法也有可能能过，不过作者还没有试过。
+	好了，继续去战斗吧。
 set {Game.really} = false
 set {Game.all_friends} = false
 do GameState.advance_day()
@@ -272,6 +286,7 @@ direlaocong: 哈哈哈哈哈！小牛魔🐂们居然还敢找上门来，自投
 if {Game.laoma} == true:
 	join laoma left
 	laoma: 是邪恶汉堡牢聪！就是他抢走了我的key😭😭😭。
+	laoma: 一定要即时清理掉牢聪召唤的汉堡，否则牢聪将释放强力攻击😭。
 join zhujue left
 zhujue: 牢聪在这里居然变成了反派吗，那就没办法了😀😀，看我狠狠插入
 zhujue: 就是你夺走了老马的key，看我们打败你给他复仇！
@@ -288,7 +303,7 @@ do GameState.set_game_phase("battle")
 
 # ─── 第二十五天 战后胜利(解锁牢聪) ───
 label special_post_day25_win
-[background arg="res://images/bg city_day.png" fade="0.5"]
+[background arg="res://images/battle_bg.png" fade="0.5"]
 zhujue: 我们真的赢了……
 join laocong center
 laocong: 谢谢你们打败了我的黑化形态……我真的太羞愧了。
@@ -341,9 +356,9 @@ zhujue: 我不能接受……我该怎么办……
 leave --All--
 jump badend1
 label badend1
-[background fade="0.0"]
+[background arg="res://images/cg/bad_end1.png" fade="0.0"]
 达成坏结局【黄毛牢聪】bad end 1.
-do 
+do GameState.return_to_main_menu()
 
 # ─── 第三十天 战前(最终战) ───
 label special_pre_day30
@@ -392,7 +407,7 @@ if {Game.all_friends} == true:
 	if {Game.really} == true:
 		隐藏的黑暗力量显现——成功解锁了第二周目，在主界面开始游戏将解锁特殊结局
 		set {Game.erzhoumustart} = true
-do 
+do GameState.return_to_main_menu()
 
 # ─── 第三十天 战斗失败(坏结局) ───
 label special_post_day30_lose
@@ -401,18 +416,21 @@ zhujue: 我们……输了……
 黑潮的力量彻底压制了你们，异世界被黑暗占领。
 所有角色倒在了最终战场上，再也没有醒来。
 zhujue: 如果……如果我更强大一些……
+忽然感觉到一阵温暖的力量，眼前陷入了黑暗。
 jump badend2
 label badend2
-[background arg="res://images/bg tokyo_sunset.jpg" fade="0.0"]
+[background arg="res://images/bgliang.png" fade="0.0"]
+你猛然从床上惊醒。
 哈基佑没有骗你，你成功返回到了原来的世界。
 醒来还是第二天凌晨六点。
 join zhujue center
 zhujue: 感觉做了好长一个梦啊，但是想不起来了，太可惜了。
-你忘记了你冒险的经历，而且你有种奇怪的感觉，明明记得感觉你有几个熟悉的人，却怎么也想不起来他们的样貌和名字了。
+虽然成功返回了原本的世界，但是却忘记了冒险的经历，而且你有种奇怪的感觉，明明记得感觉你有几个熟悉的人，却怎么也想不起来他们的样貌和名字了。
 随着时间的流逝，这种感觉也逐渐模糊了。
 [background arg="res://images/cg/bad_end2.png" fade="0.0"]
 达成坏结局bad_end2【遗忘的梦境】
-do 
+。。。
+do GameState.return_to_main_menu()
 label erzhoumu_end
 [background arg="res://images/bg/the city_run.png" fade="0.0"]
 he

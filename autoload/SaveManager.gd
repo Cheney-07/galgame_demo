@@ -62,6 +62,7 @@ func load(slot: int) -> bool:
 	GameState.deserialize(data.get("game_state", {}))
 	PartyData.deserialize(data.get("party_data", {}))
 	StoryFlags.deserialize(data.get("story_flags", {}))
+	StoryFlags.save_global_progress()
 	print("[SaveManager] Loaded from slot ", slot)
 	return true
 

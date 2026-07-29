@@ -21,6 +21,9 @@ const CHAR_VAR_NAMES := {
 }
 
 
+ # Dialogic character display_name → char_id（反向查找）
+var _char_id_by_display_name := {}
+
 func _ready() -> void:
 	await get_tree().process_frame
 	_register_characters()
@@ -282,6 +285,7 @@ func _toggle_auto_skip() -> void:
 	as_.enabled = !as_.enabled
 	if as_.enabled:
 		as_.disable_on_unread_text = false
+
 
 
 func _save_game() -> void:

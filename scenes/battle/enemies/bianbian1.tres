@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyTemplate" format=3 uid="uid://dv3i7ywoaenpm"]
+
+[ext_resource type="Script" uid="uid://3qnyqousplkg" path="res://scenes/battle/enemies/EnemyTemplate.gd" id="1_tq4kt"]
+
+[resource]
+script = ExtResource("1_tq4kt")
+enemy_id = "bianbian1"
+enemy_name = "便便"
+hp = 300
+str = 30
+mag = 4
+vit = 4
+agi = 40
+tec = 3
+cha = 1
+sprite_path = "res://images/battle/sprites/bianbian.png"
+icon_path = "res://images/battle/icons/bianbian.png"
+exp_reward = 40
+gold_reward = 20

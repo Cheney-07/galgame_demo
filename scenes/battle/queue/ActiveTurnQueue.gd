@@ -48,7 +48,7 @@ func _on_battler_ready(battler) -> void:
 	_is_executing = true
 	time_scale = 0.0
 
-	if battler.is_player:
+	if battler.is_player and battler.char_id != "friendly_hanbao":
 		_is_player_menu_open = true
 		time_scale = SLOW_TIME_SCALE
 		player_needs_input.emit(battler)
@@ -84,13 +84,19 @@ func _default_enemy_act(battler, alive_targets: Array) -> void:
 	battler.last_action_name = action.action_name
 
 	var targets = action.get_possible_targets(battler, battler_list.get_alive_battlers())
-	if targets.is_empty():
+	# 优先攻击我方汉堡
+	var hanbaos: Array = (targets if not targets.is_empty() else alive_targets).filter(func(b):
+		return b.char_id == "friendly_hanbao" and b.stats.health > 0
+	)
+	if not hanbaos.is_empty():
+		targets = [hanbaos[randi() % hanbaos.size()]]
+	elif targets.is_empty():
 		targets = [alive_targets[randi() % alive_targets.size()]]
 
 	await _execute_action(battler, action, targets)
 
 func _boss_act(battler, alive_targets: Array) -> void:
-	var hanbaos := battler_list.enemies.filter(func(b):
+	var hanbaos: Array = battler_list.enemies.filter(func(b):
 		return b.char_id == "hanbao" and b.stats.health > 0
 	)
 
@@ -106,7 +112,7 @@ func _boss_act(battler, alive_targets: Array) -> void:
 				boss_eat_minion.emit(h)
 				return
 
-	if hanbaos.size() < 2 and randf() < 0.5:
+	if hanbaos.size() <= 3 and randf() < 0.5:
 		battler.last_action_name = "召唤汉堡"
 		boss_summon_requested.emit("hanbao")
 		var result := { "damage": 0, "heal": 0, "crit": false, "hit": true,

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/skills/skill_data.gd" id="1_sk"]
+
+[resource]
+script = ExtResource("1_sk")
+skill_id = "laocong_hanbao_summon"
+skill_name = "召唤汉堡"
+skill_type = "special"
+target_type = "self"
+power = 0.0
+stat_scale = "VIT"
+hit_count = 1
+cooldown = 0
+effects = []
+description = "召唤一个基于自身血量的汉堡助战（场上最多3个）"
+icon_path = "res://images/icons/skills/laocongskill.png"

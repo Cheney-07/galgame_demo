@@ -23,21 +23,22 @@ const BUTTON_DEFS = [
 ]
 
 const CHAR_DEFS = [
-	{ "path": "res://images/chenli.png",    "ax": 0.60, "ay": 0.32 },
-	{ "path": "res://images/hajiyou.png",   "ax": 0.70, "ay": 0.32 },
-	{ "path": "res://images/laoma.png",     "ax": 0.73, "ay": 0.39 },
-	{ "path": "res://images/laocong.png",   "ax": 0.65, "ay": 0.50 },
-	{ "path": "res://images/hajilong.png",  "ax": 0.85, "ay": 0.54 },
-	{ "path": "res://images/laoxiang.png",  "ax": 0.45, "ay": 0.60 },
+		{ "char_id": "chenli",   	"path": "res://images/chenli_attack.png",    "ax": 0.40, "ay": 0.35 },
+		{ "char_id": "hajiyou",  	"path": "res://images/hajiyou_lihui.png",   "ax": 0.55, "ay": 0.35 },
+		{ "char_id": "laoma",    	"path": "res://images/laoma.png",     "ax": 0.66, "ay": 0.30 },
+		{ "char_id": "laocong",  	"path": "res://images/laocong.png",   "ax": 0.65, "ay": 0.50 },
+		{ "char_id": "hajilong", 	"path": "res://images/hajilong.png",  "ax": 0.80, "ay": 0.54 },
+		{ "char_id": "laoxiang", 	"path": "res://images/laoxiang.png",  "ax": 0.50, "ay": 0.60 },
 ]
 
 
 func load_texture(path: String) -> Texture2D:
-	if not FileAccess.file_exists(path):
+	if not ResourceLoader.exists(path):
 		return null
 	var tex: Texture2D = load(path) as Texture2D
 	if tex != null:
 		return tex
+	# 编辑器降级方案：从文件直接加载（导出包中无效但不影响）
 	var img: Image = Image.load_from_file(path)
 	if img == null or img.is_empty():
 		return null
@@ -49,6 +50,10 @@ func _ready() -> void:
 	setup_character_sprites()
 	setup_buttons()
 	animate_characters()
+	# 移除 splash 留下的黑底遮罩
+	var black = get_tree().root.get_node_or_null("SplashToMenuBlack")
+	if black:
+		black.queue_free()
 
 
 func setup_background() -> void:
@@ -61,7 +66,7 @@ func setup_background() -> void:
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	var path: String = "res://images/game_menu.png"
-	if FileAccess.file_exists(path):
+	if ResourceLoader.exists(path):
 		var tex: Texture2D = load_texture(path)
 		if tex:
 			bg.texture = tex
@@ -71,6 +76,9 @@ func setup_background() -> void:
 
 func setup_character_sprites() -> void:
 	for data in CHAR_DEFS:
+		var char_id: String = data.get("char_id", "")
+		if not char_id.is_empty() and not StoryFlags.is_character_met(char_id):
+			continue
 		var sprite: TextureRect = TextureRect.new()
 		sprite.name = "Char_" + data["path"].get_file().get_basename()
 		sprite.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
@@ -79,7 +87,7 @@ func setup_character_sprites() -> void:
 		sprite.modulate.a = 0.0
 
 		var path: String = data["path"]
-		if FileAccess.file_exists(path):
+		if ResourceLoader.exists(path):
 			var tex: Texture2D = load_texture(path)
 			if tex:
 				sprite.texture = tex
@@ -93,6 +101,7 @@ func setup_character_sprites() -> void:
 
 		add_child(sprite)
 		char_sprites.append(sprite)
+		char_sprites.append(sprite)
 
 
 func animate_characters() -> void:
@@ -105,8 +114,8 @@ func animate_characters() -> void:
 
 
 func setup_buttons() -> void:
-	var start_y: float = 0.08
-	var spacing: float = 0.095
+	var start_y: float = 0.2
+	var spacing: float = 0.1
 
 	for i in range(BUTTON_DEFS.size()):
 		var bd: Dictionary = BUTTON_DEFS[i]
@@ -120,8 +129,8 @@ func setup_buttons() -> void:
 		var btn_y: float = start_y + i * spacing
 		btn.anchor_left = 0.02; btn.anchor_right = 0.02
 		btn.anchor_top = btn_y; btn.anchor_bottom = btn_y
-		btn.offset_left = 0.0; btn.offset_top = 0.0
-		btn.offset_right = 400.0; btn.offset_bottom = 110.0
+		btn.offset_left = -50; btn.offset_top = 0.0
+		btn.offset_right = 300.0; btn.offset_bottom = 60.0
 
 		_load_button_texture(btn, bd["idle"])
 
@@ -140,7 +149,7 @@ func setup_buttons() -> void:
 
 
 func _load_button_texture(btn: TextureRect, path: String) -> void:
-	if FileAccess.file_exists(path):
+	if ResourceLoader.exists(path):
 		var tex: Texture2D = load_texture(path)
 		if tex:
 			btn.texture = tex
@@ -150,22 +159,18 @@ func _on_btn_hover(btn: TextureRect) -> void:
 	var hover_path: String = btn.get_meta("hover_path")
 	_load_button_texture(btn, hover_path)
 	var base_top: float = btn.get_meta("orig_offset_top")
-	var base_bottom: float = btn.get_meta("orig_offset_bottom")
 	var t: Tween = create_tween()
 	t.set_parallel(true)
 	t.tween_property(btn, "offset_top", base_top - 12.0, 0.1).set_ease(Tween.EASE_OUT)
-	t.tween_property(btn, "offset_bottom", base_bottom - 12.0, 0.1).set_ease(Tween.EASE_OUT)
 
 
 func _on_btn_unhover(btn: TextureRect) -> void:
 	var idle_path: String = btn.get_meta("idle_path")
 	_load_button_texture(btn, idle_path)
 	var base_top: float = btn.get_meta("orig_offset_top")
-	var base_bottom: float = btn.get_meta("orig_offset_bottom")
 	var t: Tween = create_tween()
 	t.set_parallel(true)
 	t.tween_property(btn, "offset_top", base_top, 0.1).set_ease(Tween.EASE_OUT)
-	t.tween_property(btn, "offset_bottom", base_bottom, 0.1).set_ease(Tween.EASE_OUT)
 
 
 func _on_btn_clicked(event: InputEvent, btn: TextureRect) -> void:
@@ -222,7 +227,7 @@ func _show_sub_screen(action: String) -> void:
 		"cg":
 			_create_cg_screen(sub_screen)
 		"about":
-			_create_info_screen(sub_screen, "关于", "《黎明之诗·改》\n\nGodot 4.7\n回合制 RPG + 视觉小说\n\n2026")
+			_create_info_screen(sub_screen, "关于", "《黎明之诗》\n\nGodot 4.7\n回合制 RPG + 视觉小说\n\n2026")
 		"help":
 			_create_help_screen(sub_screen)
 		_:
@@ -416,26 +421,30 @@ func _create_cg_screen(parent: Control) -> void:
 	parent.add_child(container)
 
 
+# CG 文件列表（静态维护，DirAccess 在导出包中无法列目录）
+const CG_FILES: Array[String] = [
+	"bad_end1",
+	"bad_end2",
+	"goodend_1",
+	"hajilong_cg1",
+	"hajiyou_cg1",
+	"hajiyou_cg2",
+	"hajiyou_cg3",
+	"laocong_cg1",
+	"laoma_cg1",
+	"laoma_cg2",
+	"未命名",
+]
+
 func _scan_cg_files() -> void:
 	cg_list.clear()
-	var dir := DirAccess.open("res://images/cg/")
-	if dir == null:
-		return
-	dir.list_dir_begin()
-	var fn := dir.get_next()
-	while not fn.is_empty():
-		if not dir.current_is_dir():
-			var ext := fn.get_extension().to_lower()
-			if ext in ["png", "jpg", "jpeg", "webp"]:
-				cg_list.append(fn.get_basename())
-		fn = dir.get_next()
-	dir.list_dir_end()
+	cg_list.assign(CG_FILES)
 	cg_list.sort()
 
 
 func _make_cg_card(cg_id: String) -> Control:
 	var card := Control.new()
-	card.custom_minimum_size = Vector2(300, 200)
+	card.custom_minimum_size = Vector2(300, 260)
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card.mouse_filter = Control.MOUSE_FILTER_STOP
 	card.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -455,14 +464,15 @@ func _make_cg_card(cg_id: String) -> Control:
 			tex_rect.texture = tex
 		card.add_child(tex_rect)
 
-		# 名称标签
+		# 名称标签（图片下方 30px 空间）
 		var label := Label.new()
-		label.anchor_left = 0.0; label.anchor_bottom = 1.0
-		label.anchor_right = 1.0
-		label.offset_top = -30.0
+		label.anchor_left = 0.0; label.anchor_top = 1.0
+		label.anchor_right = 1.0; label.anchor_bottom = 1.0
+		label.offset_top = -30.0; label.offset_bottom = 0.0
 		label.add_theme_color_override("font_color", Color(1, 1, 1, 0.9))
 		label.add_theme_font_size_override("font_size", 14)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		label.text = _cg_display_name(cg_id)
 		card.add_child(label)
 
@@ -490,12 +500,13 @@ func _make_cg_card(cg_id: String) -> Control:
 		card.add_child(question)
 
 		var lock_label := Label.new()
-		lock_label.anchor_left = 0.0; lock_label.anchor_bottom = 1.0
-		lock_label.anchor_right = 1.0
-		lock_label.offset_top = -30.0
+		lock_label.anchor_left = 0.0; lock_label.anchor_top = 1.0
+		lock_label.anchor_right = 1.0; lock_label.anchor_bottom = 1.0
+		lock_label.offset_top = -30.0; lock_label.offset_bottom = 0.0
 		lock_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
 		lock_label.add_theme_font_size_override("font_size", 14)
 		lock_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		lock_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		lock_label.text = "???"
 		card.add_child(lock_label)
 

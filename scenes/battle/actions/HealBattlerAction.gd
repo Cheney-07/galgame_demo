@@ -9,9 +9,9 @@ func execute(source, targets: Array) -> Dictionary:
 	# 根据 stat_scale 获取对应属性值
 	var stat_val = source.stats.magic_attack
 	if stat_scale == "CHA":
-		stat_val = 10  # 默认 CHA 系数
+		stat_val = source.stats.cha
 
-	var heal_amount := int(stat_val * base_power * 1.2)
+	var heal_amount := int(stat_val * base_power * 8.0)
 	heal_amount = max(1, heal_amount)
 
 	# 跳跃动画（成功入树时才播放）

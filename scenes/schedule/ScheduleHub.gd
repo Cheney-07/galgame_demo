@@ -50,6 +50,9 @@ func _ready() -> void:
 	setup_nodes()
 	_connect_signals()
 	_update_all()
+	# 首次进入日程时标记初始角色为主菜单立绘可见
+	if not StoryFlags.is_character_met("hajiyou"):
+		StoryFlags.mark_character_met("hajiyou")
 	print("[ScheduleHub] Ready.")
 
 func setup_nodes() -> void:
@@ -481,7 +484,6 @@ func _confirm_training(char_id: String) -> void:
 
 #endregion
 
-#region --- Social ---
 func _start_social() -> void:
 	var content: Control = _create_overlay("交流 — 选择角色")
 	var vbox: VBoxContainer = VBoxContainer.new()
@@ -492,35 +494,60 @@ func _start_social() -> void:
 	vbox.add_theme_constant_override("separation", 10)
 	content.add_child(vbox)
 
+	# 加载社交时间线，收集所有可用标签
+	var available_labels: Array[String] = []
+	var social_timeline = load("res://resources/dialogic/timelines/social.dtl")
+	if social_timeline:
+		social_timeline.process()
+		for ev in social_timeline.events:
+			if ev is DialogicLabelEvent:
+				var label_name: String = ev.name
+				if not label_name.is_empty():
+					available_labels.append(label_name)
+
 	for char_id in GameState.get_recruited_characters():
+		if char_id == "protagonist":
+			continue
 		var ch: PartyData.CharacterData = PartyData.get_character(char_id)
-		var tcnt: int = GameState.get_talk_count(char_id)
-		var ok: bool = GameState.can_talk(char_id) and GameState.current_ap >= 2
+		var daily_ok: bool = GameState.can_talk(char_id)
+		var ap_ok: bool = GameState.current_ap >= 2
+		var next_talk := GameState.get_total_social_count(char_id) + 1
+		var scene_label := "social_" + char_id + "_" + str(next_talk)
+		var has_scene := scene_label in available_labels
 		var btn: Button = Button.new()
 		btn.custom_minimum_size = Vector2(400, 42)
 		btn.add_theme_font_size_override("font_size", 16)
-		if not ok:
-			btn.text = ch.char_name + " | 好感 " + str(ch.affection) + (" | (已达上限)" if not GameState.can_talk(char_id) else " | (AP不足)")
+		btn.add_theme_stylebox_override("normal", _make_flat_style(Color(0.12, 0.12, 0.22, 0.85)))
+
+		if not daily_ok:
+			btn.text = ch.char_name + " | 好感 " + str(ch.affection) + " | (今日已交流)"
 			btn.disabled = true
 			btn.add_theme_color_override("font_color", Color(0.4, 0.4, 0.4))
+		elif not ap_ok:
+			btn.text = ch.char_name + " | 好感 " + str(ch.affection) + " | (AP不足)"
+			btn.disabled = true
+			btn.add_theme_color_override("font_color", Color(0.4, 0.4, 0.4))
+		elif not has_scene:
+			btn.text = ch.char_name + " | 好感 " + str(ch.affection) + " | 暂时没有什么话想说了"
+			btn.disabled = true
+			btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
 		else:
-			btn.text = ch.char_name + " | 好感 " + str(ch.affection) + " | 今日 " + str(tcnt) + "/3"
+			btn.text = ch.char_name + " | 好感 " + str(ch.affection) + " | 第" + str(next_talk) + "次交流"
 			btn.add_theme_color_override("font_color", Color(1, 1, 1))
-		btn.add_theme_stylebox_override("normal", _make_flat_style(Color(0.12, 0.12, 0.22, 0.85)))
-		btn.pressed.connect(_on_social_btn_pressed.bind(char_id))
+			btn.pressed.connect(_on_social_btn_pressed.bind(char_id))
 		vbox.add_child(btn)
 
-
-# ═══════ 读档 ═══════
 
 func _on_social_btn_pressed(cid: String) -> void:
 	if not GameState.can_talk(cid) or not GameState.spend_ap(2): return
 	GameState.record_talk(cid)
 	PartyData.add_affection(cid, GameState.social_affection_gain)
 	_close_sub_panel()
-	var scene_id: String = "social_" + cid + "_day" + str(GameState.current_day)
+	var next_talk := GameState.get_total_social_count(cid)
+	var scene_id: String = "social_" + cid + "_" + str(next_talk)
 	GameState.pending_scene = "schedule"
 	_play_dialogue_scene(scene_id)
+
 
 func _play_dialogue_scene(scene_id: String) -> void:
 	GameState.set_game_phase("vn")

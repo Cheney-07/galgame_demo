@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="gamedemo1"
+config/name="黎明之诗"
+config/version="demo"
 run/main_scene="res://scenes/menu/splash.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/show_image=false
+config/icon="uid://evccdqrkyyhy"
 
 [autoload]
 
@@ -24,6 +26,7 @@ SaveManager="*res://autoload/SaveManager.gd"
 ImageUtils="*res://autoload/ImageUtils.gd"
 Dialogic="*uid://ds2q0uclmolvu"
 DialogicBridge="*res://autoload/DialogicBridge.gd"
+ExportManifest="*res://autoload/ExportManifest.gd"
 
 [dialogic]
 
@@ -37,6 +40,7 @@ directories/dch_directory={
 "laocong": "res://resources/dialogic/characters/laocong.dch",
 "laoma": "res://resources/dialogic/characters/laoma.dch",
 "laoxiang": "res://resources/dialogic/characters/laoxiang.dch",
+"nailong": "res://resources/characters/nailong.dch",
 "slime": "res://resources/characters/slime.dch",
 "zhujue": "res://resources/dialogic/characters/zhujue.dch"
 }
@@ -189,3 +193,5 @@ dialogic_default_action={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/default_clear_color=Color(0, 0, 0, 1)

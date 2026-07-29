@@ -1,19 +1,19 @@
-[gd_resource type="Resource" script_class="EnemyTemplate" load_steps=2 format=3]
-[ext_resource type="Script" path="res://scenes/battle/enemies/EnemyTemplate.gd" id="1"]
+[gd_resource type="Resource" script_class="EnemyTemplate" format=3 uid="uid://qqk77fcuke5p"]
+
+[ext_resource type="Script" uid="uid://3qnyqousplkg" path="res://scenes/battle/enemies/EnemyTemplate.gd" id="1"]
+
 [resource]
 script = ExtResource("1")
 enemy_id = "diren_laocong"
 enemy_name = "邪恶汉堡牢聪"
-hp = 300
-str = 22
+hp = 1500
+str = 200
 mag = 8
-vit = 8
+vit = 20
 agi = 60
 tec = 6
-cha = 3
 sprite_path = "res://images/battle/sprites/diren_laocong.png"
 icon_path = "res://images/battle/icons/diren_laocong.png"
-skills = []
 exp_reward = 100
 gold_reward = 50
 ai_behavior = "boss"

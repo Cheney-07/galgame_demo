@@ -6,13 +6,14 @@ extends Node
 # 当前状态
 var current_chapter: int = 0          # 0=序章
 var current_day: int = 1
-var current_ap: int = 8               # 每日行动点数
-var max_ap: int = 8
+var current_ap: int = 11              # 每日行动点数
+var max_ap: int = 11
 var time_period: String = "morning"   # morning / afternoon / evening / night
 var game_phase: String = "vn"         # vn / schedule / battle
 
 # 日程系统
 var daily_talks: Dictionary = {}        # char_id → int，每角色每日交谈次数
+var total_social_counts: Dictionary = {} # char_id → int，累计交流次数（跨天）
 var training_per_session: int = 1       # 每次训练属性增长量
 var social_affection_gain: int = 1      # 每次交流好感度增长量
 var formation_squad: Array[String] = []  # 编队角色ID列表
@@ -64,14 +65,16 @@ func _init_recruitment() -> void:
 	if not recruited_characters.has("hajiyou"):
 		recruited_characters.append("hajiyou")
 
+
 func reset() -> void:
 	current_chapter = 0
 	current_day = 1
-	current_ap = 8
-	max_ap = 8
+	current_ap = 11
+	max_ap = 11
 	time_period = "morning"
 	game_phase = "vn"
 	daily_talks.clear()
+	total_social_counts.clear()
 	training_per_session = 1
 	social_affection_gain = 1
 	formation_squad.clear()
@@ -135,6 +138,8 @@ func recruit_character(char_id: String) -> void:
 	if not recruited_characters.has(char_id):
 		recruited_characters.append(char_id)
 		character_recruited.emit(char_id)
+		# 同步到主菜单角色立绘
+		StoryFlags.mark_character_met(char_id)
 		print("[GameState] Character recruited: ", char_id)
 
 func is_character_recruited(char_id: String) -> bool:
@@ -176,11 +181,20 @@ func can_talk(char_id: String) -> bool:
 
 func record_talk(char_id: String) -> void:
 	daily_talks[char_id] = daily_talks.get(char_id, 0) + 1
+	total_social_counts[char_id] = total_social_counts.get(char_id, 0) + 1
 	daily_talks_changed.emit()
-	print("[GameState] Talk recorded for ", char_id, ": ", daily_talks[char_id], "/1")
+	print("[GameState] Talk recorded for ", char_id, ": daily=", daily_talks[char_id], " total=", total_social_counts[char_id])
 
 func get_talk_count(char_id: String) -> int:
 	return daily_talks.get(char_id, 0)
+
+func get_total_social_count(char_id: String) -> int:
+	return total_social_counts.get(char_id, 0)
+
+
+
+func return_to_main_menu() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
 
 func can_anyone_talk() -> bool:
 	for char_id in recruited_characters:
@@ -201,6 +215,7 @@ func serialize() -> Dictionary:
 		"death_count": death_count,
 		"revival_count": revival_count,
 		"daily_talks": daily_talks,
+		"total_social_counts": total_social_counts,
 		"recruited_characters": recruited_characters,
 		"special_battles_won": special_battles_won,
 	}
@@ -208,14 +223,15 @@ func serialize() -> Dictionary:
 func deserialize(data: Dictionary) -> void:
 	current_chapter = data.get("current_chapter", 0)
 	current_day = data.get("current_day", 1)
-	current_ap = data.get("current_ap", 8)
-	max_ap = data.get("max_ap", 8)
+	current_ap = data.get("current_ap", 11)
+	max_ap = data.get("max_ap", 11)
 	time_period = data.get("time_period", "morning")
 	game_phase = data.get("game_phase", "vn")
 	is_new_game_plus = data.get("is_new_game_plus", false)
 	death_count = data.get("death_count", 0)
 	revival_count = data.get("revival_count", 0)
 	daily_talks = data.get("daily_talks", {})
+	total_social_counts = data.get("total_social_counts", {})
 	var raw_chars = data.get("recruited_characters", ["protagonist", "hajiyou"])
 	recruited_characters.clear()
 	for c in raw_chars:
