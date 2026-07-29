@@ -1,7 +1,7 @@
 @tool
+extends DialogicLayoutLayer
 
 var _cn_font: Font = preload("res://fonts/NotoSansSC-Regular.otf")
-extends DialogicLayoutLayer
 
 ## 快捷菜单层 — 存档/读档/自动/快进/设置
 ## 按钮居中放置，含多栏位存档读档界面
