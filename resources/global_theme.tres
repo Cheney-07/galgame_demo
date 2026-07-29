@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://cjkfontglobal01"]
+
+[ext_resource type="FontFile" uid="uid://dgkbkychd4kdq" path="res://fonts/NotoSansCJKsc-VF.ttf" id="1_font"]
+
+[resource]
+default_font = ExtResource("1_font")
+default_font_size = 16

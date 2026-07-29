@@ -8,6 +8,8 @@
 
 config_version=5
 
+[ext_resource type="FontFile" uid="uid://dgkbkychd4kdq" path="res://fonts/NotoSansCJKsc-VF.ttf" id="1_cjkfont"]
+
 [application]
 
 config/name="黎明之诗"
@@ -183,6 +185,11 @@ dialogic_default_action={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
+
+[gui]
+theme/default_font=ExtResource("1_cjkfont")
+theme/default_font_size=16
+
 
 [physics]
 
