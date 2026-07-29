@@ -96,6 +96,16 @@ jobs:
           path: ${{ env.EXPORT_DIR }}/macos/
           compression-level: 6
 
+        # ---------- 创建 Release 并上传产物 ----------
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ${{ env.EXPORT_DIR }}/windows/*
+            ${{ env.EXPORT_DIR }}/linux/*
+            ${{ env.EXPORT_DIR }}/macos/*
+          generate_release_notes: true
       # ---------- 上传 Web 给 Pages 用 ----------
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
