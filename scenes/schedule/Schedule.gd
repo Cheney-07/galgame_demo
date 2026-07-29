@@ -153,6 +153,7 @@ func _setup_action_panel() -> void:
 
 	for action in ACTIONS:
 		var btn: Button = Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.custom_minimum_size = Vector2(350, 52)
 		btn.add_theme_font_size_override("font_size", 22)
 		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -279,6 +280,7 @@ func _create_overlay(title: String) -> Control:
 
 	# Back button
 	var back_btn: Button = Button.new()
+	back_btn.add_theme_font_override("font", _cn_font)
 	back_btn.text = "← 返回"
 	back_btn.position = Vector2(20, 20)
 	back_btn.custom_minimum_size = Vector2(100, 35)
@@ -447,6 +449,7 @@ func _on_train_stat_selected(btn: Button, content: Control) -> void:
 		old_confirm.queue_free()
 
 	var confirm_btn: Button = Button.new()
+	confirm_btn.add_theme_font_override("font", _cn_font)
 	confirm_btn.name = "ConfirmBtn"
 	confirm_btn.text = "确认训练 [3AP]"
 	confirm_btn.anchor_left = 0.5
@@ -505,6 +508,7 @@ func _build_social_list(content: Control) -> void:
 		var has_ap: bool = GameState.current_ap >= 1
 
 		var btn: Button = Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.custom_minimum_size = Vector2(450, 48)
 		btn.add_theme_font_size_override("font_size", 18)
 
@@ -560,6 +564,7 @@ func _show_rest_confirm() -> void:
 	content.add_child(msg)
 
 	var confirm_btn: Button = Button.new()
+	confirm_btn.add_theme_font_override("font", _cn_font)
 	confirm_btn.text = "确认休息"
 	confirm_btn.anchor_left = 0.5
 	confirm_btn.anchor_right = 0.5
@@ -574,6 +579,7 @@ func _show_rest_confirm() -> void:
 	content.add_child(confirm_btn)
 
 	var cancel_btn: Button = Button.new()
+	cancel_btn.add_theme_font_override("font", _cn_font)
 	cancel_btn.text = "取消"
 	cancel_btn.anchor_left = 0.5
 	cancel_btn.anchor_right = 0.5
@@ -655,6 +661,7 @@ func _make_button_style(bg_color: Color) -> StyleBoxFlat:
 
 func _make_select_button(text: String, width: int, height: int, font_size: int) -> Button:
 	var btn: Button = Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = text
 	btn.custom_minimum_size = Vector2(width, height)
 	btn.add_theme_font_size_override("font_size", font_size)

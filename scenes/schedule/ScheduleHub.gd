@@ -114,6 +114,7 @@ func _setup_header() -> void:
 
 	# 菜单按钮（右上角）
 	var menu_btn: Button = Button.new()
+	menu_btn.add_theme_font_override("font", _cn_font)
 	menu_btn.text = "菜单"
 	menu_btn.anchor_left = 1.0; menu_btn.anchor_right = 1.0
 	menu_btn.position = Vector2(-100, 10)
@@ -260,6 +261,7 @@ func _setup_action_panel() -> void:
 
 func _make_action_btn(action: Dictionary) -> Button:
 	var btn: Button = Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = action["label"] + "\n[" + str(action["ap"]) + "AP]" if action["ap"] > 0 else action["label"]
 	btn.custom_minimum_size = Vector2(80, 48)
 	btn.add_theme_font_size_override("font_size", 13)
@@ -273,6 +275,7 @@ func _make_action_btn(action: Dictionary) -> Button:
 
 func _make_icon_btn(label: String) -> Button:
 	var btn: Button = Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = label
 	btn.custom_minimum_size = Vector2(60, 48)
 	btn.add_theme_font_size_override("font_size", 13)
@@ -375,6 +378,7 @@ func _create_overlay(title: String) -> Control:
 
 	# 返回按钮和标题在 content 之后添加，确保在最上层
 	var back: Button = Button.new(); back.text = "← 返回"
+	back.add_theme_font_override("font", _cn_font);
 	back.position = Vector2(16, 16); back.custom_minimum_size = Vector2(90, 32)
 	back.add_theme_font_size_override("font_size", 14)
 	back.pressed.connect(_close_sub_panel)
@@ -419,12 +423,14 @@ func _show_rest_confirm() -> void:
 	m.add_theme_font_size_override("font_size", 22)
 	c.add_child(m)
 	var cfm: Button = Button.new(); cfm.text = "确认休息"
+	cfm.add_theme_font_override("font", _cn_font);
 	cfm.set_anchors_preset(Control.PRESET_CENTER)
 	cfm.position = Vector2(-110, 40)
 	cfm.custom_minimum_size = Vector2(220, 42); cfm.add_theme_font_size_override("font_size", 18)
 	cfm.pressed.connect(func(): _close_sub_panel(); _do_day_transition())
 	c.add_child(cfm)
 	var cancel: Button = Button.new(); cancel.text = "取消"
+	cancel.add_theme_font_override("font", _cn_font);
 	cancel.set_anchors_preset(Control.PRESET_CENTER)
 	cancel.position = Vector2(-110, 95)
 	cancel.custom_minimum_size = Vector2(220, 38); cancel.add_theme_font_size_override("font_size", 16)
@@ -514,6 +520,7 @@ func _start_social() -> void:
 		var scene_label := "social_" + char_id + "_" + str(next_talk)
 		var has_scene := scene_label in available_labels
 		var btn: Button = Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.custom_minimum_size = Vector2(400, 42)
 		btn.add_theme_font_size_override("font_size", 16)
 		btn.add_theme_stylebox_override("normal", _make_flat_style(Color(0.12, 0.12, 0.22, 0.85)))
@@ -574,6 +581,7 @@ func _show_save_slots() -> void:
 	for i in SLOT_COUNT:
 		var slot_name := "slot_" + str(i)
 		var btn: Button = Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.custom_minimum_size = Vector2(160, 80)
 		btn.add_theme_font_size_override("font_size", 13)
 		btn.focus_mode = Control.FOCUS_NONE
@@ -606,6 +614,7 @@ func _show_load_slots() -> void:
 	for i in SLOT_COUNT:
 		var slot_name := "slot_" + str(i)
 		var btn: Button = Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.custom_minimum_size = Vector2(160, 80)
 		btn.add_theme_font_size_override("font_size", 13)
 		btn.focus_mode = Control.FOCUS_NONE
@@ -635,6 +644,7 @@ func _make_flat_style(c: Color) -> StyleBoxFlat:
 
 func _sys_button(text: String) -> Button:
 	var btn: Button = Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = text
 	btn.custom_minimum_size = Vector2(280, 44)
 	btn.add_theme_font_size_override("font_size", 17)
@@ -691,6 +701,7 @@ func _show_schedule_settings() -> void:
 	vbox.add_child(HSeparator.new())
 
 	var fs_btn: Button = Button.new()
+	fs_btn.add_theme_font_override("font", _cn_font)
 	fs_btn.text = "窗口 / 全屏"
 	fs_btn.add_theme_font_size_override("font_size", 16)
 	fs_btn.add_theme_color_override("font_color", Color(1, 1, 1))
@@ -772,6 +783,7 @@ func _show_character_panel() -> void:
 	state[0]["card"] = init_card
 
 	var left_btn: Button = Button.new(); left_btn.text = "◀"
+	left_btn.add_theme_font_override("font", _cn_font);
 	left_btn.position = Vector2(40, 320); left_btn.custom_minimum_size = Vector2(50, 50)
 	left_btn.add_theme_font_size_override("font_size", 28)
 	left_btn.pressed.connect(func():
@@ -786,6 +798,7 @@ func _show_character_panel() -> void:
 	content.add_child(left_btn)
 
 	var right_btn: Button = Button.new(); right_btn.text = "▶"
+	right_btn.add_theme_font_override("font", _cn_font);
 	right_btn.anchor_left = 1.0; right_btn.anchor_right = 1.0
 	right_btn.position = Vector2(-90, 320); right_btn.custom_minimum_size = Vector2(50, 50)
 	right_btn.add_theme_font_size_override("font_size", 28)
@@ -905,6 +918,7 @@ func _build_formation_grid(content: Control) -> void:
 		var ch: PartyData.CharacterData = PartyData.get_character(char_id)
 		var selected: bool = char_id in formation_selected
 		var btn: Button = Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.text = ch.char_name + "\nLv." + str(ch.level) + ("\n✓" if selected else "")
 		btn.custom_minimum_size = Vector2(200, 70)
 		btn.add_theme_font_size_override("font_size", 16)
@@ -917,6 +931,7 @@ func _build_formation_grid(content: Control) -> void:
 
 	# Confirm button (允许1-3人出战，未满时弹出确认)
 	var cfm: Button = Button.new()
+	cfm.add_theme_font_override("font", _cn_font)
 	var max_size = min(3, GameState.get_recruited_characters().size())
 	var selected_count = formation_selected.size()
 	cfm.text = "确认出战" if selected_count >= 1 else "请选择队员 (" + str(selected_count) + "/" + str(max_size) + ")"

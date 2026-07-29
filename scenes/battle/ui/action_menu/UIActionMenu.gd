@@ -16,6 +16,7 @@ func setup(battler, disabled_action_names: Array[String] = []) -> void:
 		atk_btn = btn_scene.instantiate()
 	else:
 		atk_btn = Button.new()
+		atk_btn.add_theme_font_override("font", _cn_font)
 	atk_btn.text = "攻击"
 	atk_btn.pressed.connect(func():
 		_select_action(battler.get_basic_attack())
@@ -30,6 +31,7 @@ func setup(battler, disabled_action_names: Array[String] = []) -> void:
 			btn = btn_scene.instantiate()
 		else:
 			btn = Button.new()
+			btn.add_theme_font_override("font", _cn_font)
 		btn.text = a.action_name
 		var captured = a
 		btn.pressed.connect(func():
@@ -42,6 +44,7 @@ func setup(battler, disabled_action_names: Array[String] = []) -> void:
 		def_btn = btn_scene.instantiate()
 	else:
 		def_btn = Button.new()
+		def_btn.add_theme_font_override("font", _cn_font)
 	def_btn.text = "防御"
 	def_btn.pressed.connect(func():
 		_select_action(_create_defend_action())

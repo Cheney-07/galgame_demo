@@ -214,6 +214,7 @@ func _show_sub_screen(action: String) -> void:
 	sub_screen.add_child(overlay)
 
 	var back_btn: Button = Button.new()
+	back_btn.add_theme_font_override("font", _cn_font)
 	back_btn.text = "← 返回"
 	back_btn.add_theme_font_size_override("font_size", 20)
 	back_btn.anchor_left = 0.02; back_btn.anchor_top = 0.02
@@ -254,6 +255,7 @@ func _close_sub_screen() -> void:
 
 func _make_btn(text: String, color: Color, hover_color: Color, min_size: Vector2) -> Button:
 	var btn := Button.new()
+	btn.add_theme_font_override("font", _cn_font)
 	btn.text = text
 	btn.custom_minimum_size = min_size
 	btn.add_theme_font_size_override("font_size", 16)
@@ -329,6 +331,7 @@ func _create_load_screen(parent: Control) -> void:
 	for i in SLOT_COUNT:
 		var slot_name := "slot_" + str(i)
 		var btn := Button.new()
+		btn.add_theme_font_override("font", _cn_font)
 		btn.custom_minimum_size = Vector2(170, 80)
 		btn.add_theme_font_size_override("font_size", 13)
 		btn.focus_mode = Control.FOCUS_NONE
@@ -574,6 +577,7 @@ func _show_cg_fullscreen(cg_id: String) -> void:
 	full.add_child(name_label)
 
 	var close_btn := Button.new()
+	close_btn.add_theme_font_override("font", _cn_font)
 	close_btn.text = "← 返回画廊"
 	close_btn.anchor_left = 0.02; close_btn.anchor_top = 0.02
 	close_btn.offset_right = 140.0; close_btn.offset_bottom = 40.0
@@ -622,6 +626,7 @@ func _create_settings_screen(parent: Control) -> void:
 	container.add_child(title)
 
 	var fs_btn: Button = Button.new()
+	fs_btn.add_theme_font_override("font", _cn_font)
 	fs_btn.text = "窗口 / 全屏"
 	fs_btn.custom_minimum_size = Vector2(300, 45)
 	fs_btn.add_theme_font_size_override("font_size", 18)

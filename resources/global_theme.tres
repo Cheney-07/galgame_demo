@@ -3,5 +3,10 @@
 [ext_resource type="FontFile" uid="uid://j06ydcgihhuq" path="res://fonts/NotoSansSC-Regular.otf" id="1_font"]
 
 [resource]
+
+Button/fonts/font = ExtResource("1_font")
+Button/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_font")
+Label/font_sizes/font_size = 16
 default_font = ExtResource("1_font")
 default_font_size = 16
