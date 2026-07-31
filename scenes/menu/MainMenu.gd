@@ -230,7 +230,7 @@ func _show_sub_screen(action: String) -> void:
 		"cg":
 			_create_cg_screen(sub_screen)
 		"about":
-			_create_info_screen(sub_screen, "关于", "《黎明之诗》\n\nGodot 4.7\n回合制 RPG + 视觉小说\n\n2026")
+			_create_about_screen(sub_screen)
 		"help":
 			_create_help_screen(sub_screen)
 		_:
@@ -299,6 +299,82 @@ func _create_info_screen(parent: Control, title: String, body: String) -> void:
 	center.add_child(body_label)
 
 	parent.add_child(center)
+
+
+# ═══════════════════════════════════════════════
+#  关于界面（动态版本号 + 可滚动更新日志）
+# ═══════════════════════════════════════════════
+
+func _create_about_screen(parent: Control) -> void:
+	var container := VBoxContainer.new()
+	container.anchor_left = 0.25; container.anchor_top = 0.15
+	container.anchor_right = 0.75; container.anchor_bottom = 0.85
+	container.add_theme_constant_override("separation", 16)
+
+	# 版本标题（金色）
+	var title := Label.new()
+	title.add_theme_font_override("font", _cn_font)
+	title.text = "《黎明之诗》 v" + VersionData.version
+	title.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
+	title.add_theme_font_size_override("font_size", 30)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	container.add_child(title)
+
+	# 更新日志滚动区
+	var scroll := ScrollContainer.new()
+	scroll.name = "ChangelogScroll"
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	container.add_child(scroll)
+
+	var body := RichTextLabel.new()
+	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	body.bbcode_enabled = true
+	body.scroll_active = false
+	body.add_theme_font_override("normal_font", _cn_font)
+	body.add_theme_font_size_override("normal_font_size", 16)
+	body.add_theme_color_override("default_color", Color(0.92, 0.92, 0.92))
+	body.focus_mode = Control.FOCUS_NONE
+
+	if VersionData.changelog.strip_edges().is_empty():
+		body.text = "[center]暂无更新日志[/center]"
+	else:
+		body.text = _markdown_to_bbcode(VersionData.changelog)
+	scroll.add_child(body)
+
+	parent.add_child(container)
+
+
+## 把 CHANGELOG.md 的轻量 markdown 转成 RichTextLabel 可用的 BBCode。
+func _markdown_to_bbcode(source: String) -> String:
+	var lines := source.split("\n")
+	var out: Array[String] = []
+	for raw in lines:
+		var line: String = raw.strip_edges()
+		if line.is_empty():
+			out.append("")
+		elif line.begins_with("### "):
+			out.append("[font_size=18][color=#ffe680]" + _esc_bbcode(line.trim_prefix("### ")) + "[/color][/font_size]")
+		elif line.begins_with("## "):
+			out.append("[font_size=20][color=#ffe680]" + _esc_bbcode(line.trim_prefix("## ")) + "[/color][/font_size]")
+		elif line.begins_with("# "):
+			out.append("[font_size=22][color=#ffe680]" + _esc_bbcode(line.trim_prefix("# ")) + "[/color][/font_size]")
+		elif line.begins_with("- ") or line.begins_with("* "):
+			out.append("• " + _esc_bbcode(line.substr(2)))
+		elif line.begins_with("> "):
+			out.append("[i][color=#aaaaaa]" + _esc_bbcode(line.trim_prefix("> ")) + "[/color][/i]")
+		else:
+			out.append(_esc_bbcode(line))
+	return "\n".join(out)
+
+
+## 转义原始文本中的 [ ]，避免被当作 BBCode 解析。
+func _esc_bbcode(text: String) -> String:
+	# 先用不含方括号的占位符，避免 [lb]/[rb] 自身被二次替换
+	text = text.replace("[", "%%LBR%%")
+	text = text.replace("]", "[rb]")
+	text = text.replace("%%LBR%%", "[lb]")
+	return text
 
 
 # ═══════════════════════════════════════════════

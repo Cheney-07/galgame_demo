@@ -26,6 +26,7 @@ SaveManager="*res://autoload/SaveManager.gd"
 ImageUtils="*res://autoload/ImageUtils.gd"
 Dialogic="*uid://ds2q0uclmolvu"
 DialogicBridge="*res://autoload/DialogicBridge.gd"
+VersionData="*res://autoload/version_data.gd"
 ExportManifest="*res://autoload/ExportManifest.gd"
 
 [dialogic]

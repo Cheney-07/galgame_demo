@@ -45,6 +45,17 @@ jobs:
           mkdir -p ${{ env.EXPORT_DIR }}/macos
           mkdir -p ${{ env.EXPORT_DIR }}/web
 
+      # ---------- 注入版本号 ----------
+      - name: Inject version tag
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            TAG=${GITHUB_REF#refs/tags/}
+            sed -i "s|\"dev\"|\"$TAG\"|" autoload/version_data.gd
+            echo "Version injected: $TAG"
+          else
+            echo "No git tag (manual dispatch) — keeping dev version"
+          fi
+
       # ---------- 导出 ----------
       - name: Export Windows x64
         run: |

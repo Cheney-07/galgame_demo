@@ -9,6 +9,11 @@ extends Node
 
 static func _manifest() -> void:
 	# ================================================
+	# 版本信息 (VersionData autoload — 防止脚本被裁剪)
+	# ================================================
+	preload("res://autoload/version_data.gd")
+
+	# ================================================
 	# Splash 启动画面
 	# ================================================
 	preload("res://images/splash_slide_01.png")
