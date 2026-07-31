@@ -48,13 +48,17 @@ jobs:
       # ---------- 注入版本号 ----------
       - name: Inject version tag
         run: |
-          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
-            TAG=${GITHUB_REF#refs/tags/}
-            sed -i "s|\"dev\"|\"$TAG\"|" autoload/version_data.gd
-            echo "Version injected: $TAG"
-          else
-            echo "No git tag (manual dispatch) — keeping dev version"
-          fi
+          # 注意：此步骤默认以 sh 执行（非 bash），必须用 POSIX 语法
+          case "$GITHUB_REF" in
+            refs/tags/*)
+              TAG=${GITHUB_REF#refs/tags/}
+              sed -i "s|\"dev\"|\"$TAG\"|" autoload/version_data.gd
+              echo "Version injected: $TAG"
+              ;;
+            *)
+              echo "No git tag (manual dispatch) — keeping dev version"
+              ;;
+          esac
 
       # ---------- 导出 ----------
       - name: Export Windows x64

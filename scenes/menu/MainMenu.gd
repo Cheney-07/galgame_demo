@@ -314,7 +314,8 @@ func _create_about_screen(parent: Control) -> void:
 	# 版本标题（金色）
 	var title := Label.new()
 	title.add_theme_font_override("font", _cn_font)
-	title.text = "《黎明之诗》 v" + VersionData.version
+	# 注意：版本号 = git tag 名（本身已带 "v" 前缀，如 v0.0.3），此处不要再拼 "v"
+	title.text = "《黎明之诗》 " + VersionData.version
 	title.add_theme_color_override("font_color", Color(1, 0.9, 0.4))
 	title.add_theme_font_size_override("font_size", 30)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -329,6 +330,7 @@ func _create_about_screen(parent: Control) -> void:
 
 	var body := RichTextLabel.new()
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	body.fit_content = true
 	body.bbcode_enabled = true
 	body.scroll_active = false
 	body.add_theme_font_override("normal_font", _cn_font)
