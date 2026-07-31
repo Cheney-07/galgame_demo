@@ -117,9 +117,9 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ${{ env.EXPORT_DIR }}/windows/*
-            ${{ env.EXPORT_DIR }}/linux/*
-            ${{ env.EXPORT_DIR }}/macos/*
+            ${{ env.EXPORT_DIR }}/windows/windows-x64.zip
+            ${{ env.EXPORT_DIR }}/linux/linux-x64.zip
+            ${{ env.EXPORT_DIR }}/macos/macos.zip
           generate_release_notes: true
           fail_on_unmatched_files: true
 
